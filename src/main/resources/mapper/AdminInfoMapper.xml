@@ -1,0 +1,107 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.ssm.mapper.AdminInfoMapper">
+
+    <resultMap id="baseResultMap" type="com.spring.ssm.dto.AdminInfoPo">
+        <id column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="NAME" property="name" jdbcType="VARCHAR"/>
+        <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+        <result column="AGE" property="age" jdbcType="INTEGER" />
+        <result column="SEX" property="sex" jdbcType="VARCHAR" />
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID, NAME, PASSWORD, AGE, SEX, PHONE
+    </sql>
+
+    <select id="selectAdminInfoById" resultMap="baseResultMap" parameterType="java.lang.Long">
+            select
+            <include refid="Base_Column_List" />
+            from P_INFO_ADMIN
+            where 1=1
+            <if test="id != null">
+              AND ID=#{id}
+            </if>
+    </select>
+
+    <select id="selectAdminInfo" resultMap="baseResultMap">
+            select
+            <include refid="Base_Column_List" />
+            from P_INFO_ADMIN
+    </select>
+
+    <insert id="createAdminInfo" parameterType="com.spring.ssm.dto.AdminInfoPo" useGeneratedKeys="true" keyProperty="id">
+            insert into P_INFO_ADMIN
+            <trim prefix="(" suffix=")" suffixOverrides="," >
+                <if test="id != null" >
+                    ID,
+                </if>
+                <if test="name != null" >
+                    NAME,
+                </if>
+                <if test="password != null" >
+                    PASSWORD,
+                </if>
+                <if test="age != null" >
+                    AGE,
+                </if>
+                <if test="sex != null" >
+                    SEX,
+                </if>
+                <if test="phone != null" >
+                    PHONE,
+                </if>
+            </trim>
+            <trim prefix="values (" suffix=")" suffixOverrides="," >
+                <if test="id != null" >
+                    #{id,jdbcType=BIGINT},
+                </if>
+                <if test="name != null" >
+                    #{name,jdbcType=VARCHAR},
+                </if>
+                <if test="password != null" >
+                    #{password,jdbcType=VARCHAR},
+                </if>
+                <if test="age != null" >
+                    #{age,jdbcType=INTEGER},
+                </if>
+                <if test="sex != null" >
+                    #{sex,jdbcType=VARCHAR},
+                </if>
+                <if test="phone != null" >
+                    #{phone,jdbcType=VARCHAR},
+                </if>
+            </trim>
+    </insert>
+
+    <update id="updateAdminInfo" parameterType="com.spring.ssm.dto.AdminInfoPo">
+        update P_INFO_ADMIN
+        <set >
+            <if test="id != null" >
+                ID = #{id,jdbcType=BIGINT},
+            </if>
+            <if test="name != null" >
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="age != null" >
+                AGE = #{age,jdbcType=INTEGER},
+            </if>
+            <if test="password != null" >
+                PASSWORD = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="sex != null" >
+                SEX = #{sex,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                PHONE = #{phone,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteAdminInfoById" parameterType="java.lang.Long" >
+       delete from P_INFO_ADMIN
+          where ID = #{id,jdbcType=BIGINT}
+    </delete>
+
+</mapper>

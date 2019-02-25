@@ -1,0 +1,98 @@
+body{
+    line-height: 20px;
+    font-size: 14px;
+    background-color: #fff;
+}
+body, a, li, input, button, textarea {
+    font-family: "microsoft yahei" !important;
+}
+html, body, p, form, ul, hr, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+html, body {
+    height: 100%;
+}
+.p-wrap {
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 72px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    box-sizing: border-box;
+}
+div {
+    display: block;
+}
+.header {
+    position: relative;
+    min-width: 1002px;
+    font: 14px "Microsoft YaHei";
+    z-index: 998;
+}
+.header .bar {
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    background-color: #ff6000;
+    z-index: 2;
+}
+.header .bar, .header .nag, .header .snag {
+    position: relative;
+    z-index: 1;
+}
+.header .nag {
+    border-bottom: 0 none;
+    background: url(//img01.51jobcdn.com/im/2016/home/bg_top.png) repeat-x;
+}
+.header .nag, .header .snag {
+    height: 56px;
+    line-height: 56px;
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+}
+.header .in {
+    width: 1002px;
+    margin: 0 auto;
+}
+.header a:visited, .header a:active, .header a:link {
+    color: #333;
+}
+.header a {
+    font-family: "microsoft yahei" !important;
+    color: #333;
+    text-decoration: none;
+}
+.header .slogen {
+    float: left;
+    margin: 20px 0 0 10px;
+}
+img {
+    border: 0 none;
+}
+.header .nag .nlink {
+    float: right;
+}
+.header p, .header ul {
+    margin: 0;
+    padding: 0;
+}
+p {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.header .nag .nlink .on {
+    color: #fff;
+    border-bottom-color: #fff;
+}
+.header .nag .nlink .on {
+    height: 52px;
+    font-weight: bold;
+    color: #ff6000;
+    border-bottom: 4px solid #ff6000;
+}

@@ -1,0 +1,112 @@
+.header {
+    position: relative;
+    min-width: 1002px;
+    font:14px "Microsoft YaHei";
+    z-index: 998;
+}
+.header a {
+    font-family: "Microsoft YaHei";
+    text-decoration:none
+}
+.header .in {
+    width: 1002px;
+    margin: 0 auto;
+}
+.header .bar {
+    height: 32px;
+    line-height: 32px;
+    font-size: 14px;
+    background-color: #909090;
+    z-index: 2;
+}
+.header .bar, .header .nag, .header .snag {
+    position: relative;
+    z-index: 1;
+}
+.header .rlk {
+    float: right;
+    height: 32px;
+    margin-left: 15px;
+}
+.header .bar a {
+    font-size: 14px !important;
+}
+.header .rlk .l {
+    float: none;
+    margin: 0 15px;
+}
+.header .rlk a, .header .rlk a:hover {
+    font-size: 14px;
+    color: #fff !important;
+}
+.header .uer {
+    position: relative;
+    width: 140px;
+    float: right;
+}
+.header .uer .op {
+    float: left;
+    width: 140px;
+    height: 32px;
+    font-size: 14px;
+    color: #fff;
+    text-align: center;
+    background-color:gray;
+}
+.header .uer .op a {
+    color: #fff;
+}
+
+.header .nag {
+    border-bottom: 0 none;
+}
+.header .nag, .header.snag {
+    height: 56px;
+    line-height: 56px;
+    background-color: #fff;
+    border-bottom: 1px solid;
+}
+
+.header .nag .in .nlink {
+    float: right;
+}
+.header p , header.ul{
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    line-height: 20px;
+    font-size: 14px;
+    background-color: #f5f5f5;
+}
+body, a, li, input, button, textarea {
+    font-family: "microsoft yahei" !important;
+}
+html, body, p, form, ul, hr, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+div {
+    display: block;
+}
+.header .nag .nlink {
+    float: right;
+}
+.header p, .header ul {
+    margin: 0;
+    padding: 0;
+}
+.header .nag .nlink .on {
+    color: #909090;
+    border-bottom-color: #fff;
+    font-size: 16px;
+    margin-left: 40px;
+}
+.header .nag, .header .snag {
+    height: 56px;
+    line-height: 56px;
+    background-color: #fff;
+    border-bottom: 1px solid #e8e8e8;
+}
+
