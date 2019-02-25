@@ -34,7 +34,7 @@
                 <p class="nlink">
                     <a class="on" href="http://www.baidu.com">首页</a>
                     <a class="on" href="http://www.baidu.com">职位搜索</a>
-                    <a class="" href="http://www.baidu.com">校园专区</a>
+                    <a class="on" href="http://www.baidu.com">校园专区</a>
                 </p>
             </div>
         </div>
