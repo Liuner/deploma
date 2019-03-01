@@ -22,7 +22,7 @@
                 </p>
                 <div class="uer">
                     <p class="op">
-                        <a href="http://www.baidu.com" rel="external nofollow">登录</a>
+                        <a href="/WEB-INF/jsp/loginPage" rel="external nofollow">登录</a>
                         /
                         <a href="http://www.sina.com" rel="external nofollow">注册</a>
                     </p>
@@ -34,7 +34,7 @@
                 <p class="nlink">
                     <a class="on" href="http://www.baidu.com">首页</a>
                     <a class="on" href="http://www.baidu.com">职位搜索</a>
-                    <a class="" href="http://www.baidu.com">校园专区</a>
+                    <a class="on" href="http://www.baidu.com">校园专区</a>
                 </p>
             </div>
         </div>

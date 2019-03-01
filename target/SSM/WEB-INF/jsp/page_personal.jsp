@@ -570,7 +570,7 @@
         </div>
     </div>
 	<!-- jQuery -->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/cj/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.3.1.js"></script>
 	<!-- jQuery Easing -->
 	<script src="${pageContext.request.contextPath}/static/js/cjy/js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->

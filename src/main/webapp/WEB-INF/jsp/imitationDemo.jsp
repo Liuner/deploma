@@ -22,7 +22,7 @@
                 </p>
                 <div class="uer">
                     <p class="op">
-                        <a href="http://www.baidu.com" rel="external nofollow">登录</a>
+                        <a href="/WEB-INF/jsp/loginPage" rel="external nofollow">登录</a>
                         /
                         <a href="http://www.sina.com" rel="external nofollow">注册</a>
                     </p>

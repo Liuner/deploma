@@ -2,7 +2,9 @@ package com.spring.ssm.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -17,20 +19,29 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/page")
 public class PageJumpController {
 
-    @RequestMapping("index")
+    @RequestMapping("/index")
     public String indexJump(){
         //return  "indexpage";
-        return "imitationDemo";
+//        return "imitationDemo";
+        return "register";
     }
 
-    @RequestMapping("logout")
+    @RequestMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:page/index";
     }
 
-    @RequestMapping("personal")
+    @RequestMapping("/personal")
     public String userInfomation(){
         return  "page_personal";
     }
+
+    @RequestMapping("/login")
+    public ModelAndView login(HttpServletRequest request) {
+        ModelAndView retPage = new ModelAndView();
+        retPage.setViewName("loginPage");
+        return retPage;
+    }
+
 }

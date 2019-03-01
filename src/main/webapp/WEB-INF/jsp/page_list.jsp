@@ -151,8 +151,8 @@
 
     </div>
     <jsp:include page="footer.jsp"></jsp:include>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/cj/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/cj/type.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/type.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/cj/bootstrap.js"></script>
 </body>
 

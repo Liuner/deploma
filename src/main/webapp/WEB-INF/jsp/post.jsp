@@ -103,7 +103,7 @@
         </script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/cjy/js/js3/usecheck.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/cjy/js/js3/bootstrap.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/cj/type.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/static/js/type.js"></script>
 
         <script>
             KindEditor.ready(function(K) {
