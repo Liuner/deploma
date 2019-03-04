@@ -1,7 +1,12 @@
 package com.spring.ssm.controller;
 
+import com.spring.ssm.service.AdminInfoService;
+import com.spring.ssm.service.Bo.AdminInfoRspBo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,17 +24,14 @@ import javax.servlet.http.HttpSession;
 @RequestMapping("/page")
 public class PageJumpController {
 
+    @Autowired
+    private AdminInfoService adminInfoService;
+
     @RequestMapping("/index")
     public String indexJump(){
         //return  "indexpage";
 //        return "imitationDemo";
         return "register";
-    }
-
-    @RequestMapping("/logout")
-    public String logout(HttpSession session){
-        session.invalidate();
-        return "redirect:page/index";
     }
 
     @RequestMapping("/personal")
@@ -40,8 +42,25 @@ public class PageJumpController {
     @RequestMapping("/login")
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView retPage = new ModelAndView();
-        retPage.setViewName("loginPage");
+        retPage.setViewName("loginDemo");
         return retPage;
+    }
+
+    @RequestMapping(value = "/loginDemo", method = RequestMethod.POST)
+    @ResponseBody
+    public boolean loginDemo(HttpSession session, Long id){
+        AdminInfoRspBo rsp = adminInfoService.queryAdminInfoById(id);
+        if (rsp.getRespCode() == "0000") {
+            session.setAttribute("NAME", rsp.getName());
+            return true;
+        }
+        return false;
+    }
+
+    @RequestMapping("/loginOut")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "register";
     }
 
 }
