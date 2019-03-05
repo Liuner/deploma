@@ -14,7 +14,7 @@ public class CompanyInfoReqBo implements Serializable {
 
     private static final long serialVersionUID = 748460328576601523L;
 
-    private Long id;
+    private String id;
     private String name;
     private String password;
     private String e_maile;
@@ -23,11 +23,11 @@ public class CompanyInfoReqBo implements Serializable {
     private String nature;
     private String number;
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

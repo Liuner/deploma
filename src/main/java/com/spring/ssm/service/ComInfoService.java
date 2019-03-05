@@ -27,7 +27,12 @@ public interface ComInfoService {
     /**
      * 查询所有信息
      */
-    List<CompanyInfoRspBo> selectComInfo();
+    List<CompanyInfoRspBo> selectComInfoBySelective(CompanyInfoReqBo reqBo);
+
+    /**
+     * 查询用户信息，ID，Password
+     */
+    CompanyInfoRspBo selectComInfo(CompanyInfoReqBo reqBo);
 
     /**
      * 根据id更新用户信息

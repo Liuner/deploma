@@ -1,9 +1,7 @@
 package com.spring.ssm.controller;
 
 import com.spring.ssm.service.AdminInfoService;
-import com.spring.ssm.service.Bo.AdminInfoRspBo;
-import com.spring.ssm.service.Bo.UserInfoReqBo;
-import com.spring.ssm.service.Bo.UserInfoRspBo;
+import com.spring.ssm.service.Bo.*;
 import com.spring.ssm.service.ComInfoService;
 import com.spring.ssm.service.UserInfoService;
 import org.slf4j.Logger;
@@ -95,11 +93,26 @@ public class PageJumpController {
     @RequestMapping(value = "/generalLogin", method = RequestMethod.POST)
     @ResponseBody
     public UserInfoRspBo queryById(HttpSession session, UserInfoReqBo reqBo) {
-        LOG.info("queryUserInfoById-Controller");
-        UserInfoRspBo rspBo = userInfoService.queryUserInfoBySelective(reqBo);
-        if (rspBo.getRespCode().equals(SUCCESS)) {
-            session.setAttribute("NAME", rspBo.getName());
+        LOG.info("普通用户登录-Controller");
+        UserInfoRspBo retBo = userInfoService.queryUserInfoBySelective(reqBo);
+        if (retBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("NAME", retBo.getName());
         }
-        return rspBo;
+        return retBo;
+    }
+
+    /**
+     * 公司用户登录
+     */
+    @RequestMapping(value = "/companyLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public CompanyInfoRspBo queryComById(HttpSession session, CompanyInfoReqBo reqBo) {
+        LOG.info("公司用户登录-controller");
+        //TODO 公司用户登录服务待实现
+        CompanyInfoRspBo retBo = comInfoService.selectComInfo(reqBo);
+        if (retBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("NAME", retBo.getName());
+        }
+        return retBo;
     }
 }

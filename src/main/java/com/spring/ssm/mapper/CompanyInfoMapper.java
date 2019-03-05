@@ -30,7 +30,7 @@ public interface CompanyInfoMapper {
     /**
      * select company Info
      */
-    List<CompanyInfoPo> selectAllComInfo();
+    List<CompanyInfoPo> selectComInfoBySelective(CompanyInfoPo companyInfoPo);
 
     /**
      * updata company Info by id
@@ -41,5 +41,10 @@ public interface CompanyInfoMapper {
      * delete company Info by id
      */
     int deleteComInfoById(@Param(value="id")Long id);
+
+    /**
+     * select companyUserInfo
+     */
+    CompanyInfoPo selectComInfo(CompanyInfoPo companyInfoPo);
 
 }

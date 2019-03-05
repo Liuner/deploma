@@ -93,9 +93,9 @@ public class DemoController {
 
     @RequestMapping(value = "/queryAllComInfo", method = RequestMethod.POST)
     @ResponseBody
-    public List<CompanyInfoRspBo> queryAllInfo() {
+    public List<CompanyInfoRspBo> queryAllInfo(CompanyInfoReqBo reqBo) {
         LOG.info("queryAllComInfo-controller");
-        return comInfoService.selectComInfo();
+        return comInfoService.selectComInfoBySelective(reqBo);
     }
 
     @RequestMapping(value = "/deleteComInfoById", method = RequestMethod.POST)

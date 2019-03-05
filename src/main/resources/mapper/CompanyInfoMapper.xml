@@ -24,9 +24,42 @@
         </if>
     </select>
 
-    <select id="selectAllComInfo" resultMap="baseResultMap">
-            select <include refid="Base_Column_List"/>
+    <select id="selectComInfoBySelective" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.CompanyInfoPo">
+        select
+            <include refid="Base_Column_List"/>
+        from P_INFO_COMPANY
+        where 1=1
+            <if test="id !=null">
+                and ID=#{id},
+            </if>
+            <if test="name !=null">
+                and NAME=#{name},
+            </if>
+            <if test="password !=null">
+                and PASSWORD=#{password},
+            </if>
+            <if test="city !=null">
+                and CITY=#{city},
+            </if>
+            <if test="nature != null">
+                and NATURE=#{nature},
+            </if>
+            <if test="number !=null">
+                and NUMBER=#{number},
+            </if>
+    </select>
+
+    <select id="selectComInfo" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.CompanyInfoPo">
+        select
+        <include refid="Base_Column_List"/>
             from P_INFO_COMPANY
+        where 1=1
+            <if test="id != null" >
+                AND ID=#{id}
+            </if>
+            <if test="password != null" >
+                AND PASSWORD=#{password}
+            </if>
     </select>
 
     <insert id="createComInfo" parameterType="com.spring.ssm.dto.CompanyInfoPo" useGeneratedKeys="true" keyProperty="id">

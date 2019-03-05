@@ -76,6 +76,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
             retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         } else {
+            LOG.info("调用mapper查询数据返回为空");
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
             retBo.setRespDesc("用户名或密码错误!!!");
         }
@@ -148,6 +149,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfoPo userInfoPo = new UserInfoPo();
         BeanUtils.copyProperties(reqBo, userInfoPo);
+        userInfoPo.setId(Long.valueOf(reqBo.getId()));
         int result = 0;
         try {
             result = userInfoMapper.updateUserInfo(userInfoPo);

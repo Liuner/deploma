@@ -12,7 +12,7 @@ public class CompanyInfoRspBo extends BaseRspBo{
 
     private static final long serialVersionUID = 3853518244968361324L;
 
-    private Long id;
+    private String id;
     private String name;
     private String password;
     private String e_maile;
@@ -21,11 +21,11 @@ public class CompanyInfoRspBo extends BaseRspBo{
     private String nature;
     private String number;
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
