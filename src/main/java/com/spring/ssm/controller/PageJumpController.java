@@ -2,6 +2,12 @@ package com.spring.ssm.controller;
 
 import com.spring.ssm.service.AdminInfoService;
 import com.spring.ssm.service.Bo.AdminInfoRspBo;
+import com.spring.ssm.service.Bo.UserInfoReqBo;
+import com.spring.ssm.service.Bo.UserInfoRspBo;
+import com.spring.ssm.service.ComInfoService;
+import com.spring.ssm.service.UserInfoService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,10 +29,15 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/page")
 public class PageJumpController {
+    private Logger LOG = LoggerFactory.getLogger(PageJumpController.class);
+    private static final String SUCCESS = "0000";
 
     @Autowired
     private AdminInfoService adminInfoService;
-
+    @Autowired
+    private UserInfoService userInfoService;
+    @Autowired
+    private ComInfoService comInfoService;
     /**
      * 重定向页面
      */
@@ -76,5 +87,19 @@ public class PageJumpController {
     @RequestMapping("/register")
     public String register() {
         return "register";
+    }
+
+    /**
+     * 普通用户登录
+     */
+    @RequestMapping(value = "/generalLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public UserInfoRspBo queryById(HttpSession session, UserInfoReqBo reqBo) {
+        LOG.info("queryUserInfoById-Controller");
+        UserInfoRspBo rspBo = userInfoService.queryUserInfoBySelective(reqBo);
+        if (rspBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("NAME", rspBo.getName());
+        }
+        return rspBo;
     }
 }

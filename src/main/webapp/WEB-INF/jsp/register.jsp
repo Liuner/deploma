@@ -50,16 +50,17 @@
             type:'POST',
             dataType:'json',
             data:{
-                id:$('#username').val(),
+                id:$('#inputName').val(),
                 // password:$('#password').val()
             },
             success:
             function (result) {
                 if (result) {
-                    window.location.href='/page/login';
+                    window.location.href='/page/index';
                 }
                 else {
                     alert("登录失败，账号或密码错误！");
+                    window.history.back(-1);
                 }
             },
             error :

@@ -9,39 +9,7 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp"></jsp:include>
-<%--<nav class="navbar navbar-inverse navbar-fixed-top">--%>
-    <%--<div class="container">--%>
-        <%--<div class="navbar-header">--%>
-            <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">--%>
-                <%--<span class="sr-only">Toggle navigation</span>--%>
-                <%--<span class="icon-bar"></span>--%>
-                <%--<span class="icon-bar"></span>--%>
-                <%--<span class="icon-bar"></span>--%>
-            <%--</button>--%>
-            <%--<a class="navbar-brand" href="#">Deploma</a>--%>
-        <%--</div>--%>
-        <%--<div id="navbar" class="collapse navbar-collapse">--%>
-            <%--<ul class="nav navbar-nav">--%>
-                <%--<li class="active"><a href="#">Home</a></li>--%>
-                <%--<li><a href="#about">About</a></li>--%>
-                <%--<li><a href="#contact">Contact</a></li>--%>
-            <%--</ul>--%>
-            <%--<ul class="nav navbar-nav" style="float: right">--%>
-                <%--<c:choose>--%>
-                    <%--<c:when test="${ sessionScope.NAME != null }">--%>
-                        <%--<li><a href="#">${ sessionScope.NAME}</a></li>--%>
-                        <%--<li><a href="${pageContext.request.contextPath}/page/loginOut">Exit</a></li>--%>
-                    <%--</c:when>--%>
-                    <%--<c:otherwise>--%>
-                        <%--<li><a href="">Login</a></li>--%>
-                        <%--<li><a href="">Register</a></li>--%>
-                    <%--</c:otherwise>--%>
-                <%--</c:choose>--%>
 
-            <%--</ul>--%>
-        <%--</div><!--/.nav-collapse -->--%>
-    <%--</div>--%>
-<%--</nav>--%>
 <div class="container">
 
     <form class="form-signin" type="post" href="http://localhost:8088/demo/queryUserInfoById">
@@ -71,7 +39,7 @@
         alert(type);
         var url;
         if (type === 'general')
-            url = "${pageContext.request.contextPath}/demo/queryUserInfoById";
+            url = "${pageContext.request.contextPath}/page/generalLogin";
         else
             url = "${pageContext.request.contextPath}/demo/queryComInfoById";
         $.ajax({
@@ -80,11 +48,23 @@
             dataType:'json',
             data:{
                 id:$('#inputName').val(),
-                // password:$('#inputPassword').val(),
-                // phone:$('#inputPhone').val(),
-                // sex:$('#inputSex').val(),
-                // age:$('#inputAge').val()
+                password:$('#inputPassword').val(),
             },
+            success: function (returnData) {
+                console.log(returnData);
+                var respCode = "0000";
+                if (returnData.respCode == respCode) {
+                    //alert("查询成功");
+                   window.location.href = "/page/index";
+                }
+                else{
+                    alert(returnData.respDesc);
+                    location.reload();
+                }
+            },
+            error: function () {
+                alert("服务器休息呢，别吵吵!!!")
+            }
         });
     });
 </script>

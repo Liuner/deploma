@@ -39,14 +39,14 @@ public class DemoController {
     @ResponseBody
     public UserInfoRspBo queryById(Long id) {
         LOG.info("queryUserInfoById-Controller");
-        return userInfoService.selectUserInfoById(id);
+        return userInfoService.queryUserInfoById(id);
     }
 
     @RequestMapping(value = "/queryUserInfo", method = RequestMethod.POST)
     @ResponseBody
-    public List<UserInfoRspBo> query() {
+    public List<UserInfoRspBo> query(UserInfoReqBo reqBo) {
         LOG.info("queryUserInfoById-Controller");
-        return userInfoService.queryInfo();
+        return userInfoService.queryInfo(reqBo);
     }
 
     @RequestMapping(value = "/createUserInfo", method = RequestMethod.POST)

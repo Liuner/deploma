@@ -12,7 +12,7 @@ public class UserInfoRspBo extends BaseRspBo{
 
     private static final long serialVersionUID = -7171522450204620705L;
 
-    private Long id;
+    private String id;
     private String name;
     private String password;
     private int age;
@@ -23,11 +23,11 @@ public class UserInfoRspBo extends BaseRspBo{
     private String local;
     private int status;
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

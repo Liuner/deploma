@@ -22,15 +22,20 @@ public interface UserInfoMapper {
     int addUserInfo(UserInfoPo userInfoPo);
 
     /**
-     *  select all userInfo
+     *  selectUserInfoBySelective
      */
-     List<UserInfoPo> selectAllUserInfo();
+     List<UserInfoPo> selectUserInfoBySelective(UserInfoPo userInfoPo);
 
      /**
      *select userInfo by id
      */
 
     UserInfoPo selectUserInfoById(@Param(value="id")Long id);
+
+    /**
+     * selectUserInfo
+     */
+    UserInfoPo selectUserInfo(UserInfoPo userInfoPo);
 
     /**
      * update userInfo
