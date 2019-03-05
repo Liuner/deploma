@@ -27,16 +27,17 @@ public class PageJumpController {
     @Autowired
     private AdminInfoService adminInfoService;
 
+    /**
+     * 重定向页面
+     */
     @RequestMapping("/index")
     public String indexJump(){
-        //return  "indexpage";
-//        return "imitationDemo";
-        return "register";
+        return "pageMain";
     }
 
     @RequestMapping("/personal")
     public String userInfomation(){
-        return  "page_personal";
+        return "ke/page_personal";
     }
 
     @RequestMapping("/login")
@@ -46,6 +47,9 @@ public class PageJumpController {
         return retPage;
     }
 
+    /**
+     * 登录测试controller
+     */
     @RequestMapping(value = "/loginDemo", method = RequestMethod.POST)
     @ResponseBody
     public boolean loginDemo(HttpSession session, Long id){
@@ -57,10 +61,20 @@ public class PageJumpController {
         return false;
     }
 
+    /**
+     * 用户退出，返回到主界面
+     */
     @RequestMapping("/loginOut")
     public String logout(HttpSession session){
         session.invalidate();
-        return "register";
+        return "pageMain";
     }
 
+    /**
+     * 跳转到注册页面
+     */
+    @RequestMapping("/register")
+    public String register() {
+        return "register";
+    }
 }

@@ -8,42 +8,43 @@
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Deploma</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <ul class="nav navbar-nav" style="float: right">
-                <c:choose>
-                    <c:when test="${ sessionScope.NAME != null }">
-                        <li><a href="#">${ sessionScope.NAME}</a></li>
-                        <li><a href="${pageContext.request.contextPath}/page/loginOut">Exit</a></li>
-                    </c:when>
-                    <c:otherwise>
-                        <li><a href="">Login</a></li>
-                        <li><a href="">Register</a></li>
-                    </c:otherwise>
-                </c:choose>
+<jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp"></jsp:include>
+<%--<nav class="navbar navbar-inverse navbar-fixed-top">--%>
+    <%--<div class="container">--%>
+        <%--<div class="navbar-header">--%>
+            <%--<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">--%>
+                <%--<span class="sr-only">Toggle navigation</span>--%>
+                <%--<span class="icon-bar"></span>--%>
+                <%--<span class="icon-bar"></span>--%>
+                <%--<span class="icon-bar"></span>--%>
+            <%--</button>--%>
+            <%--<a class="navbar-brand" href="#">Deploma</a>--%>
+        <%--</div>--%>
+        <%--<div id="navbar" class="collapse navbar-collapse">--%>
+            <%--<ul class="nav navbar-nav">--%>
+                <%--<li class="active"><a href="#">Home</a></li>--%>
+                <%--<li><a href="#about">About</a></li>--%>
+                <%--<li><a href="#contact">Contact</a></li>--%>
+            <%--</ul>--%>
+            <%--<ul class="nav navbar-nav" style="float: right">--%>
+                <%--<c:choose>--%>
+                    <%--<c:when test="${ sessionScope.NAME != null }">--%>
+                        <%--<li><a href="#">${ sessionScope.NAME}</a></li>--%>
+                        <%--<li><a href="${pageContext.request.contextPath}/page/loginOut">Exit</a></li>--%>
+                    <%--</c:when>--%>
+                    <%--<c:otherwise>--%>
+                        <%--<li><a href="">Login</a></li>--%>
+                        <%--<li><a href="">Register</a></li>--%>
+                    <%--</c:otherwise>--%>
+                <%--</c:choose>--%>
 
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+            <%--</ul>--%>
+        <%--</div><!--/.nav-collapse -->--%>
+    <%--</div>--%>
+<%--</nav>--%>
 <div class="container">
 
-    <form class="form-signin" type="post" href="http://localhost:8088/demo/createAdminInfo">
+    <form class="form-signin" type="post" href="http://localhost:8088/demo/queryUserInfoById">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputName" class="sr-only">Name</label>
         <input type="text" id="inputName" class="form-control" placeholder="Name" required>
@@ -66,7 +67,7 @@
 </div>
 <script type="text/javascript">
     $('#login').on('click', function () {
-        var type = $('input[name=user_type]').val();
+        var type = $('input[name=user_type][type=radio]:checked').val();
         alert(type);
         var url;
         if (type === 'general')

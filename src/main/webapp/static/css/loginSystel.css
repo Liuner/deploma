@@ -1,0 +1,70 @@
+body {
+    line-height: 20px;
+    font-size: 14px;
+    background-color: #fff;
+    text-align: center;
+}
+body, a, li, input, button, textarea {
+    font-family: "microsoft yahei" !important;
+}
+html, body, p, form, ul, hr, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+body {
+    display: block;
+    margin: 8px;
+}
+.header {
+    margin: 0 auto;
+    position: relative;
+    min-width: 1002px;
+    font: 14px "Microsoft YaHei";
+    z-index: 998;
+}
+div {
+    display: block;
+}
+.header .nag, .header .snag {
+     height: 56px;
+     line-height: 56px;
+     background-color: #909090;
+     border-bottom: 1px solid #e8e8e8;
+}
+.header .nag {
+
+    margin: 0 auto;
+    background-color: #909090;
+}
+.header .nag .nlink {
+    float: right;
+}
+.header p, .header ul {
+    margin: 0;
+    padding: 0;
+}
+.header .nag .tl {
+    float: left;
+    font-size: 22px;
+    color: #333;
+}
+.header .nag .nlink.n2 a {
+    font-size: 14px;
+    margin-left: 30px;
+}
+.header .gp {
+    float: left;
+    width: 1px;
+    height: 22px;
+    font-size: 0;
+    margin: 17px 10px 0;
+    background-color: #e8e8e8;
+}
+header.in .nag {
+    width: 1002px;
+}
+form.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
