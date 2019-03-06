@@ -44,15 +44,13 @@ public class PageJumpController {
         return "pageMain";
     }
 
-    @RequestMapping("/personal")
-    public String userInfomation(){
-        return "ke/page_personal";
-    }
-
-    @RequestMapping("/login")
+    /**
+     * tia
+     */
+    @RequestMapping("/loginPage")
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView retPage = new ModelAndView();
-        retPage.setViewName("loginDemo");
+        retPage.setViewName("loginPage");
         return retPage;
     }
 
@@ -80,6 +78,14 @@ public class PageJumpController {
     }
 
     /**
+     * 跳转到登录页面
+     */
+    @RequestMapping("/login")
+    public String login() {
+        return "loginDemo";
+    }
+
+    /**
      * 跳转到注册页面
      */
     @RequestMapping("/register")
@@ -94,7 +100,7 @@ public class PageJumpController {
     @ResponseBody
     public UserInfoRspBo queryById(HttpSession session, UserInfoReqBo reqBo) {
         LOG.info("普通用户登录-Controller");
-        UserInfoRspBo retBo = userInfoService.queryUserInfoBySelective(reqBo);
+        UserInfoRspBo retBo = userInfoService.queryUserInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
             session.setAttribute("NAME", retBo.getName());
         }

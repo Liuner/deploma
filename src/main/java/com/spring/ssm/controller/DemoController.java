@@ -46,7 +46,7 @@ public class DemoController {
     @ResponseBody
     public List<UserInfoRspBo> query(UserInfoReqBo reqBo) {
         LOG.info("queryUserInfoById-Controller");
-        return userInfoService.queryInfo(reqBo);
+        return userInfoService.queryInfoBySelective(reqBo);
     }
 
     @RequestMapping(value = "/createUserInfo", method = RequestMethod.POST)

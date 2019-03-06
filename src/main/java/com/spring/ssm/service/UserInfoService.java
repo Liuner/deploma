@@ -16,9 +16,9 @@ import java.util.List;
 public interface UserInfoService {
     UserInfoRspBo queryUserInfoById(Long id);
 
-    UserInfoRspBo queryUserInfoBySelective(UserInfoReqBo reqBo);
+    UserInfoRspBo queryUserInfo(UserInfoReqBo reqBo);
 
-    List<UserInfoRspBo> queryInfo(UserInfoReqBo reqBo);
+    List<UserInfoRspBo> queryInfoBySelective(UserInfoReqBo reqBo);
 
     UserInfoRspBo addUserInfo(UserInfoReqBo reqBo);
 

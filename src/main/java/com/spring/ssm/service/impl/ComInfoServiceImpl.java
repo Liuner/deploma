@@ -1,6 +1,8 @@
 package com.spring.ssm.service.impl;
 
+import com.spring.ssm.Constracts.ExceptionConstract;
 import com.spring.ssm.Constracts.RspConstracts;
+import com.spring.ssm.Tool.BusiExcption;
 import com.spring.ssm.dto.CompanyInfoPo;
 import com.spring.ssm.mapper.CompanyInfoMapper;
 import com.spring.ssm.service.Bo.CompanyInfoReqBo;
@@ -141,7 +143,8 @@ public class ComInfoServiceImpl implements ComInfoService {
         try {
             companyInfoPo = companyInfoMapper.selectComInfo(companyInfoPo);
         } catch (Exception e) {
-            LOG.error("调用mapper查询信息异常");
+            LOG.error("调用mapper查询信息异常" + e);
+            throw new BusiExcption(ExceptionConstract.COMPANY_EXCEPTION, "调用mapper查询信息异常" + e);
         }
         if (companyInfoPo == null) {
             LOG.error("调用mapper查询返回为空");

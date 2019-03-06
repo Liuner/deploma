@@ -60,12 +60,13 @@
                 }
                 else {
                     alert("登录失败，账号或密码错误！");
-                    window.history.back(-1);
+                    location.reload();
                 }
             },
             error :
             function () {
                 alert("链接服务器失败！");
+                location.reload();
             }
         });
 

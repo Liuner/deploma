@@ -19,15 +19,20 @@
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="text" id="inputPassword" class="form-control" placeholder="Password" required>
         <%-----------------------------------------------------------------------------------------------------------%>
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="remember-me"> Remember me
+        <%--<div class="checkbox">--%>
+            <%--<label class="btn btn-primary">--%>
+                <%--<input type="checkbox" value="remember-me"> Remember me--%>
+            <%--</label>--%>
+        <%--</div>--%>
+        <div class="radio">
+            <label class="btn btn-primary">
+                <input type="radio" name="user_type" value="general" > general
             </label>
-            <label>
-                <input type="radio" name="user_type" value="general"> general
+            <label class="btn btn-primary">
                 <input type="radio" name="user_type" value="company"> company
             </label>
         </div>
+
         <div class="login_div">
             <button class="btn btn-lg btn-primary btn-block" type="button" id="login">Sign in</button>
         </div>
@@ -35,20 +40,36 @@
 </div>
 <script type="text/javascript">
     $('#login').on('click', function () {
+        <%-----------------------------添加判断开始-----------------------------------%>
+        var name = $('#inputName').val();
+        var pwd = $('#inputPassword').val();
+        if (name == null || name == "") {
+            alert("请输入用户ID!!!");
+            location.reload();
+            return false;
+        }
+        if (pwd == null || pwd == "") {
+            alert("请输入密码!!!");
+            return false;
+        }
+        <%-----------------------------添加判断结束-----------------------------------%>
         var type = $('input[name=user_type][type=radio]:checked').val();
-        alert(type);
         var url;
         if (type === 'general')
             url = "${pageContext.request.contextPath}/page/generalLogin";
-        else
-            url = "${pageContext.request.contextPath}/demo/queryComInfoById";
+        else if(type === 'company')
+            url = "${pageContext.request.contextPath}/page/companyLogin";
+        else {
+            alert("请选择用户类型");
+            return false;
+        }
         $.ajax({
             url:url,
             type:'POST',
             dataType:'json',
             data:{
-                id:$('#inputName').val(),
-                password:$('#inputPassword').val(),
+                id:name,
+                password:pwd,
             },
             success: function (returnData) {
                 console.log(returnData);
@@ -63,7 +84,8 @@
                 }
             },
             error: function () {
-                alert("服务器休息呢，别吵吵!!!")
+                alert("服务器休息呢，别吵吵!!!");
+                location.reload();
             }
         });
     });

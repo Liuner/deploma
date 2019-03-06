@@ -1,6 +1,8 @@
 package com.spring.ssm.service.impl;
 
+import com.spring.ssm.Constracts.ExceptionConstract;
 import com.spring.ssm.Constracts.RspConstracts;
+import com.spring.ssm.Tool.BusiExcption;
 import com.spring.ssm.dto.UserInfoPo;
 import com.spring.ssm.mapper.UserInfoMapper;
 import com.spring.ssm.service.Bo.UserInfoReqBo;
@@ -54,7 +56,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public UserInfoRspBo queryUserInfoBySelective(UserInfoReqBo reqBo) {
+    public UserInfoRspBo queryUserInfo(UserInfoReqBo reqBo) {
         LOG.info("进入queryUserInfoBySelective服务");
         UserInfoRspBo retBo = new UserInfoRspBo();
         String validateStr = validataQryAtr(reqBo);
@@ -70,6 +72,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfoPo = userInfoMapper.selectUserInfo(userInfoPo);
         } catch (Exception e) {
             LOG.error("调用mapper查询数据异常：" + e);
+            throw new BusiExcption(ExceptionConstract.USERINFO_EXCEPTION, "调用mapper查询数据异常：" + e);
         }
         if (userInfoPo != null) {
             retBo.setName(userInfoPo.getName());
@@ -84,7 +87,7 @@ public class UserInfoServiceImpl implements UserInfoService {
     }
 
     @Override
-    public List<UserInfoRspBo> queryInfo(UserInfoReqBo reqBo) {
+    public List<UserInfoRspBo> queryInfoBySelective(UserInfoReqBo reqBo) {
         LOG.info("进入queryInfo服务");
 
         UserInfoPo userInfoPo = new UserInfoPo();
