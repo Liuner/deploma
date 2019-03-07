@@ -29,3 +29,29 @@ form.form-signin {
     -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
+
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+}
+.panel-self {
+    width: 1072px;
+    border-color: #ddd;
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 0;
+}
+.panel-heading-self {
+    text-align: center;
+    font-size: large;
+}
+.input-search {
+    margin: auto;
+}
+.btn-search {
+    margin-right: 5px;
+}
