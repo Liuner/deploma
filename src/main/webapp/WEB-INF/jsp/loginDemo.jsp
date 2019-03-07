@@ -5,6 +5,7 @@
     <title>欢迎登录</title>
     <link rel="stylesheet" type="text/css" href="/static/css/Demo.css">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/pretty-checkbox.min.css"/>
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
@@ -24,17 +25,30 @@
                 <%--<input type="checkbox" value="remember-me"> Remember me--%>
             <%--</label>--%>
         <%--</div>--%>
-        <div class="radio">
-            <label class="btn btn-primary">
-                <input type="radio" name="user_type" value="general" > general
-            </label>
-            <label class="btn btn-primary">
-                <input type="radio" name="user_type" value="company"> company
-            </label>
+        <%----------------------------------radio--------------------------------------------%>
+
+        <div class="pretty p-switch p-fill">
+            <input type="radio" name="user_type" id="general" value="general"/>
+            <div class="state p-success">
+                <label for="general">GENERAL</label>
+            </div>
         </div>
+        <div class="pretty p-switch p-fill">
+            <input type="radio" name="user_type" id="company" value="company"/>
+            <div class="state p-success">
+                <label for="general">COMPANY</label>
+            </div>
+        </div>
+        <div class="pretty p-switch p-fill">
+            <input type="radio" name="user_type" id="admin" value="admin"/>
+            <div class="state p-success">
+                <label for="general">ADMIN</label>
+            </div>
+        </div>
+        <%----------------------------------radio--------------------------------------------%>
 
         <div class="login_div">
-            <button class="btn btn-lg btn-primary btn-block" type="button" id="login">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="button" id="login">Sign in</button>
         </div>
     </form>
 </div>
@@ -59,6 +73,8 @@
             url = "${pageContext.request.contextPath}/page/generalLogin";
         else if(type === 'company')
             url = "${pageContext.request.contextPath}/page/companyLogin";
+        else if(type === 'admin')
+            url = "${pageContext.request.contextPath}/page/adminLogin";
         else {
             alert("请选择用户类型");
             return false;
