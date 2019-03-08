@@ -18,10 +18,7 @@
     <select id="selectComInfoById" resultMap="baseResultMap" parameterType="java.lang.Long">
         select <include refid="Base_Column_List"/>
         from P_INFO_COMPANY
-        where 1=1
-        <if test="id != null">
-          AND ID=#{id, jdbcType=BIGINT}
-        </if>
+        where ID=#{id, jdbcType=BIGINT}
     </select>
 
     <select id="selectComInfoBySelective" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.CompanyInfoPo">

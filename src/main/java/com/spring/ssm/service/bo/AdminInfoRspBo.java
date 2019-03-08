@@ -1,4 +1,4 @@
-package com.spring.ssm.service.Bo;
+package com.spring.ssm.service.bo;
 
 /**
  * @ClassName: AdminInfoRspBo

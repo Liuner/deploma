@@ -1,7 +1,7 @@
 package com.spring.ssm.service;
 
-import com.spring.ssm.service.Bo.CompanyInfoReqBo;
-import com.spring.ssm.service.Bo.CompanyInfoRspBo;
+import com.spring.ssm.service.bo.CompanyInfoReqBo;
+import com.spring.ssm.service.bo.CompanyInfoRspBo;
 
 import java.util.List;
 

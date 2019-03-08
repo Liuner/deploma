@@ -1,7 +1,7 @@
 package com.spring.ssm.service;
 
-import com.spring.ssm.service.Bo.UserInfoReqBo;
-import com.spring.ssm.service.Bo.UserInfoRspBo;
+import com.spring.ssm.service.bo.UserInfoReqBo;
+import com.spring.ssm.service.bo.UserInfoRspBo;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package com.spring.ssm.controller;
 
 import com.spring.ssm.service.AdminInfoService;
-import com.spring.ssm.service.Bo.*;
+import com.spring.ssm.service.bo.*;
 import com.spring.ssm.service.ComInfoService;
 import com.spring.ssm.service.UserInfoService;
 import org.slf4j.Logger;

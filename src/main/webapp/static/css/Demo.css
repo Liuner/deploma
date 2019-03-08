@@ -55,3 +55,9 @@ form.form-signin {
 .btn-search {
     margin-right: 5px;
 }
+.table_info_tr {
+    text-align: center;
+    padding: 8px;
+    line-height: 1.42857143;
+    border-top: 1px solid #ddd;
+}

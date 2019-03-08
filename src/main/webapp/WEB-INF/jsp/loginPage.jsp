@@ -30,49 +30,17 @@
         <div class="navbar-right">
             <form class="navbar-form">
                 <div class="form-group">
-                        <input type="text" class="form-control input-search" id="search" placeholder="Search">
-                        <button type="submit" class="btn btn-danger btn-search">BEGIN</button>
+                        <input type="text" class="form-control input-search" id= "search_value" placeholder="Search">
+                        <button type="button" class="btn btn-danger btn-search" id="search">BEGIN</button>
                 </div>
             </form>
         </div>
 
         <!---------------------- Table ---------------------->
         <table class="table" id="job-table">
-            <tr class="info"><th>POSITION</th><th>COMPANY</th><th>LOCAL</th><th>SALARY</th><th>NUMBER</th><th>DATE</th><th>OPERATION</th></tr>
-            <tr>
-                <td>软件工程师</td>
-                <td>阿里巴巴</td>
-                <td>重庆市渝北区</td>
-                <td>8-9K</td>
-                <td>10人</td>
-                <td>2019-01-21</td>
-                <td>投递</td>
-            </tr>
-            <tr>
-                <td>软件工程师</td>
-                <td>阿里巴巴</td>
-                <td>重庆市渝北区</td>
-                <td>8-9K</td>
-                <td>10人</td>
-                <td>2019-01-21</td>
-                <td>投递</td>
-            </tr>
-
-            <c:forEach items="${itemList}" var="item">
-                <tr>
-                    <td>${item.id}</td>
-                    <td>${item.name}</td>
-                    <td>${item.category.name}</td>
-                    <td><img width="150" src="${pageContext.request.contextPath}/attached/items/${item.picUrl}"></td>
-                    <td>${item.price}</td>
-                    <td>
-                        <a class="btn btn-primary btn-xs" href="${pageContext.request.contextPath}/admin/item/edit.do?id=${item.id}" >修改</a>
-                        <a data-toggle="modal" data-target="#myAlert"
-                           data-uid="${item.id }"
-                           class="btn btn-danger btn-xs" href="#" >删除</a>
-                    </td>
-                </tr>
-            </c:forEach>
+            <thead>
+            <tr class="info table_info_th"><th>POSITION</th><th>COMPANY</th><th>LOCAL</th><th>SALARY</th><th>NUMBER</th><th>DATE</th><th>OPERATION</th></tr>
+            </thead>
         </table>
         <nav aria-label="Page navigation" style="text-align: center">
             <ul class="pagination">
@@ -97,35 +65,51 @@
 <%------------------------------------------------------------------------------------%>
 <script language="JavaScript">
     var url = "${pageContext.request.contextPath}/demo/queryAdminInfoBySelective";
+    <%-----------pageloding----------%>
     $(document).ready(function(){
+        getInfo();
+    });
+    <%--------search button---------%>
+    $('#search').on('click', function() {
+        getInfo()
+        $('#search_value').val("");
+    });
+    function getInfo() {
         $.ajax({
             url:url,
             type:'POST',
             dataType:'JSON',
             data:{
-                id:$('#search').val()
+                id:$('#search_value').val()
             },
             success: function (data) {
                 var obj = '';
+                var send = '<button type="button" class="btn btn-danger btn-search">' +'SEND' +'</button>';
                 var dataList = eval(data);
+                if (dataList[0].respCode === "8888") {
+                    alert(dataList[0].respDesc);
+                    location.reload();
+                }
+                $('#job-table tr:gt(0)').remove();
                 for (var i in dataList) {
-                    obj = obj + '<tr>';
+                    obj = obj + '<tr class="table_info_tr">';
                     obj +='<td>' + dataList[i].name + '</td>';
                     obj +='<td>' + dataList[i].name + '</td>';
                     obj +='<td>' + dataList[i].name + '</td>';
                     obj +='<td>' + dataList[i].name + '</td>';
                     obj +='<td>' + dataList[i].name + '</td>';
                     obj +='<td>' + dataList[i].name + '</td>';
-                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj +='<td>' + send + '</td>';
                     obj = obj + '</tr>';
                 }
                 $('#job-table').append(obj);
             },
             error: function () {
-                alert();
+                alert("服务器休息呢!别吵吵!!!");
             }
         });
-    });
+    }
+
 </script>
 </body>
 </html>

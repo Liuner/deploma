@@ -1,18 +1,16 @@
-package com.spring.ssm.service.Bo;
-
-import java.io.Serializable;
+package com.spring.ssm.service.bo;
 
 /**
- * @ClassName: CompanyInfoReqBo
- * @Description：公司用户信息表 入参
+ * @ClassName: CompanyInfoRspBo
+ * @Description：公司用户信息表 出参
  * @Author: liuguisheng
- * @Date: 2019/2/7 14:58:15
+ * @Date: 2019/2/7 15:01:47
  * @Copyright:2019 www.tydic.com Inc. All rights reserved.
  * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
-public class CompanyInfoReqBo implements Serializable {
+public class CompanyInfoRspBo extends BaseRspBo{
 
-    private static final long serialVersionUID = 748460328576601523L;
+    private static final long serialVersionUID = 3853518244968361324L;
 
     private String id;
     private String name;
@@ -89,7 +87,7 @@ public class CompanyInfoReqBo implements Serializable {
 
     @Override
     public String toString() {
-        return "CompanyInfoReqBo{" +
+        return "CompanyInfoRspBo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +

@@ -7,8 +7,8 @@ import com.spring.ssm.Tool.BusiExcption;
 import com.spring.ssm.dto.AdminInfoPo;
 import com.spring.ssm.mapper.AdminInfoMapper;
 import com.spring.ssm.service.AdminInfoService;
-import com.spring.ssm.service.Bo.AdminInfoReqBo;
-import com.spring.ssm.service.Bo.AdminInfoRspBo;
+import com.spring.ssm.service.bo.AdminInfoReqBo;
+import com.spring.ssm.service.bo.AdminInfoRspBo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -123,7 +123,12 @@ public class AdminInfoServiceImpl implements AdminInfoService {
                 adminInfoRspBoList.add(bo);
             }
         }
-        else {}
+        else {
+            AdminInfoRspBo bo = new AdminInfoRspBo();
+            bo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            bo.setRespDesc("未查询到匹配信息");
+            adminInfoRspBoList.add(bo);
+        }
         return adminInfoRspBoList;
     }
 
