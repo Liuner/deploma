@@ -1,7 +1,9 @@
 package com.spring.ssm.service.impl;
 
 
+import com.spring.ssm.Constracts.ExceptionConstract;
 import com.spring.ssm.Constracts.RspConstracts;
+import com.spring.ssm.Tool.BusiExcption;
 import com.spring.ssm.dto.AdminInfoPo;
 import com.spring.ssm.mapper.AdminInfoMapper;
 import com.spring.ssm.service.AdminInfoService;
@@ -48,6 +50,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 
         AdminInfoPo adminInfoPo = new AdminInfoPo();
         BeanUtils.copyProperties(reqBo, adminInfoPo);
+        adminInfoPo.setId(Long.valueOf(reqBo.getId()));
         int result = 0;
         try {
             result = adminInfoMapper.createAdminInfo(adminInfoPo);
@@ -60,7 +63,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
             retBo.setRespDesc(RspConstracts.RSP_DESC_FAIL);
             return retBo;
         }
-        retBo.setId(adminInfoPo.getId());
+        retBo.setId(adminInfoPo.getId()+ "");
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         return  retBo;
@@ -96,12 +99,17 @@ public class AdminInfoServiceImpl implements AdminInfoService {
     }
 
     @Override
-    public List<AdminInfoRspBo> queryAdminInfo() {
+    public List<AdminInfoRspBo> queryAdminInfoBySelective(AdminInfoReqBo reqBo) {
         LOG.info("进入查询管理员信息服务");
         List<AdminInfoRspBo> adminInfoRspBoList = new ArrayList<>();
         List<AdminInfoPo> adminInfoPoList = new ArrayList<>();
+        AdminInfoPo po = new AdminInfoPo();
+        BeanUtils.copyProperties(reqBo, po);
+        if (!StringUtils.isEmpty(reqBo.getId())) {
+            po.setId(Long.valueOf(reqBo.getId()));
+        }
         try {
-            adminInfoPoList = adminInfoMapper.selectAdminInfo();
+            adminInfoPoList = adminInfoMapper.selectAdminInfoBySelective(po);
         } catch (Exception e) {
             LOG.error("调用mapper查询所有管理员信息异常：" + e);
         }
@@ -109,11 +117,13 @@ public class AdminInfoServiceImpl implements AdminInfoService {
             for (AdminInfoPo adminInfoPo : adminInfoPoList) {
                 AdminInfoRspBo bo = new AdminInfoRspBo();
                 BeanUtils.copyProperties(adminInfoPo, bo);
+                bo.setId(adminInfoPo.getId()+"");
                 bo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
                 bo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
                 adminInfoRspBoList.add(bo);
             }
         }
+        else {}
         return adminInfoRspBoList;
     }
 
@@ -129,6 +139,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
             return  retBo;
         }
         BeanUtils.copyProperties(reqBo, adminInfoPo);
+        adminInfoPo.setId(Long.valueOf(reqBo.getId()));
         int result = 0;
         try {
             result = adminInfoMapper.updateAdminInfo(adminInfoPo);
@@ -173,6 +184,36 @@ public class AdminInfoServiceImpl implements AdminInfoService {
         return retBo;
     }
 
+    @Override
+    public AdminInfoRspBo queryAdminInfo(AdminInfoReqBo reqBo) {
+        LOG.info("管理员登录查询服务");
+        AdminInfoRspBo retBo = new AdminInfoRspBo();
+        AdminInfoPo adminInfoPo = new AdminInfoPo();
+        String validataStr = validataQry(reqBo);
+        if (!StringUtils.isEmpty(validataStr)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc(validataStr);
+            return retBo;
+        }
+        BeanUtils.copyProperties(reqBo, adminInfoPo);
+        adminInfoPo.setId(Long.valueOf(reqBo.getId()));
+        try {
+            adminInfoPo = adminInfoMapper.selectAdminInfo(adminInfoPo);
+        } catch (Exception e) {
+            LOG.error("调用mapper查询数据异常" + e);
+            throw new BusiExcption(ExceptionConstract.ADMIN_EXCEPTION, "调用mapper查询数据异常" + e);
+        }
+        if (adminInfoPo == null) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("用户名或密码错误");
+            return retBo;
+        }
+        retBo.setName(adminInfoPo.getName());
+        retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+        retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+        return retBo;
+    }
+
     /**
      * 描述: 入参校验
      * @param: [reqBo]
@@ -199,6 +240,33 @@ public class AdminInfoServiceImpl implements AdminInfoService {
         }
         if (StringUtils.isEmpty(reqBo.getSex())) {
             return "入参对象属性sex不能为空";
+        }
+        return null;
+    }
+
+    /**
+     * 描述: 登录查询入参校验
+     * @param: [reqBo]
+     * @return: java.lang.String
+     * @throws
+     * @author: liuguisheng
+     * @date:   2019/3/7 21:23:40
+     */
+    private String validataQry(AdminInfoReqBo reqBo) {
+        if (reqBo == null) {
+            return "入参对象不能够为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getId())) {
+            return "用户ID不能为空";
+        } else {
+            try {
+                Long.valueOf(reqBo.getId());
+            } catch (NumberFormatException e) {
+                return "用户ID必须为纯数字";
+            }
+        }
+        if (StringUtils.isEmpty(reqBo.getPassword())) {
+            return "用户密码不能为空";
         }
         return null;
     }

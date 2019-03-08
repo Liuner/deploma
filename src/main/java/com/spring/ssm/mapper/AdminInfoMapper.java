@@ -33,9 +33,14 @@ public interface AdminInfoMapper {
     AdminInfoPo selectAdminInfoById(@Param(value = "id") Long id);
 
     /**
-     * query Admin Info By Id
+     * query Admin Info By Selective
      */
-    List<AdminInfoPo> selectAdminInfo();
+    List<AdminInfoPo> selectAdminInfoBySelective(AdminInfoPo po);
+
+    /**
+     * query Admin Info By id and password
+     */
+    AdminInfoPo selectAdminInfo(AdminInfoPo po);
 
     /**
      * update admin Info by id

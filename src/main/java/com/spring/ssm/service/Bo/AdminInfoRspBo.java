@@ -12,18 +12,18 @@ public class AdminInfoRspBo extends BaseRspBo{
 
     private static final long serialVersionUID = -3499161657742995364L;
 
-    private Long id;
+    private String id;
     private String name;
     private String password;
     private String phone;
     private String sex;
-    private int age;
+    private Integer age;
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -59,11 +59,11 @@ public class AdminInfoRspBo extends BaseRspBo{
         this.sex = sex;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return this.age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

@@ -17,13 +17,13 @@ public class UserInfoPo implements Serializable {
     private Long id;
     private String name;
     private String password;
-    private int age;
+    private Integer age;
     private String sex;
     private String phone;
     private String e_maile;
     private String idNumber;
     private String local;
-    private int status;
+    private Integer status;
 
     public Long getId() {
         return this.id;
@@ -49,11 +49,11 @@ public class UserInfoPo implements Serializable {
         this.password = password;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return this.age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 
@@ -97,11 +97,11 @@ public class UserInfoPo implements Serializable {
         this.local = local;
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return this.status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

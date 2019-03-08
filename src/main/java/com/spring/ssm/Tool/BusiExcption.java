@@ -9,6 +9,7 @@ package com.spring.ssm.Tool;
  * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
 public class  BusiExcption extends RuntimeException {
+    public static final ThreadLocal<BusiExcption> MQ_THREAD_EXCEPTION = new ThreadLocal();
     private static final long serialVersionUID = -1814155355569144196L;
     private String msgCode;
     private String[] args;
@@ -28,6 +29,7 @@ public class  BusiExcption extends RuntimeException {
     public BusiExcption(String msgId, String message) {
         super(message);
         this.msgCode = msgId;
+        MQ_THREAD_EXCEPTION.set(this);
     }
 
     public BusiExcption(String msgId, String message, Throwable cause) {
@@ -35,5 +37,6 @@ public class  BusiExcption extends RuntimeException {
         this.args = new String[1];
         this.args[0] = message;
         this.msgCode = msgId;
+        MQ_THREAD_EXCEPTION.set(this);
     }
 }

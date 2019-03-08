@@ -121,4 +121,19 @@ public class PageJumpController {
         }
         return retBo;
     }
+
+    /**
+     * 管理员登录
+     */
+    @RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public AdminInfoRspBo queryAdminbyId(HttpSession session, AdminInfoReqBo reqBo) {
+        LOG.info("管理员登录-controller");
+        AdminInfoRspBo retBo = adminInfoService.queryAdminInfo(reqBo);
+        if (retBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("NAME", retBo.getName());
+        }
+        return retBo;
+
+    }
 }

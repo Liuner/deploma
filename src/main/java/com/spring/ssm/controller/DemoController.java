@@ -119,11 +119,11 @@ public class DemoController {
         return adminInfoService.queryAdminInfoById(id);
     }
 
-    @RequestMapping(value = "/queryAdminInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryAdminInfoBySelective", method = RequestMethod.POST)
     @ResponseBody
-    public List<AdminInfoRspBo> queryAdminInfo() {
+    public List<AdminInfoRspBo> queryAdminInfoBySelective(AdminInfoReqBo reqBo) {
         LOG.info("queryAdminInfo - controller");
-        return adminInfoService.queryAdminInfo();
+        return adminInfoService.queryAdminInfoBySelective(reqBo);
     }
 
     @RequestMapping(value = "/updateAdminInfo", method = RequestMethod.POST)

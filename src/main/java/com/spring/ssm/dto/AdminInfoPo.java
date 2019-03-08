@@ -19,7 +19,7 @@ public class AdminInfoPo implements Serializable {
     private String password;
     private String phone;
     private String sex;
-    private int age;
+    private Integer age;
 
     public Long getId() {
         return this.id;
@@ -61,11 +61,11 @@ public class AdminInfoPo implements Serializable {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return this.age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

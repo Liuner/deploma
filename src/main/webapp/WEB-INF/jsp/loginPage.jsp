@@ -13,7 +13,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css/Demo.css">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/static/css/pretty-checkbox.min.css"/>
-    <%--<script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>--%>
+    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
 </head>
 <body>
@@ -30,15 +30,33 @@
         <div class="navbar-right">
             <form class="navbar-form">
                 <div class="form-group">
-                        <input type="text" class="form-control input-search" placeholder="Search">
+                        <input type="text" class="form-control input-search" id="search" placeholder="Search">
                         <button type="submit" class="btn btn-danger btn-search">BEGIN</button>
                 </div>
             </form>
         </div>
 
         <!---------------------- Table ---------------------->
-        <table class="table">
-            <tr class="info"><th>POSITION</th><th>COMPANY</th><th>LOCAL</th><th>SALARY</th><th>DATE</th><th>OPERATION</th></tr>
+        <table class="table" id="job-table">
+            <tr class="info"><th>POSITION</th><th>COMPANY</th><th>LOCAL</th><th>SALARY</th><th>NUMBER</th><th>DATE</th><th>OPERATION</th></tr>
+            <tr>
+                <td>软件工程师</td>
+                <td>阿里巴巴</td>
+                <td>重庆市渝北区</td>
+                <td>8-9K</td>
+                <td>10人</td>
+                <td>2019-01-21</td>
+                <td>投递</td>
+            </tr>
+            <tr>
+                <td>软件工程师</td>
+                <td>阿里巴巴</td>
+                <td>重庆市渝北区</td>
+                <td>8-9K</td>
+                <td>10人</td>
+                <td>2019-01-21</td>
+                <td>投递</td>
+            </tr>
 
             <c:forEach items="${itemList}" var="item">
                 <tr>
@@ -56,8 +74,59 @@
                 </tr>
             </c:forEach>
         </table>
+        <nav aria-label="Page navigation" style="text-align: center">
+            <ul class="pagination">
+                <li>
+                    <a href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li><a href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#">4</a></li>
+                <li><a href="#">5</a></li>
+                <li>
+                    <a href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 <%------------------------------------------------------------------------------------%>
+<script language="JavaScript">
+    var url = "${pageContext.request.contextPath}/demo/queryAdminInfoBySelective";
+    $(document).ready(function(){
+        $.ajax({
+            url:url,
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:$('#search').val()
+            },
+            success: function (data) {
+                var obj = '';
+                var dataList = eval(data);
+                for (var i in dataList) {
+                    obj = obj + '<tr>';
+                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj = obj + '</tr>';
+                }
+                $('#job-table').append(obj);
+            },
+            error: function () {
+                alert();
+            }
+        });
+    });
+</script>
 </body>
 </html>
 

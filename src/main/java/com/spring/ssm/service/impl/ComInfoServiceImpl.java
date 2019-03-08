@@ -53,6 +53,7 @@ public class ComInfoServiceImpl implements ComInfoService {
         }
         CompanyInfoPo companyInfoPo = new CompanyInfoPo();
         BeanUtils.copyProperties(reqBo, companyInfoPo);
+        companyInfoPo.setId(Long.valueOf(reqBo.getId()));
         DateFormat fmt = new SimpleDateFormat("yyyyMMdd");
         Date date = null;
         try {
@@ -171,6 +172,7 @@ public class ComInfoServiceImpl implements ComInfoService {
 
         CompanyInfoPo companyInfoPo = new CompanyInfoPo();
         BeanUtils.copyProperties(reqBo ,companyInfoPo);
+        companyInfoPo.setId(Long.valueOf(reqBo.getId()));
         companyInfoPo.setId(Long.valueOf(reqBo.getId()));
         int result = 0;
         try {

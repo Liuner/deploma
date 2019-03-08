@@ -14,18 +14,18 @@ public class AdminInfoReqBo implements Serializable {
 
     private static final long serialVersionUID = -2287855686557643137L;
 
-    private Long id;
+    private String id;
     private String name;
     private String password;
     private String phone;
     private String sex;
-    private int age;
+    private Integer age;
 
-    public Long getId() {
+    public String getId() {
         return this.id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -61,11 +61,11 @@ public class AdminInfoReqBo implements Serializable {
         this.sex = sex;
     }
 
-    public int getAge() {
+    public Integer getAge() {
         return this.age;
     }
 
-    public void setAge(int age) {
+    public void setAge(Integer age) {
         this.age = age;
     }
 

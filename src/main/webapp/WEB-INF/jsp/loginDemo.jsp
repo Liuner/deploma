@@ -15,8 +15,8 @@
 
     <form class="form-signin" type="post" href="http://localhost:8088/demo/queryUserInfoById">
         <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputName" class="sr-only">Name</label>
-        <input type="text" id="inputName" class="form-control" placeholder="Name" required>
+        <label for="inputId" class="sr-only">Name</label>
+        <input type="text" id="inputId" class="form-control" placeholder="Name" required>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="text" id="inputPassword" class="form-control" placeholder="Password" required>
         <%-----------------------------------------------------------------------------------------------------------%>
@@ -55,7 +55,7 @@
 <script type="text/javascript">
     $('#login').on('click', function () {
         <%-----------------------------添加判断开始-----------------------------------%>
-        var name = $('#inputName').val();
+        var name = $('#inputId').val();
         var pwd = $('#inputPassword').val();
         if (name == null || name == "") {
             alert("请输入用户ID!!!");

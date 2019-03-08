@@ -92,7 +92,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfoPo userInfoPo = new UserInfoPo();
         BeanUtils.copyProperties(reqBo, userInfoPo);
-        userInfoPo.setId(Long.valueOf(reqBo.getId()));
+        if (!StringUtils.isEmpty(reqBo.getId())) {
+            userInfoPo.setId(Long.valueOf(reqBo.getId()));
+        }
 
         List<UserInfoRspBo> userInfoRspBoList = new ArrayList<UserInfoRspBo>();
         List<UserInfoPo> userInfoPoList = userInfoMapper.selectUserInfoBySelective(userInfoPo);
@@ -121,6 +123,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfoPo userInfoPo = new UserInfoPo();
         BeanUtils.copyProperties(reqBo, userInfoPo);
+        userInfoPo.setId(Long.valueOf(reqBo.getId()));
         int result = 0;
         try {
             result = userInfoMapper.addUserInfo(userInfoPo);

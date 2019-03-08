@@ -35,7 +35,7 @@ public interface AdminInfoService {
      * @param:
      * @return: java.util.List<com.spring.ssm.service.Bo.AdminInfoRspBo>
      */
-    List<AdminInfoRspBo> queryAdminInfo();
+    List<AdminInfoRspBo> queryAdminInfoBySelective(AdminInfoReqBo reqBo);
 
     /**
      * 描述: 更新管理员信息
@@ -50,4 +50,11 @@ public interface AdminInfoService {
      * @return: com.spring.ssm.service.Bo.AdminInfoRspBo
      */
     AdminInfoRspBo deleteAdminInfo(Long id);
+
+    /**
+     * 描述: 用于登录的查询
+     * @param reqBo
+     * @return
+     */
+    AdminInfoRspBo queryAdminInfo(AdminInfoReqBo reqBo);
 }

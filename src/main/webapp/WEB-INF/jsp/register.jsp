@@ -11,8 +11,7 @@
     <title>注册界面</title>
     <link rel="stylesheet" type="text/css" href="/static/css/Demo.css">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
-    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/pretty-checkbox.min.css">
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
@@ -31,15 +30,29 @@
         <input type="text" id="inputSex" class="form-control" placeholder="Sex" required>
         <label for="inputAge" class="sr-only">Age</label>
         <input type="text" id="inputAge" class="form-control" placeholder="Age" required>
-        <%-----------------------------------------------------------------------------------------------------------%>
-        <div class="checkbox">
-            <label>
-                <input type="radio"  name="userType" value="general"> GENERAL
-                <input type="radio"  name="userType" value="company"> COMPANY
-            </label>
+        <%----------------------------------radio--------------------------------------------%>
+
+        <div class="pretty p-switch p-fill">
+            <input type="radio" name="user_type" id="general" value="general"/>
+            <div class="state p-success">
+                <label for="general">GENERAL</label>
+            </div>
         </div>
+        <div class="pretty p-switch p-fill">
+            <input type="radio" name="user_type" id="company" value="company"/>
+            <div class="state p-success">
+                <label for="general">COMPANY</label>
+            </div>
+        </div>
+        <div class="pretty p-switch p-fill">
+            <input type="radio" name="user_type" id="admin" value="admin"/>
+            <div class="state p-success">
+                <label for="general">ADMIN</label>
+            </div>
+        </div>
+        <%----------------------------------radio--------------------------------------------%>
         <div class="login_div">
-            <button class="btn btn-lg btn-primary btn-block" type="button" id="register">REGISTER</button>
+            <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="button" id="register">REGISTER</button>
         </div>
     </form>
 </div>

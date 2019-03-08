@@ -24,10 +24,40 @@
             </if>
     </select>
 
-    <select id="selectAdminInfo" resultMap="baseResultMap">
+    <select id="selectAdminInfoBySelective" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.AdminInfoPo">
             select
             <include refid="Base_Column_List" />
             from P_INFO_ADMIN
+            where 1=1
+            <if test="id !=null">
+                AND ID=#{id}
+            </if>
+            <if test="name !=null">
+                AND NAME=#{name}
+            </if>
+            <if test="password !=null">
+                AND PASSWORD=#{password}
+            </if>
+            <if test="age !=null">
+                AND AGE=#{age}
+            </if>
+            <if test="sex !=null">
+                AND SEX=#{sex}
+            </if>
+    </select>
+
+    <select id="selectAdminInfo" parameterType="com.spring.ssm.dto.AdminInfoPo" resultMap="baseResultMap">
+            select
+            <include refid="Base_Column_List" />
+            from P_INFO_ADMIN
+            where 1=1
+            <if test="id !=null">
+                AND ID=#{id}
+            </if>
+            <if test="password !=null">
+                AND PASSWORD=#{password}
+            </if>
+
     </select>
 
     <insert id="createAdminInfo" parameterType="com.spring.ssm.dto.AdminInfoPo" useGeneratedKeys="true" keyProperty="id">
