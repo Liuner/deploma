@@ -17,4 +17,7 @@ public class ExceptionConstract {
 
     /**管理员数据操作异常*/
     public static final String ADMIN_EXCEPTION = "3001";
+
+    /**职位信息表操作异常*/
+    public static final String JONINFO_EXCEPTION = "4001";
 }

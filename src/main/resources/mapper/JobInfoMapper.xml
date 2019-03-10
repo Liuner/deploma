@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.spring.ssm.mapper.JobInfoMapper">
+
+  <resultMap id="BaseResultMap" type="com.spring.ssm.dto.JobInfoPo">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="POSITION" jdbcType="VARCHAR" property="position" />
+    <result column="COMPANY" jdbcType="VARCHAR" property="company" />
+    <result column="LOCAL" jdbcType="VARCHAR" property="local" />
+    <result column="SALARY" jdbcType="VARCHAR" property="salary" />
+    <result column="NUMBER" jdbcType="INTEGER" property="number" />
+    <result column="DATE" jdbcType="BIGINT" property="date" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    ID, `POSITION`, COMPANY, `LOCAL`, SALARY, `NUMBER`, `DATE`
+  </sql>
+
+  <select id="selectJobInfoById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from p_info_job
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectJobInfoBySelective" parameterType="com.spring.ssm.dto.JobInfoPo" resultMap="BaseResultMap">
+          select
+             <include refid="Base_Column_List" />
+          from p_info_job
+          where 1=1
+            <if test="id != null">
+                and ID=#{id},
+            </if>
+            <if test="position != null">
+              and POSITION=#{position},
+            </if>
+            <if test="company != null">
+              and COMPANY=#{company},
+            </if>
+            <if test="local != null">
+              and LOCAL=#{local},
+            </if>
+            <if test="salary != null">
+              and SALARY=#{salary},
+            </if>
+            <if test="number != null">
+              and NUMBER=#{number},
+            </if>
+            <if test="date != null">
+              and DATE=#{date},
+            </if>
+  </select>
+  <delete id="deleteJobInfoById" parameterType="java.lang.Long">
+    delete from p_info_job
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insertJobInfo" parameterType="com.spring.ssm.dto.JobInfoPo" useGeneratedKeys="true" keyProperty="id">
+    insert into p_info_job
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="position != null">
+        `POSITION`,
+      </if>
+      <if test="company != null">
+        COMPANY,
+      </if>
+      <if test="local != null">
+        `LOCAL`,
+      </if>
+      <if test="salary != null">
+        SALARY,
+      </if>
+      <if test="number != null">
+        `NUMBER`,
+      </if>
+      <if test="date != null">
+        `DATE`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="position != null">
+        #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="local != null">
+        #{local,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateJobInfoBySelective" parameterType="com.spring.ssm.dto.JobInfoPo">
+    update p_info_job
+    <set>
+      <if test="position != null">
+        `POSITION` = #{position,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        COMPANY = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="local != null">
+        `LOCAL` = #{local,jdbcType=VARCHAR},
+      </if>
+      <if test="salary != null">
+        SALARY = #{salary,jdbcType=VARCHAR},
+      </if>
+      <if test="number != null">
+        `NUMBER` = #{number,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        `DATE` = #{date,jdbcType=BIGINT},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

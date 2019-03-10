@@ -1,9 +1,10 @@
 package com.spring.ssm.controller;
 
 import com.spring.ssm.service.AdminInfoService;
-import com.spring.ssm.service.bo.*;
 import com.spring.ssm.service.ComInfoService;
+import com.spring.ssm.service.JobInfoService;
 import com.spring.ssm.service.UserInfoService;
+import com.spring.ssm.service.bo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @ClassName: PageJumpController
@@ -36,6 +38,8 @@ public class PageJumpController {
     private UserInfoService userInfoService;
     @Autowired
     private ComInfoService comInfoService;
+    @Autowired
+    private JobInfoService jobInfoService;
     /**
      * 重定向页面
      */
@@ -99,7 +103,7 @@ public class PageJumpController {
     @RequestMapping(value = "/generalLogin", method = RequestMethod.POST)
     @ResponseBody
     public UserInfoRspBo queryById(HttpSession session, UserInfoReqBo reqBo) {
-        LOG.info("普通用户登录-Controller");
+        LOG.info("普通用户登录---Controller");
         UserInfoRspBo retBo = userInfoService.queryUserInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
             session.setAttribute("NAME", retBo.getName());
@@ -113,7 +117,7 @@ public class PageJumpController {
     @RequestMapping(value = "/companyLogin", method = RequestMethod.POST)
     @ResponseBody
     public CompanyInfoRspBo queryComById(HttpSession session, CompanyInfoReqBo reqBo) {
-        LOG.info("公司用户登录-controller");
+        LOG.info("公司用户登录---controller");
         //TODO 公司用户登录服务待实现
         CompanyInfoRspBo retBo = comInfoService.selectComInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
@@ -128,12 +132,21 @@ public class PageJumpController {
     @RequestMapping(value = "/adminLogin", method = RequestMethod.POST)
     @ResponseBody
     public AdminInfoRspBo queryAdminbyId(HttpSession session, AdminInfoReqBo reqBo) {
-        LOG.info("管理员登录-controller");
+        LOG.info("管理员登录---controller");
         AdminInfoRspBo retBo = adminInfoService.queryAdminInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
             session.setAttribute("NAME", retBo.getName());
         }
         return retBo;
+    }
 
+    /**
+     * 职位信息查询controller
+     */
+    @RequestMapping(value = "/queryJobInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public List<JobInfoRspBo> queryJobInfo(JobInfoReqBo reqBo) {
+        LOG.info("查询职位信息---controller");
+        return jobInfoService.queryJobInfoBySelective(reqBo);
     }
 }

@@ -64,7 +64,7 @@
     </div>
 <%------------------------------------------------------------------------------------%>
 <script language="JavaScript">
-    var url = "${pageContext.request.contextPath}/demo/queryAdminInfoBySelective";
+    var url = "${pageContext.request.contextPath}/page/queryJobInfo";
     <%-----------pageloding----------%>
     $(document).ready(function(){
         getInfo();
@@ -93,12 +93,12 @@
                 $('#job-table tr:gt(0)').remove();
                 for (var i in dataList) {
                     obj = obj + '<tr class="table_info_tr">';
-                    obj +='<td>' + dataList[i].name + '</td>';
-                    obj +='<td>' + dataList[i].name + '</td>';
-                    obj +='<td>' + dataList[i].name + '</td>';
-                    obj +='<td>' + dataList[i].name + '</td>';
-                    obj +='<td>' + dataList[i].name + '</td>';
-                    obj +='<td>' + dataList[i].name + '</td>';
+                    obj +='<td>' + dataList[i].position + '</td>';
+                    obj +='<td>' + dataList[i].company + '</td>';
+                    obj +='<td>' + dataList[i].local + '</td>';
+                    obj +='<td>' + dataList[i].salary + '</td>';
+                    obj +='<td>' + dataList[i].number + '</td>';
+                    obj +='<td>' + dataList[i].date + '</td>';
                     obj +='<td>' + send + '</td>';
                     obj = obj + '</tr>';
                 }
