@@ -18,7 +18,6 @@
 </head>
 <body>
 <jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp"></jsp:include>
-<%------------------------------------------------------------------------------------%>
 <%---------------------------------------Search-Area------------------------------------%>
 <div class="panel panel-default panel-self">
     <div class="panel-heading panel-heading-selft">
