@@ -1,6 +1,7 @@
 package com.spring.ssm.controller;
 
 import com.spring.ssm.service.AdminInfoService;
+import com.spring.ssm.service.JobInfoService;
 import com.spring.ssm.service.bo.*;
 import com.spring.ssm.service.ComInfoService;
 import com.spring.ssm.service.UserInfoService;
@@ -33,6 +34,8 @@ public class DemoController {
     private ComInfoService comInfoService;
     @Autowired
     private AdminInfoService adminInfoService;
+    @Autowired
+    private JobInfoService jobInfoService;
 
 
     @RequestMapping(value = "/queryUserInfoById", method = RequestMethod.POST)
@@ -138,5 +141,19 @@ public class DemoController {
     public AdminInfoRspBo deleteAdminInfo(Long id) {
         LOG.info("deleteAdminInfo - controller");
         return adminInfoService.deleteAdminInfo(id);
+    }
+
+    @RequestMapping(value = "/queryJobInfoBySelective", method = RequestMethod.POST)
+    @ResponseBody
+    public List<JobInfoRspBo> queryJobInfoBySelective(JobInfoReqBo reqBo) {
+        LOG.info("queryJobInfo - controller");
+        return jobInfoService.queryJobInfoBySelective(reqBo);
+    }
+
+    @RequestMapping(value = "/createJobInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public JobInfoRspBo createJobInfo(JobInfoReqBo reqBo) {
+        LOG.info("createJobInfo - controller");
+        return jobInfoService.createJobInfo(reqBo);
     }
 }

@@ -119,11 +119,11 @@ public class UserInfoServiceImpl implements UserInfoService {
             LOG.error("入参校验失败：" + validataArgStr);
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
             retBo.setRespDesc("入参校验失败：" + validataArgStr);
+            return  retBo;
         }
 
         UserInfoPo userInfoPo = new UserInfoPo();
         BeanUtils.copyProperties(reqBo, userInfoPo);
-        userInfoPo.setId(Long.valueOf(reqBo.getId()));
         int result = 0;
         try {
             result = userInfoMapper.addUserInfo(userInfoPo);

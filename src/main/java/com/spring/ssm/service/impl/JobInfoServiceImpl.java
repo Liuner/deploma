@@ -16,7 +16,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -38,7 +40,32 @@ public class JobInfoServiceImpl implements JobInfoService {
     @Override
     public JobInfoRspBo createJobInfo(JobInfoReqBo reqBo) {
         LOG.info("进入职位信息添加服务");
-        return null;
+        JobInfoRspBo retBo = new JobInfoRspBo();
+        JobInfoPo po = new JobInfoPo();
+        String validataStr = vlidataCreate(reqBo);
+        if (!StringUtils.isEmpty(validataStr)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc(validataStr);
+            return retBo;
+        }
+        BeanUtils.copyProperties(reqBo, po);
+        transData(reqBo, po);
+
+        int result;
+        try {
+            result = jobInfoMapper.insertJobInfo(po);
+        } catch (Exception e) {
+            LOG.error("调用mapper异常" + e);
+            throw new BusiExcption(ExceptionConstract.JONINFO_EXCEPTION, "调用mapper异常" + e);
+        }
+        if (result < 0) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("未查询到匹配数据");
+        } else  {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+        }
+        return retBo;
     }
 
     @Override
@@ -58,9 +85,13 @@ public class JobInfoServiceImpl implements JobInfoService {
         List<JobInfoPo> jobInfoPoList = new ArrayList<>();
 
         JobInfoPo po = new JobInfoPo();
-        BeanUtils.copyProperties(reqBo, po);
-        //自定义特殊值传递方法
-        transData(reqBo, po);
+        //空串校验
+        String vliEmptyStr = vliEmptyStrArg(reqBo, po);
+        if (StringUtils.isEmpty(vliEmptyStr)) {
+            BeanUtils.copyProperties(reqBo, po);
+            //自定义特殊值传递方法
+            transData(reqBo, po);
+        }
 
         try {
             jobInfoPoList = jobInfoMapper.selectJobInfoBySelective(po);
@@ -112,5 +143,63 @@ public class JobInfoServiceImpl implements JobInfoService {
         if (!StringUtils.isEmpty(reqBo.getDate())) {
             po.setDate(Long.valueOf(reqBo.getDate()));
         }
+    }
+
+    /**
+     * 描述: 添加信息入参校验
+     * @param: [reqBo]
+     * @return: java.lang.String
+     * @throws
+     * @author: liuguisheng
+     * @date:   2019/3/11 21:54:15
+     */
+    private String vlidataCreate(JobInfoReqBo reqBo) {
+        if (reqBo == null) {
+            return "入参对象不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getPosition())) {
+            return "职位名称不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getCompany())) {
+            return "公司名称不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getLocal())) {
+            return "工作地址不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getSalary())) {
+            return "薪酬不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getNumber())) {
+            return "招聘人数不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getDate())) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+            reqBo.setDate(dateFormat.format(new Date()));
+        }
+        return null;
+    }
+
+    /**
+     * 描述: 空串校验
+     * @param: [reqBo]
+     * @return: java.lang.String
+     * @throws
+     * @author: liuguisheng
+     * @date:   2019/3/13 22:58:40
+     */
+    private String vliEmptyStrArg(JobInfoReqBo reqBo, JobInfoPo po) {
+        if (reqBo.getPosition() != "") {
+            po.setPosition(reqBo.getPosition());
+        }
+        if (reqBo.getCompany() != "") {
+            po.setCompany(reqBo.getCompany());
+        }
+        if (reqBo.getLocal() != "") {
+            po.setLocal(reqBo.getLocal());
+        }
+        if (reqBo.getPosition() == "" || reqBo.getCompany() == "" || reqBo.getLocal() == "") {
+            return "空串";
+        }
+        return null;
     }
 }
