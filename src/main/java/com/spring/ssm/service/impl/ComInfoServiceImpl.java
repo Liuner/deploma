@@ -73,6 +73,7 @@ public class ComInfoServiceImpl implements ComInfoService {
             retBo.setRespDesc(RspConstracts.RSP_DESC_FAIL);
             return retBo;
         }
+        retBo.setId(companyInfoPo.getId() + "");
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         return retBo;

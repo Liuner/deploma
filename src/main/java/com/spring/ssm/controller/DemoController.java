@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -27,6 +28,7 @@ import java.util.List;
 @RequestMapping("/demo")
 public class DemoController {
     Logger LOG = LoggerFactory.getLogger(DemoController.class);
+    private static final String SUCCESS = "0000";
 
     @Autowired
     private UserInfoService userInfoService;
@@ -54,9 +56,13 @@ public class DemoController {
 
     @RequestMapping(value = "/createUserInfo", method = RequestMethod.POST)
     @ResponseBody
-    public UserInfoRspBo createTest(UserInfoReqBo reqBo) {
+    public UserInfoRspBo createTest(HttpSession session, UserInfoReqBo reqBo) {
         LOG.info("addUserInfo-Controller");
-        return userInfoService.addUserInfo(reqBo);
+        UserInfoRspBo retBo = userInfoService.addUserInfo(reqBo);
+        if (retBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("ID", retBo.getId());
+        }
+        return retBo;
     }
 
     @RequestMapping(value = "/updataUserInfo", method = RequestMethod.POST)
@@ -75,9 +81,13 @@ public class DemoController {
 
     @RequestMapping(value = "/createComInfo", method = RequestMethod.POST)
     @ResponseBody
-    public CompanyInfoRspBo createComInfo(CompanyInfoReqBo reqBo) {
+    public CompanyInfoRspBo createComInfo(HttpSession session, CompanyInfoReqBo reqBo) {
         LOG.info("createCompanyInfo-controller");
-        return comInfoService.createComInfo(reqBo);
+        CompanyInfoRspBo retBo = comInfoService.createComInfo(reqBo);
+        if (retBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("ID", retBo.getId());
+        }
+        return retBo;
     }
 
     @RequestMapping(value = "/queryComInfoById", method = RequestMethod.POST)
@@ -110,9 +120,13 @@ public class DemoController {
 
     @RequestMapping(value = "/createAdminInfo", method = RequestMethod.POST)
     @ResponseBody
-    public AdminInfoRspBo createInfo(AdminInfoReqBo reqBo) {
+    public AdminInfoRspBo createInfo(HttpSession session, AdminInfoReqBo reqBo) {
         LOG.info("createAdminInfo - controller");
-        return adminInfoService.createAdminInfo(reqBo);
+        AdminInfoRspBo retBo = adminInfoService.createAdminInfo(reqBo);
+        if (retBo.getRespCode() == SUCCESS) {
+            session.setAttribute("ID", retBo.getId());
+        }
+        return retBo;
     }
 
     @RequestMapping(value = "/queryAdminInfoById", method = RequestMethod.POST)

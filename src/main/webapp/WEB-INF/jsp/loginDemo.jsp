@@ -16,16 +16,18 @@
     <form class="form-signin" type="post" href="http://localhost:8088/demo/queryUserInfoById">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputId" class="sr-only">Name</label>
-        <input type="text" id="inputId" class="form-control" placeholder="Name" required>
+        <c:choose>
+            <c:when test="${ sessionScope.ID != null }">
+                <input type="text" id="inputId" class="form-control" placeholder="Name" value="${sessionScope.ID}" required>
+                <% session.invalidate(); %>
+            </c:when>
+            <c:otherwise>
+                <input type="text" id="inputId" class="form-control" placeholder="Name" required>
+            </c:otherwise>
+        </c:choose>
+
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="text" id="inputPassword" class="form-control" placeholder="Password" required>
-        <%-----------------------------------------------------------------------------------------------------------%>
-        <%--<div class="checkbox">--%>
-            <%--<label class="btn btn-primary">--%>
-                <%--<input type="checkbox" value="remember-me"> Remember me--%>
-            <%--</label>--%>
-        <%--</div>--%>
-        <%----------------------------------radio--------------------------------------------%>
 
         <div class="pretty p-switch p-fill">
             <input type="radio" name="user_type" id="general" value="general"/>
@@ -93,6 +95,7 @@
                 if (returnData.respCode == respCode) {
                     //alert("查询成功");
                    window.location.href = "/page/index";
+
                 }
                 else{
                     alert(returnData.respDesc);

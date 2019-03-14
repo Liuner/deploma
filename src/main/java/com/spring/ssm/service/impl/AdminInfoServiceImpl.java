@@ -50,7 +50,6 @@ public class AdminInfoServiceImpl implements AdminInfoService {
 
         AdminInfoPo adminInfoPo = new AdminInfoPo();
         BeanUtils.copyProperties(reqBo, adminInfoPo);
-        adminInfoPo.setId(Long.valueOf(reqBo.getId()));
         int result = 0;
         try {
             result = adminInfoMapper.createAdminInfo(adminInfoPo);
