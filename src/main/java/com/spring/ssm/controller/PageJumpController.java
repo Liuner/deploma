@@ -51,10 +51,10 @@ public class PageJumpController {
     /**
      * tia
      */
-    @RequestMapping("/loginPage")
+    @RequestMapping("/Demo")
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView retPage = new ModelAndView();
-        retPage.setViewName("loginPage");
+        retPage.setViewName("Demo");
         return retPage;
     }
 
@@ -86,7 +86,15 @@ public class PageJumpController {
      */
     @RequestMapping("/login")
     public String login() {
-        return "loginDemo";
+        return "loginPage";
+    }
+
+    /**
+     * 跳转到登录中
+     */
+    @RequestMapping("/logining")
+    public String logining() {
+        return "/ke/loging";
     }
 
     /**

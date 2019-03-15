@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp" />
 
 <div class="container">
 
@@ -95,7 +95,6 @@
                 if (returnData.respCode == respCode) {
                     //alert("查询成功");
                    window.location.href = "/page/index";
-
                 }
                 else{
                     alert(returnData.respDesc);

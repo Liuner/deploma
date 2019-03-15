@@ -61,3 +61,18 @@ form.form-signin {
     line-height: 1.42857143;
     border-top: 1px solid #ddd;
 }
+.logingPage {
+    width: 510px;
+    height: 130px;
+    margin: 0 auto;
+    background: #f1f1f1;
+    box-shadow: 2px 8px 25px -2px rgba(0,0,0,0.3);
+    border-radius: 8px;
+    text-align: center
+}
+.prompt {
+    font-family: "Microsoft YaHei UI";
+    font-size: large;
+    font-weight: bolder;
+    padding: auto;
+}

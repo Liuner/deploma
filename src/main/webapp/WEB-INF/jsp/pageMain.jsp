@@ -9,7 +9,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>>
 <html>
 <head>
-    <title>欢迎登录</title>
+    <title>Deploma</title>
     <link rel="stylesheet" type="text/css" href="/static/css/Demo.css">
     <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="/static/css/pretty-checkbox.min.css"/>
@@ -17,7 +17,7 @@
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp"/>
 <%---------------------------------------Search-Area------------------------------------%>
 <div class="panel panel-default panel-self">
     <div class="panel-heading panel-heading-selft">
