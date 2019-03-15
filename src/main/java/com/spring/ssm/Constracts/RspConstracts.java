@@ -16,4 +16,12 @@ public class RspConstracts {
     public static String RSP_DESC_FAIL = "FAIL";
 
     public static String RSP_DESC_SUCCESS = "SUCCESS";
+    /**-----------------用户类型-----------------*/
+    public static String GENERAL = "general";
+
+    public static String COMPANY = "company";
+
+    public static String ADMIN = "admin";
+
+
 }

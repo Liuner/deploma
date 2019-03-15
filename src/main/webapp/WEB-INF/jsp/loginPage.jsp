@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp" />
+<jsp:include page="/WEB-INF/jsp/lgs/pageHead.jsp" />
 <div class="wrap">
     <ul class="tabs group">
         <li><a class="active" href="#/general">GENERAL</a></li>

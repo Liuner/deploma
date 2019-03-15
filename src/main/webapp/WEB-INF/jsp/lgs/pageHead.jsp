@@ -14,13 +14,13 @@
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active"><a href="${pageContext.request.contextPath}/index.jsp">Home</a></li>
-                <li><a href="${pageContext.request.contextPath}/page/loginPage">About</a></li>
+                <li><a href="${pageContext.request.contextPath}/page/demo">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="nav navbar-nav" style="float: right">
                 <c:choose>
                     <c:when test="${ sessionScope.NAME != null }">
-                        <li><a href="#">${ sessionScope.NAME}</a></li>
+                        <li><a href="${pageContext.request.contextPath}/page/personalPage">${ sessionScope.NAME}</a></li>
                         <li><a href="${pageContext.request.contextPath}/page/loginOut">Exit</a></li>
                     </c:when>
                     <c:otherwise>

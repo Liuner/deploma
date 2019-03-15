@@ -5,9 +5,9 @@ import com.spring.ssm.Constracts.RspConstracts;
 import com.spring.ssm.Tool.BusiExcption;
 import com.spring.ssm.dto.UserInfoPo;
 import com.spring.ssm.mapper.UserInfoMapper;
+import com.spring.ssm.service.UserInfoService;
 import com.spring.ssm.service.bo.UserInfoReqBo;
 import com.spring.ssm.service.bo.UserInfoRspBo;
-import com.spring.ssm.service.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -96,8 +96,15 @@ public class UserInfoServiceImpl implements UserInfoService {
             userInfoPo.setId(Long.valueOf(reqBo.getId()));
         }
 
-        List<UserInfoRspBo> userInfoRspBoList = new ArrayList<UserInfoRspBo>();
-        List<UserInfoPo> userInfoPoList = userInfoMapper.selectUserInfoBySelective(userInfoPo);
+        List<UserInfoRspBo> userInfoRspBoList = new ArrayList<>();
+        List<UserInfoPo> userInfoPoList = new ArrayList<>();
+
+        try {
+            userInfoPoList = userInfoMapper.selectUserInfoBySelective(userInfoPo);
+        } catch (Exception e) {
+            LOG.error("调用mapper查询数据异常" + e);
+            throw new BusiExcption(ExceptionConstract.USERINFO_EXCEPTION, "调用mapper查询数据异常" + e);
+        }
 
         if (!CollectionUtils.isEmpty(userInfoPoList)) {
             for (UserInfoPo userInfo : userInfoPoList) {
@@ -105,8 +112,14 @@ public class UserInfoServiceImpl implements UserInfoService {
                 BeanUtils.copyProperties(userInfo,  bo);
                 userInfoRspBoList.add(bo);
             }
+            return userInfoRspBoList;
         }
+        UserInfoRspBo bo = new UserInfoRspBo();
+        bo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+        bo.setRespDesc("未查询到数据");
+        userInfoRspBoList.add(bo);
         return userInfoRspBoList;
+
     }
 
     @Override

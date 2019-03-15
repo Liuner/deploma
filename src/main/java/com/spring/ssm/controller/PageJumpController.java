@@ -1,5 +1,6 @@
 package com.spring.ssm.controller;
 
+import com.spring.ssm.Constracts.RspConstracts;
 import com.spring.ssm.service.AdminInfoService;
 import com.spring.ssm.service.ComInfoService;
 import com.spring.ssm.service.JobInfoService;
@@ -32,6 +33,7 @@ public class PageJumpController {
     private Logger LOG = LoggerFactory.getLogger(PageJumpController.class);
     private static final String SUCCESS = "0000";
 
+
     @Autowired
     private AdminInfoService adminInfoService;
     @Autowired
@@ -51,7 +53,7 @@ public class PageJumpController {
     /**
      * tia
      */
-    @RequestMapping("/Demo")
+    @RequestMapping("/demo")
     public ModelAndView login(HttpServletRequest request) {
         ModelAndView retPage = new ModelAndView();
         retPage.setViewName("Demo");
@@ -94,7 +96,7 @@ public class PageJumpController {
      */
     @RequestMapping("/logining")
     public String logining() {
-        return "/ke/loging";
+        return "/lgs/loging";
     }
 
     /**
@@ -103,6 +105,24 @@ public class PageJumpController {
     @RequestMapping("/register")
     public String register() {
         return "register";
+    }
+
+    /**
+     * 跳转到个人主页
+     */
+    @RequestMapping("personalPage")
+    public String personalPage(HttpSession session) {
+        String type = session.getAttribute("TYPE").toString();
+        if (RspConstracts.GENERAL.equals(type)) {
+            return "/lgs/generalPage";
+        }
+        if (RspConstracts.COMPANY.equals(type)) {
+            return "/lgs/companyPage";
+        }
+        if (RspConstracts.ADMIN.equals(type)) {
+            return "/lgs/adminPage";
+        }
+        return null;
     }
 
     /**
@@ -115,6 +135,7 @@ public class PageJumpController {
         UserInfoRspBo retBo = userInfoService.queryUserInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
             session.setAttribute("NAME", retBo.getName());
+            session.setAttribute("TYPE", RspConstracts.GENERAL);
         }
         return retBo;
     }
@@ -130,6 +151,7 @@ public class PageJumpController {
         CompanyInfoRspBo retBo = comInfoService.selectComInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
             session.setAttribute("NAME", retBo.getName());
+            session.setAttribute("TYPE", RspConstracts.COMPANY);
         }
         return retBo;
     }
@@ -144,6 +166,7 @@ public class PageJumpController {
         AdminInfoRspBo retBo = adminInfoService.queryAdminInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
             session.setAttribute("NAME", retBo.getName());
+            session.setAttribute("TYPE", RspConstracts.ADMIN);
         }
         return retBo;
     }

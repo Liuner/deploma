@@ -1,112 +1,144 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>>
-<html>
 <head>
-    <title>欢迎登录</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/Demo.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/pretty-checkbox.min.css"/>
-    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
+    <title>Dashboard Template for Bootstrap</title>
+    <link href="/static/css/Demo.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+
 </head>
+
 <body>
-<jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp" />
-
-<div class="container">
-
-    <form class="form-signin" type="post" href="http://localhost:8088/demo/queryUserInfoById">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputId" class="sr-only">Name</label>
-        <c:choose>
-            <c:when test="${ sessionScope.ID != null }">
-                <input type="text" id="inputId" class="form-control" placeholder="Name" value="${sessionScope.ID}" required>
-                <% session.invalidate(); %>
-            </c:when>
-            <c:otherwise>
-                <input type="text" id="inputId" class="form-control" placeholder="Name" required>
-            </c:otherwise>
-        </c:choose>
-
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="text" id="inputPassword" class="form-control" placeholder="Password" required>
-
-        <div class="pretty p-switch p-fill">
-            <input type="radio" name="user_type" id="general" value="general"/>
-            <div class="state p-success">
-                <label for="general">GENERAL</label>
+<jsp:include page="/WEB-INF/jsp/lgs/pageHead.jsp" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">TOOLBAR <span class="sr-only">(current)</span></a></li>
+                <li class="btn-li"><button class="btn-tool" id="personInfo">Personal Information</button></li>
+                <li class="btn-li"><button class="btn-tool" id="resumeManage">Resume Management</button></li>
+                <li class="btn-li"><button class="btn-tool" id="jobInfo">Check Out Job Vacancies</button></li>
+            </ul>
+        </div>
+        <%------------------------------------------------personal Information----------------------------------------------------------%>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div id="infoTable" class="table-responsive">
+                <h1 class="sub-header">Personal Information</h1>
+                <table class="table table-striped" id="personInfo_table">
+                    <thead>
+                        <tr class="info table_info_th"><th>NAME</th><th>AGE</th><th>SEX</th><th>PHONE</th>
+                            <th>E-MAIL</th><th>ID-NUMBER</th><th>LOCAL</th><th>STATUS</th><th>OPERATION</th></tr>
+                    </thead>
+                </table>
+            </div>
+            <%------------------------------------------------Resume Management----------------------------------------------------------%>
+            <div id="resumeTable" class="table-responsive">
+                <h1 class="sub-header">Resume Management</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <%------------------------------------------------Check Out Job Vacancies-----------------------------------------------------%>
+            <div id="jobTable" class="table-responsive">
+                <h1 class="sub-header">Check Out Job Vacancies</h1>
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                        <th>Header</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
             </div>
         </div>
-        <div class="pretty p-switch p-fill">
-            <input type="radio" name="user_type" id="company" value="company"/>
-            <div class="state p-success">
-                <label for="general">COMPANY</label>
-            </div>
-        </div>
-        <div class="pretty p-switch p-fill">
-            <input type="radio" name="user_type" id="admin" value="admin"/>
-            <div class="state p-success">
-                <label for="general">ADMIN</label>
-            </div>
-        </div>
-        <%----------------------------------radio--------------------------------------------%>
-
-        <div class="login_div">
-            <button class="btn btn-lg btn-primary btn-block" style="margin-top: 10px" type="button" id="login">Sign in</button>
-        </div>
-    </form>
+    </div>
 </div>
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/jquery.min.js"></script>
 <script type="text/javascript">
-    $('#login').on('click', function () {
-        <%-----------------------------添加判断开始-----------------------------------%>
-        var name = $('#inputId').val();
-        var pwd = $('#inputPassword').val();
-        if (name == null || name == "") {
-            alert("请输入用户ID!!!");
-            location.reload();
-            return false;
-        }
-        if (pwd == null || pwd == "") {
-            alert("请输入密码!!!");
-            return false;
-        }
-        <%-----------------------------添加判断结束-----------------------------------%>
-        var type = $('input[name=user_type][type=radio]:checked').val();
-        var url;
-        if (type === 'general')
-            url = "${pageContext.request.contextPath}/page/generalLogin";
-        else if(type === 'company')
-            url = "${pageContext.request.contextPath}/page/companyLogin";
-        else if(type === 'admin')
-            url = "${pageContext.request.contextPath}/page/adminLogin";
-        else {
-            alert("请选择用户类型");
-            return false;
-        }
-        $.ajax({
-            url:url,
-            type:'POST',
-            dataType:'json',
-            data:{
-                id:name,
-                password:pwd,
-            },
-            success: function (returnData) {
-                console.log(returnData);
-                var respCode = "0000";
-                if (returnData.respCode == respCode) {
-                    //alert("查询成功");
-                   window.location.href = "/page/index";
-                }
-                else{
-                    alert(returnData.respDesc);
-                    location.reload();
-                }
-            },
-            error: function () {
-                alert("服务器休息呢，别吵吵!!!");
-                location.reload();
-            }
-        });
+    $(document).ready(function() {
+        $('#jobTable').hide();
+        $('#resumeTable').hide();
+        query();
     });
+
+    $('#personInfo').on('click', function () {
+        $('#infoTable').show();
+        $('#resumeTable').hide();
+        $('#jobTable').hide();
+        query();
+    });
+
+    $('#resumeManage').on('click', function () {
+        $('#infoTable').hide();
+        $('#jobTable').hide();
+        $('#resumeTable').show();
+    });
+
+    $('#jobInfo').on('click', function () {
+        $('#infoTable').hide();
+        $('#resumeTable').hide();
+        $('#jobTable').show();
+    });
+
+    function query() {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/queryUserInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:"1000001"
+            },
+            success:function (resultData) {
+                showData(resultData);
+            },
+            error:function () {
+                alert("服务器休息呢！别吵吵！！！");
+            }
+        })
+    }
+    function showData(resultData) {
+        var obj = '';
+        var change = '<button type="button" class="btn btn-danger btn-search">' +'CHANGE' +'</button>';
+        var remove = '<button type="button" class="btn btn-danger btn-search">' +'DELETE' +'</button>';
+        var dataList = eval(resultData);
+        if (dataList[0].respCode === "8888") {
+            alert(dataList[0].respDesc);
+            location.reload();
+        }
+        $('#personInfo_table tr:gt(0)').remove();
+        for (var i in dataList) {
+            obj = obj + '<tr class="table_info_tr">';
+            obj += '<td>' + dataList[i].name + '</td>';
+            obj += '<td>' + dataList[i].age + '</td>';
+            obj += '<td>' + dataList[i].sex + '</td>';
+            obj += '<td>' + dataList[i].phone + '</td>';
+            obj += '<td>' + dataList[i].e_maile + '</td>';
+            obj += '<td>' + dataList[i].idNumber + '</td>';
+            obj += '<td>' + dataList[i].local + '</td>';
+            obj += '<td>' + dataList[i].status + '</td>';
+            obj +='<td>' + change + remove + '</td>';
+        }
+        $('#personInfo_table').append(obj);
+    }
 </script>
 </body>
 </html>

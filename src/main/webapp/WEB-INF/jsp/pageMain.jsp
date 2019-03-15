@@ -17,7 +17,7 @@
     <script type="text/javascript" src="/static/js/bootstrap.js"></script>
 </head>
 <body>
-<jsp:include page="/WEB-INF/jsp/ke/pageHead.jsp"/>
+<jsp:include page="/WEB-INF/jsp/lgs/pageHead.jsp"/>
 <%---------------------------------------Search-Area------------------------------------%>
 <div class="panel panel-default panel-self">
     <div class="panel-heading panel-heading-selft">
@@ -83,7 +83,7 @@
                 showData(data)
             },
             error: function () {
-                alert("服务器休息呢!别吵吵!!!");
+                alert("服务器休息呢！别吵吵！！！");
             }
         });
     });
