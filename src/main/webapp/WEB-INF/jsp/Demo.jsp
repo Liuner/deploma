@@ -16,7 +16,7 @@
                 <li class="active"><a href="#">TOOLBAR <span class="sr-only">(current)</span></a></li>
                 <li class="btn-li"><button class="btn-tool" id="personInfo">Personal Information</button></li>
                 <li class="btn-li"><button class="btn-tool" id="resumeManage">Resume Management</button></li>
-                <li class="btn-li"><button class="btn-tool" id="jobInfo">Check Out Job Vacancies</button></li>
+                <li class="btn-li"><button class="btn-tool" id="jobInfo">Posted position</button></li>
             </ul>
         </div>
         <%------------------------------------------------personal Information----------------------------------------------------------%>
@@ -49,7 +49,7 @@
             </div>
             <%------------------------------------------------Check Out Job Vacancies-----------------------------------------------------%>
             <div id="jobTable" class="table-responsive">
-                <h1 class="sub-header">Check Out Job Vacancies</h1>
+                <h1 class="sub-header">Posted position</h1>
                 <table class="table table-striped">
                     <thead>
                     <tr>
