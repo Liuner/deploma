@@ -1,5 +1,7 @@
 package com.spring.ssm.controller;
 
+import com.spring.ssm.comb.AggregationService;
+import com.spring.ssm.comb.bo.QurySendedRspBo;
 import com.spring.ssm.service.*;
 import com.spring.ssm.service.bo.*;
 import org.slf4j.Logger;
@@ -178,8 +180,8 @@ public class DemoController {
     }
     @RequestMapping(value = "/generalQueryJobInfo", method = RequestMethod.POST)
     @ResponseBody
-    public List<JobInfoRspBo> generalQueryJobInfo(Long id) {
+    public List<QurySendedRspBo> generalQueryJobInfo(Long id) {
         LOG.info("generalQueryJobInfo - controller");
-        return aggregationService.scanJobList(id);
+        return aggregationService.qrySendedJobInfo(id);
     }
 }

@@ -1,5 +1,6 @@
-package com.spring.ssm.service;
+package com.spring.ssm.comb;
 
+import com.spring.ssm.comb.bo.QurySendedRspBo;
 import com.spring.ssm.service.bo.JobInfoRspBo;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface AggregationService {
      * 用户id->关系表->职位id->职位信息
      */
     List<JobInfoRspBo> scanJobList(Long id);
+
+    List<QurySendedRspBo> qrySendedJobInfo(Long id);
 }
