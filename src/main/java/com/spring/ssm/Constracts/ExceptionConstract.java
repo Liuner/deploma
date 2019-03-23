@@ -19,5 +19,8 @@ public class ExceptionConstract {
     public static final String ADMIN_EXCEPTION = "3001";
 
     /**职位信息表操作异常*/
-    public static final String JONINFO_EXCEPTION = "4001";
+    public static final String JOBINFO_EXCEPTION = "4001";
+
+    /**普通用户 职位 公式 关系表操作异常*/
+    public static final String REL_INFO_EXCEPTION = "5001";
 }

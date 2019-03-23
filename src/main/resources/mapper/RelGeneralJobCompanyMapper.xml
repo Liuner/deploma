@@ -6,17 +6,18 @@
         <id column="ID" property="id" jdbcType="BIGINT"/>
         <result column="GENERAL_ID" property="generalId" jdbcType="BIGINT"/>
         <result column="COMPANY_ID" property="companyId" jdbcType="BIGINT"/>
+        <result column="RESUME_ID" property="resumeId" jdbcType="BIGINT"/>
         <result column="JOB_ID" property="jobId" jdbcType="BIGINT"/>
         <result column="POSITION" property="position" jdbcType="VARCHAR"/>
-        <result column="DATE" property="date" jdbcType="DATETIME"/>
+        <result column="DATE" property="date" jdbcType="DATE"/>
         <result column="FLAG" property="flag" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
-       ID, GENERAL_ID, COMPANY_ID, JOB_ID, POSITION, DATE, FLAG
+       ID, GENERAL_ID, COMPANY_ID, RESUME_ID, JOB_ID, POSITION, DATE, FLAG
     </sql>
 
-    <select id="selectJobInfoById" resultMap="baseResultMap" parameterType="java.lang.Long">
+    <select id="queryRelInfoById" resultMap="baseResultMap" parameterType="java.lang.Long">
         select
         <include refid="Base_Column_List" />
         from p_rel_general_job_company
@@ -26,7 +27,7 @@
         </if>
     </select>
 
-    <select id="selectJobInfoBySelective" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.RelGeneralJobCompanyPo">
+    <select id="queryRelInfoBySelective" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.RelGeneralJobCompanyPo">
         select
         <include refid="Base_Column_List" />
         from p_rel_general_job_company
@@ -37,8 +38,11 @@
         <if test="generalId != null">
             AND GENERAL_ID=#{generalId}
         </if>
-        <if test="generalId != null">
+        <if test="companyId != null">
             AND COMPANY_ID=#{companyId}
+        </if>
+        <if test="resumeId != null">
+            AND RESUME_ID=#{resumeId}
         </if>
         <if test="jobId != null">
             AND JOB_ID=#{jobId}
@@ -58,39 +62,45 @@
         insert into p_rel_general_job_company
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="generalId != null">
-                GENERAL_ID,
+                GENERAL_ID
             </if>
             <if test="companyId != null">
-                COMPANY_ID,
+                COMPANY_ID
+            </if>
+            <if test="resumeId != null">
+                RESUME_ID
             </if>
             <if test="jobId != null">
-                JOB_ID,
+                JOB_ID
             </if>
             <if test="position != null">
-                POSITION,
+                POSITION
             </if>
             <if test="date != null">
-                DATE,
+                DATE
             </if>
             <if test="flag != null">
-                FLAG,
+                FLAG
             </if>
         </trim>
         <trim prefix="values(" suffix=")" suffixOverrides=",">
             <if test="generalId != null">
-                #{generalId, jdbcType=VARCHAR},
+                #{generalId, jdbcType=BIGINT},
             </if>
             <if test="companyId != null">
-                #{companyId, jdbcType=VARCHAR},
+                #{companyId, jdbcType=BIGINT},
+            </if>
+            <if test="resumeId != null">
+                #{resumeId, jdbcType=BIGINT}
             </if>
             <if test="jobId != null">
-                #{jobId, jdbcType=VARCHAR},
+                #{jobId, jdbcType=BIGINT},
             </if>
             <if test="position != null">
-                #{position, jdbcType=INTEGER},
+                #{position, jdbcType=VARCHAR},
             </if>
             <if test="date != null">
-                #{date, jdbcType=VARCHAR},
+                #{date, jdbcType=DATE},
             </if>
             <if test="flag != null">
                 #{flag, jdbcType=VARCHAR},
@@ -102,21 +112,24 @@
         update p_rel_general_job_company
         <set>
             <if test="generalId != null">
-                GENERAL_ID = #{generalId, jdbcType=VARCHAR},
+                GENERAL_ID = #{generalId, jdbcType=BIGINT},
             </if>
             <if test="companyId != null">
-                COMPANY_ID = #{companyId, jdbcType=VARCHAR},
+                COMPANY_ID = #{companyId, jdbcType=BIGINT},
+            </if>
+            <if test="resumeId != null">
+                RESUME_ID = #{resumeId, jdbcType=BIGINT},
             </if>
             <if test="jobId != null">
-                JOB_ID = #{jobId, jdbcType=VARCHAR},
+                JOB_ID = #{jobId, jdbcType=BIGINT},
             </if>
             <if test="position != null">
                 POSITION = #{position, jdbcType=VARCHAR},
             </if>
             <if test="date != null">
-                DATE = #{date, jdbcType=INTEGER},
+                DATE = #{date, jdbcType=DATE},
             </if>
-            <if test="date != null">
+            <if test="flag != null">
                 FLAG = #{flag, jdbcType=VARCHAR},
             </if>
         </set>

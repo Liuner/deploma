@@ -4,6 +4,8 @@ import com.spring.ssm.dto.RelGeneralJobCompanyPo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @ClassName: RelGeneralJobCompanyMapper
  * @Description：普通用户 职位 公司 关系表 Mapper
@@ -38,5 +40,5 @@ public interface RelGeneralJobCompanyMapper {
     /**
      * query info by selective
      */
-    RelGeneralJobCompanyPo queryRelInfoBySelective(RelGeneralJobCompanyPo po);
+    List<RelGeneralJobCompanyPo> queryRelInfoBySelective(RelGeneralJobCompanyPo po);
 }

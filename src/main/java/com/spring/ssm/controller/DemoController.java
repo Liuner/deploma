@@ -1,10 +1,7 @@
 package com.spring.ssm.controller;
 
-import com.spring.ssm.service.AdminInfoService;
-import com.spring.ssm.service.JobInfoService;
+import com.spring.ssm.service.*;
 import com.spring.ssm.service.bo.*;
-import com.spring.ssm.service.ComInfoService;
-import com.spring.ssm.service.UserInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +35,8 @@ public class DemoController {
     private AdminInfoService adminInfoService;
     @Autowired
     private JobInfoService jobInfoService;
-
+    @Autowired
+    private RelGeneralJobCompanyService relGeneralJobCompanyService;
 
     @RequestMapping(value = "/queryUserInfoById", method = RequestMethod.POST)
     @ResponseBody
@@ -169,5 +167,11 @@ public class DemoController {
     public JobInfoRspBo createJobInfo(JobInfoReqBo reqBo) {
         LOG.info("createJobInfo - controller");
         return jobInfoService.createJobInfo(reqBo);
+    }
+    @RequestMapping(value = "/queryRelInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public List<RelGeneralJobCompanyRspBo> qeuryRelInfo(RelGeneralJobCompanyReqBo reqBo) {
+        LOG.info("queryRelIfo - controller");
+        return relGeneralJobCompanyService.queryRelInfoBySelective(reqBo);
     }
 }

@@ -56,7 +56,7 @@ public class JobInfoServiceImpl implements JobInfoService {
             result = jobInfoMapper.insertJobInfo(po);
         } catch (Exception e) {
             LOG.error("调用mapper异常" + e);
-            throw new BusiExcption(ExceptionConstract.JONINFO_EXCEPTION, "调用mapper异常" + e);
+            throw new BusiExcption(ExceptionConstract.JOBINFO_EXCEPTION, "调用mapper异常" + e);
         }
         if (result < 0) {
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
@@ -97,7 +97,7 @@ public class JobInfoServiceImpl implements JobInfoService {
             jobInfoPoList = jobInfoMapper.selectJobInfoBySelective(po);
         } catch (Exception e) {
             LOG.error("调用mapper查询数据错误" + e);
-            throw new BusiExcption(ExceptionConstract.JONINFO_EXCEPTION, "调用mapper查询数据错误" + e);
+            throw new BusiExcption(ExceptionConstract.JOBINFO_EXCEPTION, "调用mapper查询数据错误" + e);
         }
         if (!CollectionUtils.isEmpty(jobInfoPoList)) {
             for (JobInfoPo jobInfoPo : jobInfoPoList) {

@@ -21,6 +21,8 @@ public class RelGeneralJobCompanyPo implements Serializable {
 
     private Long companyId;
 
+    private Long resumeId;
+
     private Long jobId;
 
     private String position;
@@ -81,6 +83,24 @@ public class RelGeneralJobCompanyPo implements Serializable {
      **/
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    /**
+     * 获取:resumeId
+     *
+     * @return resumeId
+     **/
+    public Long getResumeId() {
+        return resumeId;
+    }
+
+    /**
+     * 设置:resumeId
+     *
+     * @param resumeId
+     **/
+    public void setResumeId(Long resumeId) {
+        this.resumeId = resumeId;
     }
 
     /**
@@ -161,6 +181,7 @@ public class RelGeneralJobCompanyPo implements Serializable {
                 "id=" + id +
                 ", generalId=" + generalId +
                 ", companyId=" + companyId +
+                ", resumeId=" + resumeId +
                 ", jobId=" + jobId +
                 ", position='" + position + '\'' +
                 ", date=" + date +
