@@ -52,9 +52,6 @@
         <if test="id != null">
             AND ID=#{id}
         </if>
-        <if test="position != null">
-            AND POSITION=#{position}
-        </if>
     </select>
 
     <insert id="insertJobInfo" parameterType="com.spring.ssm.dto.JobInfoPo" useGeneratedKeys="true" keyProperty="id">

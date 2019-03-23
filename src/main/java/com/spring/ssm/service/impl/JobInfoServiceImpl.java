@@ -75,7 +75,29 @@ public class JobInfoServiceImpl implements JobInfoService {
 
     @Override
     public JobInfoRspBo queryJobInfoById(Long id) {
-        return null;
+        LOG.info("进入职位信息查询服务-queryJobInfoById");
+        JobInfoRspBo retBo = new JobInfoRspBo();
+        if (StringUtils.isEmpty(id)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("id不能为空");
+            return retBo;
+        }
+        JobInfoPo po;
+        try {
+            po = jobInfoMapper.selectJobInfoById(id);
+        } catch (Exception e) {
+            LOG.error("调用Mapper查询信息失败" + e);
+            throw new BusiExcption(ExceptionConstract.JOBINFO_EXCEPTION, "调用Mapper查询信息失败" + e);
+        }
+        if (StringUtils.isEmpty(po)) {
+            LOG.error("未查询到与ID相匹配的信息");
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("未查询到与ID相匹配的信息");
+            return retBo;
+        }
+        //查询成功时出参封装
+        respTrans(po, retBo);
+        return retBo;
     }
 
     @Override
@@ -102,12 +124,8 @@ public class JobInfoServiceImpl implements JobInfoService {
         if (!CollectionUtils.isEmpty(jobInfoPoList)) {
             for (JobInfoPo jobInfoPo : jobInfoPoList) {
                 JobInfoRspBo bo = new JobInfoRspBo();
-                BeanUtils.copyProperties(jobInfoPo, bo);
-                bo.setId(jobInfoPo.getId() + "");
-                bo.setNumber(jobInfoPo.getNumber() + "");
-                bo.setDate(jobInfoPo.getDate() + "");
-                bo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
-                bo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+                //查询成功时出参封装
+                respTrans(jobInfoPo, bo);
                 retList.add(bo);
             }
         }
@@ -129,7 +147,6 @@ public class JobInfoServiceImpl implements JobInfoService {
      * 描述: 特殊值传递
      * @param: [reqBo, po]
      * @return: void
-     * @throws
      * @author: liuguisheng
      * @date:   2019/3/8 17:01:12
      */
@@ -149,7 +166,6 @@ public class JobInfoServiceImpl implements JobInfoService {
      * 描述: 添加信息入参校验
      * @param: [reqBo]
      * @return: java.lang.String
-     * @throws
      * @author: liuguisheng
      * @date:   2019/3/11 21:54:15
      */
@@ -183,7 +199,6 @@ public class JobInfoServiceImpl implements JobInfoService {
      * 描述: 空串校验
      * @param: [reqBo]
      * @return: java.lang.String
-     * @throws
      * @author: liuguisheng
      * @date:   2019/3/13 22:58:40
      */
@@ -201,5 +216,21 @@ public class JobInfoServiceImpl implements JobInfoService {
             return "空串";
         }
         return null;
+    }
+
+    /**
+     * 描述: 查询成功时封装出参
+     * @param: [po, retBo]
+     * @return: void
+     * @author: liuguisheng
+     * @date:   2019/3/23 16:18:58
+     */
+    private void respTrans(JobInfoPo po, JobInfoRspBo retBo) {
+        BeanUtils.copyProperties(po, retBo);
+        retBo.setId(po.getId() + "");
+        retBo.setNumber(po.getNumber() + "");
+        retBo.setDate(po.getDate() + "");
+        retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+        retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
     }
 }

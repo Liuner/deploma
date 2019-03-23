@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <head>
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Deploma</title>
     <link href="/static/css/Demo.css" rel="stylesheet">
     <link href="/static/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/dashboard.css" rel="stylesheet">
@@ -117,8 +117,8 @@
     }
     function showData(resultData) {
         var obj = '';
-        var change = '<button type="button" class="btn btn-danger btn-search">' +'CHANGE' +'</button>';
-        var remove = '<button type="button" class="btn btn-danger btn-search">' +'DELETE' +'</button>';
+        var change = '<button type="button" class="btn btn-danger btn-search" id="change">' +'CHANGE' +'</button>';
+        var remove = '<button type="button" class="btn btn-danger btn-search" id="delete">' +'DELETE' +'</button>';
         var dataList = eval(resultData);
         if (dataList[0].respCode === "8888") {
             alert(dataList[0].respDesc);
@@ -139,6 +139,12 @@
         }
         $('#personInfo_table').append(obj);
     }
+    $('#change').on('click', function () {
+        console.log("更改用户信息");
+    });
+    $('#delete').on('click', function () {
+        console.log("删除用户信息");
+    })
 </script>
 </body>
 </html>

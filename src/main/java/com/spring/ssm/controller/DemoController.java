@@ -37,6 +37,8 @@ public class DemoController {
     private JobInfoService jobInfoService;
     @Autowired
     private RelGeneralJobCompanyService relGeneralJobCompanyService;
+    @Autowired
+    private AggregationService aggregationService;
 
     @RequestMapping(value = "/queryUserInfoById", method = RequestMethod.POST)
     @ResponseBody
@@ -173,5 +175,11 @@ public class DemoController {
     public List<RelGeneralJobCompanyRspBo> qeuryRelInfo(RelGeneralJobCompanyReqBo reqBo) {
         LOG.info("queryRelIfo - controller");
         return relGeneralJobCompanyService.queryRelInfoBySelective(reqBo);
+    }
+    @RequestMapping(value = "/generalQueryJobInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public List<JobInfoRspBo> generalQueryJobInfo(Long id) {
+        LOG.info("generalQueryJobInfo - controller");
+        return aggregationService.scanJobList(id);
     }
 }
