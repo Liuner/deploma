@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.ssm.mapper.RelGeneralJobCompanyMapper">
+
+    <resultMap id="baseResultMap" type="com.spring.ssm.dto.RelGeneralJobCompanyPo">
+        <id column="ID" property="id" jdbcType="BIGINT"/>
+        <result column="GENERAL_ID" property="generalId" jdbcType="BIGINT"/>
+        <result column="COMPANY_ID" property="companyId" jdbcType="BIGINT"/>
+        <result column="JOB_ID" property="jobId" jdbcType="BIGINT"/>
+        <result column="POSITION" property="position" jdbcType="VARCHAR"/>
+        <result column="DATE" property="date" jdbcType="DATETIME"/>
+        <result column="FLAG" property="flag" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+       ID, GENERAL_ID, COMPANY_ID, JOB_ID, POSITION, DATE, FLAG
+    </sql>
+
+    <select id="selectJobInfoById" resultMap="baseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List" />
+        from p_rel_general_job_company
+        where 1=1
+        <if test="id != null">
+            and ID=#{id}
+        </if>
+    </select>
+
+    <select id="selectJobInfoBySelective" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.RelGeneralJobCompanyPo">
+        select
+        <include refid="Base_Column_List" />
+        from p_rel_general_job_company
+        where 1=1
+        <if test="id != null">
+            and ID=#{id}
+        </if>
+        <if test="generalId != null">
+            AND GENERAL_ID=#{generalId}
+        </if>
+        <if test="generalId != null">
+            AND COMPANY_ID=#{companyId}
+        </if>
+        <if test="jobId != null">
+            AND JOB_ID=#{jobId}
+        </if>
+        <if test="position != null">
+            AND POSITION=#{position}
+        </if>
+        <if test="date != null">
+            AND DATE=#{date}
+        </if>
+        <if test="flag != null">
+            AND FLAG=#{flag}
+        </if>
+    </select>
+
+    <insert id="createRelInfo" parameterType="com.spring.ssm.dto.RelGeneralJobCompanyPo" useGeneratedKeys="true" keyProperty="id">
+        insert into p_rel_general_job_company
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="generalId != null">
+                GENERAL_ID,
+            </if>
+            <if test="companyId != null">
+                COMPANY_ID,
+            </if>
+            <if test="jobId != null">
+                JOB_ID,
+            </if>
+            <if test="position != null">
+                POSITION,
+            </if>
+            <if test="date != null">
+                DATE,
+            </if>
+            <if test="flag != null">
+                FLAG,
+            </if>
+        </trim>
+        <trim prefix="values(" suffix=")" suffixOverrides=",">
+            <if test="generalId != null">
+                #{generalId, jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                #{companyId, jdbcType=VARCHAR},
+            </if>
+            <if test="jobId != null">
+                #{jobId, jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                #{position, jdbcType=INTEGER},
+            </if>
+            <if test="date != null">
+                #{date, jdbcType=VARCHAR},
+            </if>
+            <if test="flag != null">
+                #{flag, jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateRelInfo" parameterType="com.spring.ssm.dto.RelGeneralJobCompanyPo">
+        update p_rel_general_job_company
+        <set>
+            <if test="generalId != null">
+                GENERAL_ID = #{generalId, jdbcType=VARCHAR},
+            </if>
+            <if test="companyId != null">
+                COMPANY_ID = #{companyId, jdbcType=VARCHAR},
+            </if>
+            <if test="jobId != null">
+                JOB_ID = #{jobId, jdbcType=VARCHAR},
+            </if>
+            <if test="position != null">
+                POSITION = #{position, jdbcType=VARCHAR},
+            </if>
+            <if test="date != null">
+                DATE = #{date, jdbcType=INTEGER},
+            </if>
+            <if test="date != null">
+                FLAG = #{flag, jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=BIGINT}
+    </update>
+
+    <delete id="deleteRelInfo" parameterType="java.lang.Long">
+        delete p_rel_general_job_company
+              where ID=#{id,jdbcType=BIGINT}
+    </delete>
+
+</mapper>
