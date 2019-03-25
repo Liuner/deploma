@@ -6,6 +6,7 @@ import com.spring.ssm.Tool.BusiExcption;
 import com.spring.ssm.dto.RelGeneralJobCompanyPo;
 import com.spring.ssm.mapper.RelGeneralJobCompanyMapper;
 import com.spring.ssm.service.RelGeneralJobCompanyService;
+import com.spring.ssm.service.bo.RelGeneralJobCompanyListRspBo;
 import com.spring.ssm.service.bo.RelGeneralJobCompanyReqBo;
 import com.spring.ssm.service.bo.RelGeneralJobCompanyRspBo;
 import org.joda.time.DateTime;
@@ -42,17 +43,103 @@ public class RelGeneralJobCompanyServiceImpl implements RelGeneralJobCompanyServ
 
     @Override
     public RelGeneralJobCompanyRspBo createRelInfo(RelGeneralJobCompanyReqBo reqBo) {
-        return null;
+        LOG.info("进入职位关系表新增服务");
+        RelGeneralJobCompanyRspBo retBo = new RelGeneralJobCompanyRspBo();
+        //入参校验
+        String validataStr = validataCreate(reqBo);
+        if (!StringUtils.isEmpty(validataStr)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("入参校验失败：" + validataStr);
+            return retBo;
+        }
+        RelGeneralJobCompanyPo po = new RelGeneralJobCompanyPo();
+        this.valueTrans(reqBo, po);
+        //flag 默认为0 ， 0 未读  1 已读 2 邀请面试
+        po.setFlag("0");
+
+        //date 为系统当前时间
+        DateFormat dfm = new SimpleDateFormat("yyyyMMdd");
+        try {
+            po.setDate(dfm.parse(dfm.format(new Date())));
+        } catch (ParseException e) {
+            LOG.error("设置默认时间异常：" + e);
+            throw new BusiExcption(ExceptionConstract.REL_INFO_EXCEPTION, "设置默认时间异常：" + e);
+        }
+        //调用mapper
+        int result;
+        try {
+            result = relGeneralJobCompanyMapper.createRelInfo(po);
+        } catch (Exception e) {
+            LOG.error("调用mapper异常：" + e);
+            throw new BusiExcption(ExceptionConstract.REL_INFO_EXCEPTION, "调用mapper异常：" + e);
+        }
+        if (result > 0) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+        } else {
+            LOG.error("调用mapper添加数据失败");
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("调用mapper添加数据失败");
+        }
+        return retBo;
     }
 
     @Override
-    public RelGeneralJobCompanyRspBo deleteRelInfo(RelGeneralJobCompanyReqBo reqBo) {
-        return null;
+    public RelGeneralJobCompanyRspBo deleteRelInfoById(Long id) {
+        LOG.info("进入职位关系表删除服务");
+        RelGeneralJobCompanyRspBo retBo = new RelGeneralJobCompanyRspBo();
+
+        if (StringUtils.isEmpty(id)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("入参校验失败：id不能为空");
+            return retBo;
+        }
+        int result;
+        try {
+            result = relGeneralJobCompanyMapper.deleteRelInfo(id);
+        } catch (Exception e) {
+            LOG.error("调用mapper删除异常：" + e);
+            throw new BusiExcption(ExceptionConstract.REL_INFO_EXCEPTION, "调用mapper删除异常：" + e);
+        }
+        if (result > 1) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+        } else {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_FAIL);
+        }
+        return retBo;
     }
 
     @Override
     public RelGeneralJobCompanyRspBo updateRelInfo(RelGeneralJobCompanyReqBo reqBo) {
-        return null;
+        LOG.info("进入职位关系表更新服务");
+        RelGeneralJobCompanyRspBo retBo = new RelGeneralJobCompanyRspBo();
+        //入参校验
+        if (StringUtils.isEmpty(reqBo.getId())) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("入参校验失败：id不能为空" );
+            return retBo;
+        }
+        RelGeneralJobCompanyPo po = new RelGeneralJobCompanyPo();
+        this.valueTrans(reqBo, po);
+
+        int result;
+        try {
+            result = relGeneralJobCompanyMapper.updateRelInfo(po);
+        } catch (Exception e) {
+            LOG.error("调用mapper更新数据异常：" + e);
+            throw new BusiExcption(ExceptionConstract.REL_INFO_EXCEPTION, "调用mapper更新数据异常：" + e);
+        }
+
+        if (result > 0) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+        } else {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("更新数据失败！！！");
+        }
+        return retBo;
     }
 
     @Override
@@ -61,19 +148,19 @@ public class RelGeneralJobCompanyServiceImpl implements RelGeneralJobCompanyServ
     }
 
     @Override
-    public List<RelGeneralJobCompanyRspBo> queryRelInfoBySelective(RelGeneralJobCompanyReqBo reqBo) {
-        LOG.info("进入职位关系表查询服务");
+    public RelGeneralJobCompanyListRspBo qyeryRelInfoList(RelGeneralJobCompanyReqBo reqBo) {
+        LOG.info("进入职位关系表 列表查询服务");
+        RelGeneralJobCompanyListRspBo retBo = new RelGeneralJobCompanyListRspBo();
+
         List<RelGeneralJobCompanyRspBo> retList = new ArrayList<>();
         RelGeneralJobCompanyPo po = new RelGeneralJobCompanyPo();
 
         //自定义值传递方法
         String massage = valueTrans(reqBo, po);
         if (!StringUtils.isEmpty(massage)) {
-            RelGeneralJobCompanyRspBo retBo = new RelGeneralJobCompanyRspBo();
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
             retBo.setRespDesc(massage);
-            retList.add(retBo);
-            return retList;
+            return retBo;
         }
         // 调用mapper
         List<RelGeneralJobCompanyPo> poList;
@@ -85,25 +172,27 @@ public class RelGeneralJobCompanyServiceImpl implements RelGeneralJobCompanyServ
         }
         if (!CollectionUtils.isEmpty(poList)) {
             for (RelGeneralJobCompanyPo relPo : poList) {
-                RelGeneralJobCompanyRspBo retBo = new RelGeneralJobCompanyRspBo();
+                RelGeneralJobCompanyRspBo bo = new RelGeneralJobCompanyRspBo();
                 BeanUtils.copyProperties(relPo, retBo);
-                retBo.setId(relPo.getId()+"");
-                retBo.setGeneralId(relPo.getGeneralId()+"");
-                retBo.setCompanyId(relPo.getCompanyId()+"");
-                retBo.setResumeId(relPo.getResumeId()+"");
-                retBo.setJobId(relPo.getJobId()+"");
-                retBo.setDate(new DateTime(relPo.getDate()).toString("yyyyMMdd"));
-                retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
-                retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
-                retList.add(retBo);
+                bo.setId(relPo.getId()+"");
+                bo.setGeneralId(relPo.getGeneralId()+"");
+                bo.setCompanyId(relPo.getCompanyId()+"");
+                bo.setResumeId(relPo.getResumeId()+"");
+                bo.setJobId(relPo.getJobId()+"");
+                bo.setDate(new DateTime(relPo.getDate()).toString("yyyyMMdd"));
+                bo.setFlag(relPo.getFlag());
+                bo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+                bo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+                retList.add(bo);
             }
+            retBo.setRow(retList);
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         } else{
-            RelGeneralJobCompanyRspBo retBo = new RelGeneralJobCompanyRspBo();
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
             retBo.setRespDesc("未查询到相匹配的信息");
-            retList.add(retBo);
         }
-        return retList;
+        return retBo;
     }
 
     /**
@@ -146,9 +235,9 @@ public class RelGeneralJobCompanyServiceImpl implements RelGeneralJobCompanyServ
         if (!StringUtils.isEmpty(reqBo.getDate())) {
             DateFormat fmt = new SimpleDateFormat("yyyyMMdd");
             try {
-                Date date = fmt.parse(reqBo.getDate());
+                po.setDate(fmt.parse(reqBo.getDate()));
             } catch (ParseException e) {
-                return "时间格式错误";
+                return "时间格式错误，正确格式：yyyyMMdd";
             }
         }
         if (!StringUtils.isEmpty(reqBo.getResumeId())) {
@@ -158,6 +247,38 @@ public class RelGeneralJobCompanyServiceImpl implements RelGeneralJobCompanyServ
                 return "简历ID只能为纯数字";
             }
         }
+        return null;
+    }
+
+    /**
+     * 描述: 新增 入参校验
+     * @param: [reqBo]
+     * @return: java.lang.String
+     * @author: liuguisheng
+     * @date:   2019/3/25 9:03:34
+     */
+    private String validataCreate(RelGeneralJobCompanyReqBo reqBo) {
+        if (reqBo == null) {
+            return "入参对象不能为空！";
+        }
+        if (StringUtils.isEmpty(reqBo.getGeneralId())) {
+            return "普通用户ID不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getCompanyId())) {
+            return "公司用户ID不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getJobId())) {
+            return "职位ID不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getResumeId())) {
+            return "简历ID不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getPosition())) {
+            return "职位描述不能为空";
+        }
+        /**
+         * date 取当前系统时间， flag 默认为0， id 自动生成
+         */
         return null;
     }
 }

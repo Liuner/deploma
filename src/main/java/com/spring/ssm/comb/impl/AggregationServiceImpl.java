@@ -7,6 +7,7 @@ import com.spring.ssm.comb.bo.QurySendedRspBo;
 import com.spring.ssm.service.JobInfoService;
 import com.spring.ssm.service.RelGeneralJobCompanyService;
 import com.spring.ssm.service.bo.JobInfoRspBo;
+import com.spring.ssm.service.bo.RelGeneralJobCompanyListRspBo;
 import com.spring.ssm.service.bo.RelGeneralJobCompanyReqBo;
 import com.spring.ssm.service.bo.RelGeneralJobCompanyRspBo;
 import org.slf4j.Logger;
@@ -37,6 +38,7 @@ public class AggregationServiceImpl implements AggregationService {
     private JobInfoService jobInfoService;
 
     private Logger LOG = LoggerFactory.getLogger(AggregationServiceImpl.class);
+    private static final String SUCCESS = "0000";
 
     @Override
     public List<QurySendedRspBo> qrySendedJobInfo(Long id) {
@@ -55,10 +57,9 @@ public class AggregationServiceImpl implements AggregationService {
         }
         relReqBo.setGeneralId(id.toString());
         //查询关系表
-        List<RelGeneralJobCompanyRspBo> relRspList = relGeneralJobCompanyService.queryRelInfoBySelective(relReqBo);
+        RelGeneralJobCompanyListRspBo relRspBo = relGeneralJobCompanyService.qyeryRelInfoList(relReqBo);
 
-        //未查询到信息 返回提示
-        if (CollectionUtils.isEmpty(relRspList)) {
+        if (!relRspBo.getRespCode().equals(SUCCESS) || CollectionUtils.isEmpty(relRspBo.getRow())) {
             LOG.error("在关系表未查询到信息");
             QurySendedRspBo sendedRspBo = new QurySendedRspBo();
             sendedRspBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
@@ -66,15 +67,17 @@ public class AggregationServiceImpl implements AggregationService {
             rutList.add(sendedRspBo);
             return rutList;
         }
+
         //遍历获取到的关系信息集合，获取相关职位ID
-        for (RelGeneralJobCompanyRspBo relRspBo : relRspList) {
-            Long jobId = Long.valueOf(relRspBo.getJobId());
+        List<RelGeneralJobCompanyRspBo> rows = relRspBo.getRow();
+        for (RelGeneralJobCompanyRspBo bo : rows) {
+            Long jobId = Long.valueOf(bo.getJobId());
             //查询职位信息表
             JobInfoRspBo jobInfoRspBo = jobInfoService.queryJobInfoById(jobId);
-            if (jobInfoRspBo != null) {
+            if (jobInfoRspBo.getRespCode().equals(SUCCESS)) {
                 QurySendedRspBo sendedRspBo = new QurySendedRspBo();
                 BeanUtils.copyProperties(jobInfoRspBo, sendedRspBo);
-                sendedRspBo.setFlag(relRspBo.getFlag());
+                sendedRspBo.setFlag(bo.getFlag());
                 rutList.add(sendedRspBo);
             }
         }

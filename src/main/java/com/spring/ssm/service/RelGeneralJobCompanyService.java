@@ -1,9 +1,8 @@
 package com.spring.ssm.service;
 
+import com.spring.ssm.service.bo.RelGeneralJobCompanyListRspBo;
 import com.spring.ssm.service.bo.RelGeneralJobCompanyReqBo;
 import com.spring.ssm.service.bo.RelGeneralJobCompanyRspBo;
-
-import java.util.List;
 
 /**
  * @ClassName: RelGeneralJobCompanyService
@@ -23,7 +22,7 @@ public interface RelGeneralJobCompanyService {
     /**
      *delete relInfo
      */
-    RelGeneralJobCompanyRspBo deleteRelInfo(RelGeneralJobCompanyReqBo reqBo);
+    RelGeneralJobCompanyRspBo deleteRelInfoById(Long id);
 
     /**
      * update relInfo
@@ -36,7 +35,7 @@ public interface RelGeneralJobCompanyService {
     RelGeneralJobCompanyRspBo queryRelInfoById(RelGeneralJobCompanyReqBo reqBo);
 
     /**
-     * query relInfo by selective
+     * query relinfolist by selective
      */
-    List<RelGeneralJobCompanyRspBo> queryRelInfoBySelective(RelGeneralJobCompanyReqBo reqBo);
+    RelGeneralJobCompanyListRspBo qyeryRelInfoList(RelGeneralJobCompanyReqBo reqBo);
 }

@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>>
 <head>
     <title>Deploma</title>
     <link href="/static/css/Demo.css" rel="stylesheet">
@@ -16,7 +17,7 @@
                 <li class="active"><a href="#">TOOLBAR <span class="sr-only">(current)</span></a></li>
                 <li class="btn-li"><button class="btn-tool" id="personInfo">Personal Information</button></li>
                 <li class="btn-li"><button class="btn-tool" id="resumeManage">Resume Management</button></li>
-                <li class="btn-li"><button class="btn-tool" id="jobInfo">Posted position</button></li>
+                <li class="btn-li"><button class="btn-tool" id="jobInfo">Posted Position</button></li>
             </ul>
         </div>
         <%------------------------------------------------personal Information----------------------------------------------------------%>
@@ -50,18 +51,11 @@
             <%------------------------------------------------Check Out Job Vacancies-----------------------------------------------------%>
             <div id="jobTable" class="table-responsive">
                 <h1 class="sub-header">Posted position</h1>
-                <table class="table table-striped">
+                <table class="table table-striped" id="sentJob_table">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                    </tr>
+                    <tr class="info table_info_th"><th>POSITION</th><th>COMPANY</th><th>LOCAL</th><th>SALARY</th>
+                        <th>NUMBER</th><th>POST-DATE</th><th>FLAG</th></tr>
                     </thead>
-                    <tbody>
-                    </tbody>
                 </table>
             </div>
         </div>
@@ -97,15 +91,25 @@
         $('#infoTable').hide();
         $('#resumeTable').hide();
         $('#jobTable').show();
+        qrySentJob();
     });
 
+    $('#change').on('click', function () {
+        console.log("更改用户信息");
+    });
+
+    $('#delete').on('click', function () {
+        console.log("删除用户信息");
+    })
+
     function query() {
+        var id = "${sessionScope.ID}";
         $.ajax({
             url:"${pageContext.request.contextPath}/demo/queryUserInfo",
             type:'POST',
             dataType:'JSON',
             data:{
-                id:"1000001"
+                id:id
             },
             success:function (resultData) {
                 showData(resultData);
@@ -115,6 +119,67 @@
             }
         })
     }
+
+    function qrySentJob() {
+        var id = "${sessionScope.ID}";
+        // console.log("ID" + a);
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/generalQueryJobInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success:function (resultData) {
+                var obj = '';
+                var dataList = eval(resultData);
+                if (dataList[0].respCode === "8888") {
+                    alert(dataList[0].respDesc);
+                    location.reload();
+                }
+                $('#sentJob_table tr:gt(0)').remove();
+                var flagName = "";
+                for (var i in dataList) {
+                    var flag = dataList[i].flag;
+                    // console.log(flag);
+                    // console.log("dataList[i]:" + dataList[i].flag);
+                    //翻译状态
+                    if (flag === "0") {
+                        flagName = "未读";
+                    } else if (flag === "1") {
+                        flagName = "已读";
+                    } else {
+                        flagName = "邀请面试";
+                    }
+                    //转换时间格式
+                    var time = timeTrans(dataList[i].date);
+                    obj = obj + '<tr class="table_info_tr">';
+                    obj += '<td>' + dataList[i].position + '</td>';
+                    obj += '<td>' + dataList[i].company + '</td>';
+                    obj += '<td>' + dataList[i].local + '</td>';
+                    obj += '<td>' + dataList[i].salary + '</td>';
+                    obj += '<td>' + dataList[i].number + '</td>';
+                    obj += '<td>' + time + '</td>';
+                    if (flag === "2") {
+                        obj += '<td style="color: #f00">' + flagName + '</td>';
+                    } else {
+                        obj += '<td>' + flagName + '</td>';
+                    }
+                }
+                $('#sentJob_table').append(obj);
+            }
+        })
+    }
+
+    function timeTrans(value) {
+
+        var dateString = value;
+        var pattern = /(\d{4})(\d{2})(\d{2})/;
+        var formatedDate = dateString.replace(pattern, '$1年$2月$3日');
+        return formatedDate;
+
+    }
+
     function showData(resultData) {
         var obj = '';
         var change = '<button type="button" class="btn btn-danger btn-search" id="change">' +'CHANGE' +'</button>';
@@ -139,12 +204,6 @@
         }
         $('#personInfo_table').append(obj);
     }
-    $('#change').on('click', function () {
-        console.log("更改用户信息");
-    });
-    $('#delete').on('click', function () {
-        console.log("删除用户信息");
-    })
 </script>
 </body>
 </html>

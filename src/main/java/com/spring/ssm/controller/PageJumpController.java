@@ -134,6 +134,7 @@ public class PageJumpController {
         LOG.info("普通用户登录---Controller");
         UserInfoRspBo retBo = userInfoService.queryUserInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("ID", reqBo.getId());
             session.setAttribute("NAME", retBo.getName());
             session.setAttribute("TYPE", RspConstracts.GENERAL);
         }
@@ -150,6 +151,7 @@ public class PageJumpController {
         //TODO 公司用户登录服务待实现
         CompanyInfoRspBo retBo = comInfoService.selectComInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("ID", retBo.getId());
             session.setAttribute("NAME", retBo.getName());
             session.setAttribute("TYPE", RspConstracts.COMPANY);
         }

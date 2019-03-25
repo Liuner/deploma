@@ -62,48 +62,51 @@
         insert into p_rel_general_job_company
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="generalId != null">
-                GENERAL_ID
+                GENERAL_ID,
             </if>
             <if test="companyId != null">
-                COMPANY_ID
+                COMPANY_ID,
             </if>
             <if test="resumeId != null">
-                RESUME_ID
+                RESUME_ID,
             </if>
             <if test="jobId != null">
-                JOB_ID
+                JOB_ID,
             </if>
             <if test="position != null">
-                POSITION
+                POSITION,
             </if>
             <if test="date != null">
-                DATE
+                DATE,
             </if>
             <if test="flag != null">
-                FLAG
+                FLAG,
             </if>
         </trim>
-        <trim prefix="values(" suffix=")" suffixOverrides=",">
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
             <if test="generalId != null">
-                #{generalId, jdbcType=BIGINT},
+                #{generalId,jdbcType=BIGINT},
             </if>
             <if test="companyId != null">
-                #{companyId, jdbcType=BIGINT},
+                #{companyId,jdbcType=BIGINT},
             </if>
             <if test="resumeId != null">
-                #{resumeId, jdbcType=BIGINT}
+                #{resumeId,jdbcType=BIGINT},
             </if>
             <if test="jobId != null">
-                #{jobId, jdbcType=BIGINT},
+                #{jobId,jdbcType=BIGINT},
             </if>
             <if test="position != null">
-                #{position, jdbcType=VARCHAR},
+                #{position,jdbcType=VARCHAR},
             </if>
             <if test="date != null">
-                #{date, jdbcType=DATE},
+                #{date,jdbcType=DATE},
             </if>
             <if test="flag != null">
-                #{flag, jdbcType=VARCHAR},
+                #{flag,jdbcType=VARCHAR},
             </if>
         </trim>
     </insert>
@@ -138,7 +141,7 @@
 
     <delete id="deleteRelInfo" parameterType="java.lang.Long">
         delete p_rel_general_job_company
-              where ID=#{id,jdbcType=BIGINT}
+            where ID=#{id,jdbcType=BIGINT}
     </delete>
 
 </mapper>

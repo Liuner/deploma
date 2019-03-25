@@ -174,9 +174,9 @@ public class DemoController {
     }
     @RequestMapping(value = "/queryRelInfo", method = RequestMethod.POST)
     @ResponseBody
-    public List<RelGeneralJobCompanyRspBo> qeuryRelInfo(RelGeneralJobCompanyReqBo reqBo) {
+    public RelGeneralJobCompanyListRspBo qeuryRelInfo(RelGeneralJobCompanyReqBo reqBo) {
         LOG.info("queryRelIfo - controller");
-        return relGeneralJobCompanyService.queryRelInfoBySelective(reqBo);
+        return relGeneralJobCompanyService.qyeryRelInfoList(reqBo);
     }
     @RequestMapping(value = "/generalQueryJobInfo", method = RequestMethod.POST)
     @ResponseBody
@@ -197,5 +197,26 @@ public class DemoController {
     public JobInfoRspBo updateJobInfo(JobInfoReqBo reqBo) {
         LOG.info("updateJobInfo - controller");
         return jobInfoService.updateJobInfo(reqBo);
+    }
+
+    @RequestMapping(value = "/createRelInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public RelGeneralJobCompanyRspBo createRelInfo(RelGeneralJobCompanyReqBo reqBo) {
+        LOG.info("createRelInfo - controller");
+        return relGeneralJobCompanyService.createRelInfo(reqBo);
+    }
+
+    @RequestMapping(value = "/updateRelInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public RelGeneralJobCompanyRspBo updateRelInfo(RelGeneralJobCompanyReqBo reqBo) {
+        LOG.info("updateRelInfo - controller");
+        return relGeneralJobCompanyService.updateRelInfo(reqBo);
+    }
+
+    @RequestMapping(value = "/deleteRelInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public RelGeneralJobCompanyRspBo deleteRelInfo(Long id) {
+        LOG.info("updateRelInfo - controller");
+        return relGeneralJobCompanyService.deleteRelInfoById(id);
     }
 }
