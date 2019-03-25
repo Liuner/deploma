@@ -38,6 +38,11 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfoRspBo queryUserInfoById(Long id) {
         LOG.info("进入queryUserInfoById服务");
         UserInfoRspBo retBo = new UserInfoRspBo();
+        if (StringUtils.isEmpty(id)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("用户ID不能为空");
+            return retBo;
+        }
         UserInfoPo userInfoPo = new UserInfoPo();
         try {
             userInfoPo = userInfoMapper.selectUserInfoById(id);

@@ -124,17 +124,25 @@
         }
         $('#job-table tr:gt(0)').remove();
         for (var i in dataList) {
+            var date = timeTrans(dataList[i].date);
             obj = obj + '<tr class="table_info_tr">';
             obj +='<td>' + dataList[i].position + '</td>';
             obj +='<td>' + dataList[i].company + '</td>';
             obj +='<td>' + dataList[i].local + '</td>';
             obj +='<td>' + dataList[i].salary +"K"+ '</td>';
-            obj +='<td>' + dataList[i].number + '</td>';
-            obj +='<td>' + dataList[i].date + '</td>';
+            obj +='<td>' + dataList[i].number + '人' + '</td>';
+            obj +='<td>' + date + '</td>';
             obj +='<td>' + send + '</td>';
             obj = obj + '</tr>';
         }
         $('#job-table').append(obj);
+    }
+
+    function timeTrans(value) {
+        var dateString = value;
+        var pattern = /(\d{4})(\d{2})(\d{2})/;
+        var formatedDate = dateString.replace(pattern, '$1年$2月$3日');
+        return formatedDate;
     }
 
 </script>

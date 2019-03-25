@@ -34,18 +34,11 @@
             <%------------------------------------------------Resume Management----------------------------------------------------------%>
             <div id="resumeTable" class="table-responsive">
                 <h1 class="sub-header">Resume Management</h1>
-                <table class="table table-striped">
+                <table class="table table-striped" id="resume_table">
                     <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                        <th>Header</th>
-                    </tr>
+                    <tr class="info table_info_th"><th>NAME</th><th>AGE</th><th>SEX</th><th>PHONE</th>
+                        <th>E_MAIL</th><th>LOCAL</th><th>MAJOR</th><th>FAVRITE</th><th>SLARAY</th><th>REMARK</th><th>OPTIONS</th></tr>
                     </thead>
-                    <tbody>
-                    </tbody>
                 </table>
             </div>
             <%------------------------------------------------Check Out Job Vacancies-----------------------------------------------------%>
@@ -85,6 +78,7 @@
         $('#infoTable').hide();
         $('#jobTable').hide();
         $('#resumeTable').show();
+        qryResume();
     });
 
     $('#jobInfo').on('click', function () {
@@ -112,10 +106,55 @@
                 id:id
             },
             success:function (resultData) {
-                showData(resultData);
+                    showData(resultData);
             },
             error:function () {
                 alert("服务器休息呢！别吵吵！！！");
+            }
+        })
+    }
+
+    function qryResume() {
+        var id = "${sessionScope.ID}";
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/qryResumeInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                generalId:id
+            },
+            success:function (resultData) {
+                var obj = '';
+                var change = '<button type="button" class="btn btn-danger btn-search" id="change">' +'CHANGE' +'</button>';
+                var remove = '<button type="button" class="btn btn-danger btn-search" id="delete">' +'DELETE' +'</button>';
+                var data = eval(resultData);
+                if (data.respCode === "8888") {
+                    alert(data.respDesc);
+                }
+                var rows = data.rows;
+                $('#resume_table tr:gt(0)').remove();
+                for (var i in rows) {
+                    var favtite =rows[i].favrite;
+                    if (favtite == null || favtite == "") {
+                        favtite = "-";
+                    }
+                    obj = obj + '<tr class="table_info_tr">';
+                    obj += '<td>' + rows[i].name + '</td>';
+                    obj += '<td>' + rows[i].age + '</td>';
+                    obj += '<td>' + rows[i].sex + '</td>';
+                    obj += '<td>' + rows[i].phone + '</td>';
+                    obj += '<td>' + rows[i].eMail + '</td>';
+                    obj += '<td>' + rows[i].local + '</td>';
+                    obj += '<td>' + rows[i].major + '</td>';
+                    obj += '<td>' + favtite + '</td>';
+                    obj += '<td>' + rows[i].slaray + '</td>';
+                    obj += '<td>' + rows[i].remark + '</td>';
+                    obj +='<td>' + change + remove + '</td>';
+                }
+                $('#resume_table').append(obj);
+            },
+            error:function () {
+                alert("服务器休息呢！别吵吵！！！")
             }
         })
     }
@@ -167,17 +206,18 @@
                     }
                 }
                 $('#sentJob_table').append(obj);
+            },
+            error: function () {
+                alert("服务器休息呢！别吵吵！！！")
             }
         })
     }
 
     function timeTrans(value) {
-
         var dateString = value;
         var pattern = /(\d{4})(\d{2})(\d{2})/;
         var formatedDate = dateString.replace(pattern, '$1年$2月$3日');
         return formatedDate;
-
     }
 
     function showData(resultData) {

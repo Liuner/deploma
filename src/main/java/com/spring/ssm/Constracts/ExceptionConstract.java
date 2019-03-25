@@ -21,6 +21,9 @@ public class ExceptionConstract {
     /**职位信息表操作异常*/
     public static final String JOBINFO_EXCEPTION = "4001";
 
-    /**普通用户 职位 公式 关系表操作异常*/
+    /**普通用户 职位 公司 关系表操作异常*/
     public static final String REL_INFO_EXCEPTION = "5001";
+
+    /**简历信息表 操作异常*/
+    public static final String RESUME_EXCEPTION = "6001";
 }

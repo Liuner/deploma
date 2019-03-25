@@ -41,6 +41,8 @@ public class DemoController {
     private RelGeneralJobCompanyService relGeneralJobCompanyService;
     @Autowired
     private AggregationService aggregationService;
+    @Autowired
+    private ResumeService resumeService;
 
     @RequestMapping(value = "/queryUserInfoById", method = RequestMethod.POST)
     @ResponseBody
@@ -52,7 +54,7 @@ public class DemoController {
     @RequestMapping(value = "/queryUserInfo", method = RequestMethod.POST)
     @ResponseBody
     public List<UserInfoRspBo> query(UserInfoReqBo reqBo) {
-        LOG.info("queryUserInfoById-Controller");
+        LOG.info("queryUserInfo-Controller");
         return userInfoService.queryInfoBySelective(reqBo);
     }
 
@@ -218,5 +220,12 @@ public class DemoController {
     public RelGeneralJobCompanyRspBo deleteRelInfo(Long id) {
         LOG.info("updateRelInfo - controller");
         return relGeneralJobCompanyService.deleteRelInfoById(id);
+    }
+
+    @RequestMapping(value = "/qryResumeInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResumeListRspBo qryResumeInfo(ResumeReqBo reqBo) {
+        LOG.info("qryResumeInfo - controller");
+        return resumeService.qryResumeInfo(reqBo);
     }
 }
