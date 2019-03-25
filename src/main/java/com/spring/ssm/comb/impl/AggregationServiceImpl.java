@@ -39,47 +39,6 @@ public class AggregationServiceImpl implements AggregationService {
     private Logger LOG = LoggerFactory.getLogger(AggregationServiceImpl.class);
 
     @Override
-    public List<JobInfoRspBo> scanJobList(Long id) {
-//        LOG.info("用户id->关系表->职位id->职位信息");
-//
-//        List<JobInfoRspBo> retInfoList = new ArrayList<>();
-//        RelGeneralJobCompanyReqBo relReqBo = new RelGeneralJobCompanyReqBo();
-//        if (StringUtils.isEmpty(id)) {
-//            JobInfoRspBo jobInfoRspBo = new JobInfoRspBo();
-//            jobInfoRspBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
-//            jobInfoRspBo.setRespDesc("入参id不能为空");
-//            retInfoList.add(jobInfoRspBo);
-//            return retInfoList;
-//        }
-//        relReqBo.setGeneralId(id.toString());
-//        List<RelGeneralJobCompanyRspBo> relRspList = relGeneralJobCompanyService.queryRelInfoBySelective(relReqBo);
-//        //未查询到信息 返回提示
-//        if (CollectionUtils.isEmpty(relRspList)) {
-//            LOG.error("在关系表未查询到信息");
-//            JobInfoRspBo jobInfoRspBo = new JobInfoRspBo();
-//            jobInfoRspBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
-//            jobInfoRspBo.setRespDesc("在关系表未查询到信息");
-//            retInfoList.add(jobInfoRspBo);
-//            return retInfoList;
-//        }
-//        for (RelGeneralJobCompanyRspBo relRspBo : relRspList) {
-//            Long jobId = Long.valueOf(relRspBo.getJobId());
-//            JobInfoRspBo jobInfoRspBo = jobInfoService.queryJobInfoById(jobId);
-//            if (jobInfoRspBo != null) {
-//                retInfoList.add(jobInfoRspBo);
-//            }
-//        }
-//        if (CollectionUtils.isEmpty(retInfoList)) {
-//            JobInfoRspBo jobInfoRspBo = new JobInfoRspBo();
-//            jobInfoRspBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
-//            jobInfoRspBo.setRespDesc("在职位表未查询到信息");
-//            retInfoList.add(jobInfoRspBo);
-//        }
-//        return retInfoList;
-        return null;
-    }
-
-    @Override
     public List<QurySendedRspBo> qrySendedJobInfo(Long id) {
         LOG.info("用户id->关系表->职位id->职位信息");
         //出参list

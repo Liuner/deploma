@@ -93,39 +93,34 @@
                 #{number, jdbcType=INTEGER},
             </if>
             <if test="date != null">
-                #{date, jdbcType=VARCHAR},
+                #{date, jdbcType=BIGINT},
             </if>
         </trim>
     </insert>
 
     <update id="updateJobInfoBySelective" parameterType="com.spring.ssm.dto.JobInfoPo">
-        update P_INFO_JOB
+        update p_info_job
         <set>
             <if test="position != null">
-                POSITION = #{position, jdbcType=VARCHAR},
+                POSITION = #{position,jdbcType=VARCHAR},
             </if>
             <if test="company != null">
-                COMPANY = #{company, jdbcType=VARCHAR},
+                COMPANY = #{company,jdbcType=VARCHAR},
             </if>
             <if test="local != null">
-                LOCAL = #{local, jdbcType=VARCHAR},
+                LOCAL = #{local,jdbcType=VARCHAR},
             </if>
             <if test="salary != null">
-                SALARY = #{salary, jdbcType=VARCHAR},
+                SALARY = #{salary,jdbcType=VARCHAR},
             </if>
             <if test="number != null">
-                NUMBER = #{number, jdbcType=INTEGER},
+                NUMBER = #{number,jdbcType=INTEGER},
             </if>
             <if test="date != null">
-                DATE = #{date, jdbcType=VARCHAR},
+                `DATE` = #{date,jdbcType=BIGINT},
             </if>
         </set>
         where ID = #{id,jdbcType=BIGINT}
     </update>
-
-    <delete id="deleteJobInfoById" parameterType="java.lang.Long">
-        delete from P_INFO_JOB
-            where ID=#{id,jdbcType=BIGINT}
-    </delete>
 
 </mapper>

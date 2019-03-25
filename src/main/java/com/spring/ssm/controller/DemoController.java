@@ -184,4 +184,18 @@ public class DemoController {
         LOG.info("generalQueryJobInfo - controller");
         return aggregationService.qrySendedJobInfo(id);
     }
+
+    @RequestMapping(value = "/deleteJobInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public JobInfoRspBo deleteJobInfo(Long id) {
+        LOG.info("deleteJobInfo - controller");
+        return jobInfoService.deleteJobInfo(id);
+    }
+
+    @RequestMapping(value = "/updateJobInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public JobInfoRspBo updateJobInfo(JobInfoReqBo reqBo) {
+        LOG.info("updateJobInfo - controller");
+        return jobInfoService.updateJobInfo(reqBo);
+    }
 }

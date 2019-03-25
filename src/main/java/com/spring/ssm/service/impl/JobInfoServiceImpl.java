@@ -69,8 +69,30 @@ public class JobInfoServiceImpl implements JobInfoService {
     }
 
     @Override
-    public JobInfoRspBo deleteJobInfo(JobInfoReqBo reqBo) {
-        return null;
+    public JobInfoRspBo deleteJobInfo(Long id) {
+        LOG.info("职位信息删除服务 - deleteJobInfo");
+        JobInfoRspBo retBo = new JobInfoRspBo();
+        //入参校验
+        if (StringUtils.isEmpty(id)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("职业ID不能为空");
+            return retBo;
+        }
+        int result;
+        try {
+            result = jobInfoMapper.deleteJobInfoById(id);
+        } catch (Exception e) {
+            LOG.error("调用mapper删除职位信息异常：" + e);
+            throw new BusiExcption(ExceptionConstract.JOBINFO_EXCEPTION, "调用mapper删除职位信息异常：" + e);
+        }
+        if (result > 0) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+        } else {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_FAIL);
+        }
+        return retBo;
     }
 
     @Override
@@ -140,7 +162,32 @@ public class JobInfoServiceImpl implements JobInfoService {
 
     @Override
     public JobInfoRspBo updateJobInfo(JobInfoReqBo reqBo) {
-        return null;
+        LOG.info("更新职位信息 - updateJobInfo");
+        JobInfoRspBo retBo = new JobInfoRspBo();
+        //入参校验---只校验ID
+        if (StringUtils.isEmpty(reqBo.getId())) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("入参校验失败：更新职位信息ID不能为空");
+            return retBo;
+        }
+        JobInfoPo po = new JobInfoPo();
+        BeanUtils.copyProperties(reqBo, po);
+        transData(reqBo, po);
+        int result;
+        try {
+            result = jobInfoMapper.updateJobInfoBySelective(po);
+        } catch (Exception e) {
+            LOG.error("调用Mapper更新数据异常：" +e);
+            throw new BusiExcption(ExceptionConstract.JOBINFO_EXCEPTION, "调用Mapper更新数据异常：" +e);
+        }
+        if (result > 0) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+        } else {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_FAIL);
+        }
+        return retBo;
     }
 
     /**

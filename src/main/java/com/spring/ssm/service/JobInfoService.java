@@ -22,7 +22,7 @@ public interface JobInfoService {
     /**
      * delete info
      */
-    JobInfoRspBo deleteJobInfo(JobInfoReqBo reqBo);
+    JobInfoRspBo deleteJobInfo(Long id);
 
     /**
      * query info by id
