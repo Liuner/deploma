@@ -125,6 +125,7 @@ public class AggregationServiceImpl implements AggregationService {
             if (resumeBo.getRespCode().equals(SUCCESS)) {
                 QueryReceviedResumeRspBo rspBo = new QueryReceviedResumeRspBo();
                 BeanUtils.copyProperties(resumeBo, rspBo);
+                rspBo.setRelInfoId(relBo.getId());
                 rspBo.setPostDate(relBo.getDate());
                 rspBo.setIntentionJob(relBo.getPosition());
                 retList.add(rspBo);

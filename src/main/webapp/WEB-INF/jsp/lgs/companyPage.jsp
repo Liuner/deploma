@@ -34,7 +34,7 @@
             <%------------------------------------------------Position Management----------------------------------------------------------%>
             <div id="jobTable" class="table-responsive">
                 <h1 class="sub-header">Position Manage</h1>
-                <button type="button" class="btn add-btn btn-search" style="margin: 10px;margin-right: 20px" id="add"> ADD </button>
+                <button type="button" class="btn add-btn btn-search" style="margin: 10px" id="add"> ADD </button>
                 <table class="table table-striped" id="positionManage_table">
                     <thead>
                     <tr class="info table_info_th"><th>POSITION</th><th>COMPANY</th><th>LOCAL</th><th>SALARY</th>
@@ -117,7 +117,7 @@
             type:'POST',
             dataType:'JSON',
             data:{
-                companyId:2000001
+                companyId:id
             },
             success:function (resultData) {
                 var obj = '';
@@ -130,7 +130,7 @@
                 $('#positionManage_table tr:gt(0)').remove();
                 for (var i in dataList) {
                     var time = timeTrans(dataList[i].date);
-                    obj = obj + '<tr class="table_info_tr">';
+                    obj = obj + '<tr class="table_info_tr" id='+ dataList[i].id +'>';
                     obj += '<td>' + dataList[i].position + '</td>';
                     obj += '<td>' + dataList[i].company + '</td>';
                     obj += '<td>' + dataList[i].local + '</td>';
@@ -173,7 +173,7 @@
                     if (favrite == null || favrite === "") {
                         favrite = "--";
                     }
-                    obj = obj + '<tr class="table_info_tr">';
+                    obj = obj + '<tr class="table_info_tr" id='+dataList[i]+'>';
                     obj += '<td>' + dataList[i].name + '</td>';
                     obj += '<td>' + dataList[i].age + '</td>';
                     obj += '<td>' + dataList[i].sex + '</td>';
@@ -211,7 +211,7 @@
         }
         var time = timeTrans(data.date);
         $('#companyInfo_table tr:gt(0)').remove();
-        obj = obj + '<tr class="table_info_tr">';
+        obj = obj + '<tr class="table_info_tr" id='+ data.id +'>';
         obj += '<td>' + data.name + '</td>';
         obj += '<td>' + data.e_maile + '</td>';
         obj += '<td>' + data.city + '</td>';
@@ -221,6 +221,38 @@
         obj +='<td>' + change + remove + '</td>';
         $('#companyInfo_table').append(obj);
     }
+
+    $(document).on('click', '#change', function () {
+        var id=$(this).parents("tr").attr("id");
+
+        console.log("点击事件："+id);
+    })
+
+    $(document).on('click', '#delete', function () {
+        var id = $(this).parents("tr").attr("id");
+        console.log(id);
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/deleteJobInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success: function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("删除成功");
+                    location.reload();
+                }
+                else {
+                    alert(resultData.respDesc);
+                }
+            },
+            error: function () {
+                alert("服务器睡觉了吧 (>_<) ")
+            }
+        })
+    })
+
 </script>
 </body>
 </html>

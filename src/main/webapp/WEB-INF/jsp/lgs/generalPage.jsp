@@ -138,7 +138,7 @@
                     if (favtite == null || favtite == "") {
                         favtite = "-";
                     }
-                    obj = obj + '<tr class="table_info_tr">';
+                    obj = obj + '<tr class="table_info_tr" id='+ rows[i].id +'>';
                     obj += '<td>' + rows[i].name + '</td>';
                     obj += '<td>' + rows[i].age + '</td>';
                     obj += '<td>' + rows[i].sex + '</td>';
@@ -192,7 +192,7 @@
                     }
                     //转换时间格式
                     var time = timeTrans(dataList[i].date);
-                    obj = obj + '<tr class="table_info_tr">';
+                    obj = obj + '<tr class="table_info_tr" id='+ dataList[i] +'>';
                     obj += '<td>' + dataList[i].position + '</td>';
                     obj += '<td>' + dataList[i].company + '</td>';
                     obj += '<td>' + dataList[i].local + '</td>';
@@ -231,7 +231,7 @@
         }
         $('#personInfo_table tr:gt(0)').remove();
         for (var i in dataList) {
-            obj = obj + '<tr class="table_info_tr">';
+            obj = obj + '<tr class="table_info_tr" id='+dataList[i].id+'>';
             obj += '<td>' + dataList[i].name + '</td>';
             obj += '<td>' + dataList[i].age + '</td>';
             obj += '<td>' + dataList[i].sex + '</td>';
@@ -244,6 +244,14 @@
         }
         $('#personInfo_table').append(obj);
     }
+
+    $(document).on('click', '#change', function () {
+        //var id=$(this).parents("tr").find("td").eq(0).text(); //得到用户名
+        var id=$(this).parents("tr").attr("id");
+        console.log("点击事件："+id);
+
+    })
+
 </script>
 </body>
 </html>

@@ -85,6 +85,11 @@ public class QueryReceviedResumeRspBo extends BaseRspBo {
     private String intentionJob;
 
     /**
+     * 关系表id(修改投递状态时使用)
+     */
+    private String relInfoId;
+
+    /**
      * 获取:id
      *
      * @return id
@@ -336,6 +341,24 @@ public class QueryReceviedResumeRspBo extends BaseRspBo {
         this.intentionJob = intentionJob;
     }
 
+    /**
+     * 获取:relInfoId
+     *
+     * @return relInfoId
+     **/
+    public String getRelInfoId() {
+        return relInfoId;
+    }
+
+    /**
+     * 设置:relInfoId
+     *
+     * @param relInfoId
+     **/
+    public void setRelInfoId(String relInfoId) {
+        this.relInfoId = relInfoId;
+    }
+
     @Override
     public String toString() {
         return "QueryReceviedResumeRspBo{" +
@@ -353,6 +376,7 @@ public class QueryReceviedResumeRspBo extends BaseRspBo {
                 ", remark='" + remark + '\'' +
                 ", postDate='" + postDate + '\'' +
                 ", intentionJob='" + intentionJob + '\'' +
+                ", relInfoId='" + relInfoId + '\'' +
                 super.toString() +
                 '}';
     }

@@ -195,6 +195,13 @@ public class DemoController {
         return jobInfoService.deleteJobInfo(id);
     }
 
+    @RequestMapping(value = "/qryJobInfoById", method = RequestMethod.POST)
+    @ResponseBody
+    public JobInfoRspBo qryJobInfoById(Long id) {
+        LOG.info("qryJobInfoById - controller");
+        return jobInfoService.queryJobInfoById(id);
+    }
+
     @RequestMapping(value = "/updateJobInfo", method = RequestMethod.POST)
     @ResponseBody
     public JobInfoRspBo updateJobInfo(JobInfoReqBo reqBo) {

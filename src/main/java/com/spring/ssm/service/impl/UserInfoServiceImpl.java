@@ -51,6 +51,7 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         if (userInfoPo != null) {
             BeanUtils.copyProperties(userInfoPo, retBo);
+            retBo.setId(userInfoPo.getId()+"");
             retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
             retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         } else {
@@ -115,6 +116,8 @@ public class UserInfoServiceImpl implements UserInfoService {
             for (UserInfoPo userInfo : userInfoPoList) {
                 UserInfoRspBo bo = new UserInfoRspBo();
                 BeanUtils.copyProperties(userInfo,  bo);
+                bo.setId(userInfo.getId()+"");
+                bo.setPassword("不会给你看的哈哈");
                 userInfoRspBoList.add(bo);
             }
             return userInfoRspBoList;

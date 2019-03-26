@@ -104,6 +104,7 @@ public class ComInfoServiceImpl implements ComInfoService {
         }
         BeanUtils.copyProperties(companyInfoPo, retBo);
         retBo.setId(companyInfoPo.getId()+"");
+        retBo.setPassword("才不要给你看");
         retBo.setDate(new DateTime(companyInfoPo.getDate()).toString("yyyyMMdd"));
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
@@ -125,6 +126,11 @@ public class ComInfoServiceImpl implements ComInfoService {
             for (CompanyInfoPo Po : companyInfoPoList) {
                 CompanyInfoRspBo bo = new CompanyInfoRspBo();
                 BeanUtils.copyProperties(Po, bo);
+                bo.setPassword("你居然想看我密码");
+                bo.setId(Po.getId()+"");
+                bo.setDate(new DateTime(Po.getDate()).toString("yyyyMMdd"));
+                bo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+                bo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
                 companyInfoRspBoList.add(bo);
             }
         }

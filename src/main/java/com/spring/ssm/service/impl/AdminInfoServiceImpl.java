@@ -92,6 +92,8 @@ public class AdminInfoServiceImpl implements AdminInfoService {
             return retBo;
         }
         BeanUtils.copyProperties(adminInfoPo, retBo);
+        retBo.setId(adminInfoPo.getId()+"");
+        retBo.setPassword("不想给你看");
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         return retBo;
@@ -117,6 +119,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
                 AdminInfoRspBo bo = new AdminInfoRspBo();
                 BeanUtils.copyProperties(adminInfoPo, bo);
                 bo.setId(adminInfoPo.getId()+"");
+                bo.setPassword("想看密码 不可能");
                 bo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
                 bo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
                 adminInfoRspBoList.add(bo);

@@ -136,4 +136,8 @@
         where ID = #{id,jdbcType=BIGINT}
     </update>
 
+    <delete id="deleteJobInfoById" parameterType="java.lang.Long">
+        delete from p_info_job where ID=#{id,jdbcType=BIGINT}
+    </delete>
+
 </mapper>

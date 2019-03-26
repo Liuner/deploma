@@ -117,6 +117,7 @@ public class ResumeServiceImpl implements ResumeService {
             return retBo;
         }
         BeanUtils.copyProperties(po, retBo);
+        retBo.setId(po.getId()+"");
         retBo.setGeneralId(po.getGeneralId()+"");
         retBo.setAge(po.getAge()+"");
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
