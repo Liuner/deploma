@@ -8,6 +8,7 @@ import com.spring.ssm.mapper.CompanyInfoMapper;
 import com.spring.ssm.service.bo.CompanyInfoReqBo;
 import com.spring.ssm.service.bo.CompanyInfoRspBo;
 import com.spring.ssm.service.ComInfoService;
+import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -102,6 +103,8 @@ public class ComInfoServiceImpl implements ComInfoService {
             return retBo;
         }
         BeanUtils.copyProperties(companyInfoPo, retBo);
+        retBo.setId(companyInfoPo.getId()+"");
+        retBo.setDate(new DateTime(companyInfoPo.getDate()).toString("yyyyMMdd"));
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         return retBo;
@@ -154,6 +157,7 @@ public class ComInfoServiceImpl implements ComInfoService {
             return retBo;
         }
         retBo.setName(companyInfoPo.getName());
+        retBo.setId(companyInfoPo.getId()+"");
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         return retBo;

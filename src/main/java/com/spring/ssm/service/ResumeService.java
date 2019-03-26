@@ -32,4 +32,9 @@ public interface ResumeService {
      * query resumeInfo
      */
     ResumeListRspBo qryResumeInfo(ResumeReqBo reqBo);
+
+    /**
+     * query resumeInfo by selective
+     */
+    ResumeRspBo qryResumeInfoById(Long id);
 }

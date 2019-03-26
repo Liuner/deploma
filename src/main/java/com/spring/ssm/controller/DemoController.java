@@ -1,6 +1,7 @@
 package com.spring.ssm.controller;
 
 import com.spring.ssm.comb.AggregationService;
+import com.spring.ssm.comb.bo.QueryReceviedResumeRspBo;
 import com.spring.ssm.comb.bo.QurySendedRspBo;
 import com.spring.ssm.service.*;
 import com.spring.ssm.service.bo.*;
@@ -227,5 +228,12 @@ public class DemoController {
     public ResumeListRspBo qryResumeInfo(ResumeReqBo reqBo) {
         LOG.info("qryResumeInfo - controller");
         return resumeService.qryResumeInfo(reqBo);
+    }
+
+    @RequestMapping(value = "/qryReceivedResumeInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public List<QueryReceviedResumeRspBo> qryReceivedResumeInfo(Long id) {
+        LOG.info("qryReceivedGeneralInfo - controller");
+        return aggregationService.qryReceivedGeneralInfo(id);
     }
 }

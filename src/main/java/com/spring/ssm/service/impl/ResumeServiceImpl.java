@@ -80,6 +80,7 @@ public class ResumeServiceImpl implements ResumeService {
         for (ResumePo po : poList) {
             ResumeRspBo bo = new ResumeRspBo();
             BeanUtils.copyProperties(po, bo);
+            bo.setId(po.getId()+"");
             bo.setAge(po.getAge()+"");
             bo.setGeneralId(po.getGeneralId()+"");
             bo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
@@ -89,6 +90,37 @@ public class ResumeServiceImpl implements ResumeService {
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         retBo.setRows(rspList);
+        return retBo;
+    }
+
+    @Override
+    public ResumeRspBo qryResumeInfoById(Long id) {
+        LOG.info("qryResumeInfoById");
+        ResumeRspBo retBo = new ResumeRspBo();
+
+        if (StringUtils.isEmpty(id)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("入参校验失败：id不能为空");
+            return retBo;
+        }
+
+        ResumePo po;
+        try {
+            po = resumeMapper.qryResumeInfoById(id);
+        } catch (Exception e) {
+            LOG.info("调用mapper查询信息异常：" + e);
+            throw new BusiExcption(ExceptionConstract.RESUME_EXCEPTION, "调用mapper查询信息异常：" + e);
+        }
+        if (po == null) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("未查询到相匹配的数据");
+            return retBo;
+        }
+        BeanUtils.copyProperties(po, retBo);
+        retBo.setGeneralId(po.getGeneralId()+"");
+        retBo.setAge(po.getAge()+"");
+        retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+        retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         return retBo;
     }
 

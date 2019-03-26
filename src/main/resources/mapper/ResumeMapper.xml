@@ -145,12 +145,12 @@
         where ID = #{id,jdbcType=BIGINT}
     </update>
 
-    <!--<select id="qryResumeInfo" parameterType="java.lang.Long" resultMap="baseResultMap">-->
-        <!--select-->
-        <!--<include refid="Base_Column_List" />-->
-        <!--from p_info_resume-->
-        <!--where ID = #{id,jdbcType=BIGINT}-->
-    <!--</select>-->
+    <select id="qryResumeInfoById" parameterType="java.lang.Long" resultMap="baseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from p_info_resume
+        where ID = #{id,jdbcType=BIGINT}
+    </select>
 
     <select id="qryResumeInfo" parameterType="com.spring.ssm.dto.ResumePo" resultMap="baseResultMap">
         select

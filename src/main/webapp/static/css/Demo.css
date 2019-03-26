@@ -103,3 +103,11 @@ form.form-signin {
 .btn-li {
     padding-bottom: 10px;
 }
+.add-btn {
+    float: right;
+    margin: 10px;
+    width: 80;
+    background-color: #428bca;
+    border-color: #dddddd;
+    color: #fff;
+}

@@ -173,7 +173,7 @@ public class RelGeneralJobCompanyServiceImpl implements RelGeneralJobCompanyServ
         if (!CollectionUtils.isEmpty(poList)) {
             for (RelGeneralJobCompanyPo relPo : poList) {
                 RelGeneralJobCompanyRspBo bo = new RelGeneralJobCompanyRspBo();
-                BeanUtils.copyProperties(relPo, retBo);
+                BeanUtils.copyProperties(relPo, bo);
                 bo.setId(relPo.getId()+"");
                 bo.setGeneralId(relPo.getGeneralId()+"");
                 bo.setCompanyId(relPo.getCompanyId()+"");

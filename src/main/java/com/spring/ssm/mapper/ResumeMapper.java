@@ -32,7 +32,12 @@ public interface ResumeMapper {
     int updateResumeInfo(ResumePo po);
 
     /**
-     * selecte resume info by id
+     * selecte resume info
      */
     List<ResumePo> qryResumeInfo(ResumePo po);
+
+    /**
+     * select resume info by if
+     */
+    ResumePo qryResumeInfoById(@Param(value = "id")Long id);
 }

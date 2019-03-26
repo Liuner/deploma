@@ -126,7 +126,7 @@ public class JobInfoServiceImpl implements JobInfoService {
     public List<JobInfoRspBo> queryJobInfoBySelective(JobInfoReqBo reqBo) {
         LOG.info("进入职位信息查询服务");
         List<JobInfoRspBo> retList = new ArrayList<>();
-        List<JobInfoPo> jobInfoPoList = new ArrayList<>();
+        List<JobInfoPo> jobInfoPoList;
 
         JobInfoPo po = new JobInfoPo();
         //空串校验
@@ -200,6 +200,9 @@ public class JobInfoServiceImpl implements JobInfoService {
     private void transData(JobInfoReqBo reqBo, JobInfoPo po) {
         if (!StringUtils.isEmpty(reqBo.getId())) {
             po.setId(Long.valueOf(reqBo.getId()));
+        }
+        if (!StringUtils.isEmpty(reqBo.getCompanyId())) {
+            po.setCompanyId(Long.valueOf(reqBo.getCompanyId()));
         }
         if (!StringUtils.isEmpty(reqBo.getNumber())) {
             po.setNumber(Integer.valueOf(reqBo.getNumber()));
@@ -275,6 +278,7 @@ public class JobInfoServiceImpl implements JobInfoService {
     private void respTrans(JobInfoPo po, JobInfoRspBo retBo) {
         BeanUtils.copyProperties(po, retBo);
         retBo.setId(po.getId() + "");
+        retBo.setCompanyId(po.getCompanyId()+"");
         retBo.setNumber(po.getNumber() + "");
         retBo.setDate(po.getDate() + "");
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
