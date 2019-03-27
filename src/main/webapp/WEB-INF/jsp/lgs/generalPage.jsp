@@ -93,7 +93,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">
-                                    添加简历
+                                    简历信息
                                 </h4>
                             </div>
                             <div class="modal-body" id="positionInfo">
@@ -129,7 +129,60 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelResume">取消</button>
-                                <button type="button" class="btn btn-primary" id="release">发布</button>
+                                <button type="button" class="btn btn-primary" id="release">提交</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <%-------------------------------------------------------update Modal------------------------------------------------%>
+                <div class="modal fade" id="update_dev" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="updateModalLabel">
+                                    简历信息
+                                </h4>
+                            </div>
+                            <div class="modal-body" id="updateInfo_dev">
+                                <label for="idResumeU" class="sr-only">ID</label>
+                                <input type="text" id="idResumeU" class="form-control" placeholder="ID" required disabled>
+
+                                <label for="nameResumeU" class="sr-only">Name</label>
+                                <input type="text" id="nameResumeU" class="form-control" placeholder="Name" required>
+
+                                <label for="ageResumeU" class="sr-only">Age</label>
+                                <input type="text" id="ageResumeU" class="form-control" placeholder="Age" required>
+
+                                <label for="sexResumeU" class="sr-only">Sex</label>
+                                <input type="text" id="sexResumeU" class="form-control" placeholder="Sex" required>
+
+                                <label for="phoneResumeU" class="sr-only">Phone</label>
+                                <input type="text" id="phoneResumeU" class="form-control" placeholder="Phone" required>
+
+                                <label for="eMailResumeU" class="sr-only">E-Mail</label>
+                                <input type="text" id="eMailResumeU" class="form-control" placeholder="E-Mail" required>
+
+                                <label for="localResumeU" class="sr-only">Local</label>
+                                <input type="text" id="localResumeU" class="form-control" placeholder="Local" required>
+
+                                <label for="majorResumeU" class="sr-only">Major</label>
+                                <input type="text" id="majorResumeU" class="form-control" placeholder="Major" required>
+
+                                <label for="favriteResumeU" class="sr-only">Favrite</label>
+                                <input type="text" id="favriteResumeU" class="form-control" placeholder="Favrite" required>
+
+                                <label for="slarayResumeUU" class="sr-only">Slaray</label>
+                                <input type="text" id="slarayResumeUU" class="form-control" placeholder="Slaray" required>
+
+                                <label for="remarkResumeU" class="sr-only">Remark</label>
+                                <input type="text" id="remarkResumeU" class="form-control" placeholder="Remark" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelUpdate">取消</button>
+                                <button type="button" class="btn btn-primary" id="update">更新</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -223,7 +276,7 @@
             },
             success:function (resultData) {
                 var obj = '';
-                var change = '<button type="button" class="btn btn-danger btn-search" id="changeResume">' +'CHANGE' +'</button>';
+                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#update_dev" id="changeResume">' +'CHANGE' +'</button>';
                 var remove = '<button type="button" class="btn btn-danger btn-search" id="delete">' +'DELETE' +'</button>';
                 var data = eval(resultData);
                 if (data.respCode === "8888") {
@@ -370,7 +423,7 @@
                     $('#idNumber').val(resultData.idNumber);
                     $('#local').val(resultData.local);
                 } else {
-                    alert("查询信息失败")
+                    alert("查询信息失败：" + resultData.respDesc)
                 }
             },
             error:function () {
@@ -401,11 +454,139 @@
                     alert("更新成功");
                     location.reload();
                 } else {
-                    alert("更新失败");
+                    alert("更新失败：" + resultData.respDesc);
                 }
             },
             error:function () {
                 alert("服务器未响应！！！");
+            }
+        })
+    });
+
+    //新增简历信息
+    $('#release').on('click', function () {
+       var id = "${sessionScope.ID}"
+       $.ajax({
+           url:'${pageContext.request.contextPath}/demo/createResumeInfo',
+           type:'POST',
+           dataType:'JSON',
+           data:{
+               generalId:id,
+               name:$('#nameResume').val(),
+               age:$('#ageResume').val(),
+               sex:$('#sexResume').val(),
+               phone:$('#phoneResume').val(),
+               eMail:$('#eMailResume').val(),
+               local:$('#localResume').val(),
+               major:$('#majorResume').val(),
+               favrite:$('#favriteResume').val(),
+               slaray:$('#slarayResume').val(),
+               remark:$('#remarkResume').val()
+           },
+           success: function (resultData) {
+               if (resultData.respCode === "0000") {
+                   alert("添加成功");
+                   location.reload();
+               } else {
+                   alert("添加失败：" + resultData.respDesc);
+               }
+           },
+           error:function () {
+               alert("服务器未响应");
+           }
+       })
+    });
+    //更新简历信息
+    $(document).on('click', '#changeResume', function () {
+        var id = $(this).parents("tr").attr("id");
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/qryResumeInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success:function (resultData) {
+                if (resultData.respCode === "0000") {
+                    var rows = resultData.rows;
+                    var slaray = rows[0].slaray;
+                    slaray = slaray.substr(0,slaray.length);
+                    $('#idResumeU').val(id);
+                    $('#nameResumeU').val(rows[0].name);
+                    $('#ageResumeU').val(rows[0].age);
+                    $('#sexResumeU').val(rows[0].sex);
+                    $('#phoneResumeU').val(rows[0].phone);
+                    $('#eMailResumeU').val(rows[0].eMail);
+                    $('#localResumeU').val(rows[0].local);
+                    $('#majorResumeU').val(rows[0].major);
+                    $('#favriteResumeU').val(rows[0].favrite);
+                    $('#slarayResumeUU').val(slaray);
+                    $('#remarkResumeU').val(rows[0].remark);
+                } else {
+                    alert("查询失败：" + resultData.respDesc);
+                }
+            },
+            error:function () {
+                alert("服务器休息呢！别吵吵！！！")
+            }
+        })
+    })
+    //更新简历信息提交
+    $('#update').on('click', function () {
+        var generalId = "${sessionScope.ID}";
+        console.log(id);
+        $.ajax({
+            url:'${pageContext.request.contextPath}/demo/updateResumeInfo',
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:$('#idResumeU').val(),
+                generalId:generalId,
+                name:$('#nameResumeU').val(),
+                age:$('#ageResumeU').val(),
+                sex:$('#sexResumeU').val(),
+                phone:$('#phoneResumeU').val(),
+                eMail:$('#eMailResumeU').val(),
+                local:$('#localResumeU').val(),
+                major:$('#majorResumeU').val(),
+                favrite:$('#favriteResumeU').val(),
+                slaray:$('#slarayResumeUU').val(),
+                remark:$('#remarkResumeU').val()
+            },
+            success: function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("更新成功");
+                    location.reload();
+                } else {
+                    alert("更新失败：" + resultData.respDesc);
+                }
+            },
+            error: function () {
+                alert("服务器未响应");
+            }
+        })
+    })
+
+    //删除职位信息
+    $(document).on('click', '#delete', function () {
+        var id = $(this).parents("tr").attr("id");
+        $.ajax({
+            url:'${pageContext.request.contextPath}/demo/deleteResumeInfo',
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success:function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("删除成功");
+                    qryResume();
+                } else {
+                    alert("删除失败：" + resultData.respDesc);
+                }
+            },
+            error: function () {
+                alert("服务器未响应");
             }
         })
     })

@@ -541,8 +541,7 @@
                 if (resultData.respCode === "0000") {
                     alert("删除成功");
                     qryJobInfo();
-                }
-                else {
+                } else {
                     alert(resultData.respDesc);
                 }
             },
