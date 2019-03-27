@@ -183,7 +183,15 @@ public class ComInfoServiceImpl implements ComInfoService {
         CompanyInfoPo companyInfoPo = new CompanyInfoPo();
         BeanUtils.copyProperties(reqBo ,companyInfoPo);
         companyInfoPo.setId(Long.valueOf(reqBo.getId()));
-        companyInfoPo.setId(Long.valueOf(reqBo.getId()));
+        DateFormat dfm = new SimpleDateFormat("yyyyMMdd");
+        Date date;
+        try {
+            date = dfm.parse(reqBo.getDate());
+        } catch (ParseException e) {
+            LOG.info("时间转换异常" + e);
+            throw new BusiExcption(ExceptionConstract.COMPANY_EXCEPTION, "时间转换异常" + e);
+        }
+        companyInfoPo.setDate(date);
         int result = 0;
         try {
             result = companyInfoMapper.updateComInfoById(companyInfoPo);

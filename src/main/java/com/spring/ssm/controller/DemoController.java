@@ -237,6 +237,27 @@ public class DemoController {
         return resumeService.qryResumeInfo(reqBo);
     }
 
+    @RequestMapping(value = "/createResumeInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResumeRspBo createResumeInfo(ResumeReqBo reqBo) {
+        LOG.info("createResumeInfo - controller");
+        return resumeService.createResumeInfo(reqBo);
+    }
+
+    @RequestMapping(value = "/deleteResumeInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResumeRspBo deleteResumeInfo(ResumeReqBo reqBo) {
+        LOG.info("createResumeInfo - controller");
+        return resumeService.deleteResumeInfo(reqBo);
+    }
+
+    @RequestMapping(value = "/updateResumeInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public ResumeRspBo updateResumeInfo(ResumeReqBo reqBo) {
+        LOG.info("createResumeInfo - controller");
+        return resumeService.updateResumeInfo(reqBo);
+    }
+
     @RequestMapping(value = "/qryReceivedResumeInfo", method = RequestMethod.POST)
     @ResponseBody
     public List<QueryReceviedResumeRspBo> qryReceivedResumeInfo(Long id) {

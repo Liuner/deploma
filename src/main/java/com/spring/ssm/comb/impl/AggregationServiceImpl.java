@@ -40,6 +40,7 @@ public class AggregationServiceImpl implements AggregationService {
 
     private Logger LOG = LoggerFactory.getLogger(AggregationServiceImpl.class);
     private static final String SUCCESS = "0000";
+    private static final String READ = "1";
 
     @Override
     public List<QurySendedRspBo> qrySendedJobInfo(Long id) {
@@ -120,12 +121,16 @@ public class AggregationServiceImpl implements AggregationService {
         //遍历关系表结果集合，查询简历信息
         List<RelGeneralJobCompanyRspBo> rows = relRspList.getRow();
         for (RelGeneralJobCompanyRspBo relBo : rows) {
+            if (relBo.getFlag().equals(READ)) {
+                continue;
+            }
             Long resumeId = Long.valueOf(relBo.getResumeId());
             ResumeRspBo resumeBo = resumeService.qryResumeInfoById(resumeId);
             if (resumeBo.getRespCode().equals(SUCCESS)) {
                 QueryReceviedResumeRspBo rspBo = new QueryReceviedResumeRspBo();
                 BeanUtils.copyProperties(resumeBo, rspBo);
                 rspBo.setRelInfoId(relBo.getId());
+                rspBo.setFlag(relBo.getFlag());
                 rspBo.setPostDate(relBo.getDate());
                 rspBo.setIntentionJob(relBo.getPosition());
                 retList.add(rspBo);

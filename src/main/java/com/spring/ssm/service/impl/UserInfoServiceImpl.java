@@ -55,6 +55,7 @@ public class UserInfoServiceImpl implements UserInfoService {
             retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
             retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         } else {
+            LOG.error("查询失败");
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
             retBo.setRespDesc(RspConstracts.RSP_DESC_FAIL);
         }

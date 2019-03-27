@@ -24,6 +24,45 @@
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div id="infoTable" class="table-responsive">
                 <h1 class="sub-header">Company Information</h1>
+                <%-------------------------------------------------------Modal-----------------------------------------------------------%>
+                <div class="modal fade" id="companyInfo_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="companyInfoLabel">
+                                    公司信息
+                                </h4>
+                            </div>
+                            <div class="modal-body" id="companyInfo_dev">
+                                <label for="name" class="sr-only">Name</label>
+                                <input type="text" id="name" class="form-control" placeholder="CompanyName" required>
+
+                                <label for="e_maile" class="sr-only">E-Mail</label>
+                                <input type="text" id="e_maile" class="form-control" placeholder="E-Mail" required>
+
+                                <label for="city" class="sr-only">City</label>
+                                <input type="text" id="city" class="form-control" placeholder="City" required>
+
+                                <label for="date" class="sr-only">Registration date</label>
+                                <input type="text" id="date" class="form-control" placeholder="Registration date" required>
+
+                                <label for="nature" class="sr-only">Nature</label>
+                                <input type="text" id="nature" class="form-control" placeholder="Nature" required>
+
+                                <label for="companyNumber" class="sr-only">Serial number</label>
+                                <input type="text" id="companyNumber" class="form-control" placeholder="Serial number" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="updateComCancel">取消</button>
+                                <button type="button" class="btn btn-primary" id="updateCom">更新</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <%---------------------------------------------------------Table Area--------------------------------------------%>
                 <table class="table table-striped" id="companyInfo_table">
                     <thead>
                     <tr class="info table_info_th"><th>NAME</th><th>E-MAIL</th><th>CITY</th>
@@ -31,11 +70,12 @@
                     </thead>
                 </table>
             </div>
+
             <%------------------------------------------------Position Management----------------------------------------------------------%>
             <div id="jobTable" class="table-responsive">
                 <h1 class="sub-header">Position Manage</h1>
                 <!-- --------------------------------------------按钮触发模态框------------------------------------------------------------ -->
-                <button class="btn btn-danger btn-search add-btn" data-toggle="modal" data-target="#position" style="margin: 10px; margin-right: 60px">
+                <button class="btn btn-danger btn-search add-btn" data-toggle="modal" data-target="#position_div" style="margin: 10px; margin-right: 60px">
                     ADD
                 </button>
                 <%---------------------------------------------- 添加信息模态框（Modal）--------------------------------------------------------------%>
@@ -61,7 +101,7 @@
                                 <input type="text" id="local" class="form-control" placeholder="Local" required>
 
                                 <label for="salary" class="sr-only">Salary</label>
-                                <input type="text" id="salary" class="form-control" placeholder="Salary" required>
+                                <input type="text" id="salary" class="form-control" placeholder="Salary(K)" required>
 
                                 <label for="number" class="sr-only">Number</label>
                                 <input type="text" id="number" class="form-control" placeholder="Number" required>
@@ -73,7 +113,6 @@
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
                 </div>
-
                 <%---------------------------------------------- 修改信息模态框（Modal）--------------------------------------------------------------%>
                 <div class="modal fade" id="updatePosition" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
@@ -112,7 +151,6 @@
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
                 </div>
-
                 <%------------------------------------------------------Table区--------------------------------------------------------------%>
                 <table class="table table-striped" id="positionManage_table">
                     <thead>
@@ -121,14 +159,17 @@
                     </thead>
                 </table>
             </div>
+
             <%------------------------------------------------Check Out Resunme Info-----------------------------------------------------%>
             <div id="resumeTable" class="table-responsive">
                 <h1 class="sub-header">Received Resume</h1>
+
+                <%----------------------------------------------------Table Area---------------------------------------------------%>
                 <table class="table table-striped" id="resumeInfo_table">
                     <thead>
                     <tr class="info table_info_th"><th>NAME</th><th>AGE</th><th>SEX</th><th>PHONE</th>
                         <th>E_MAIL</th><th>LOCAL</th><th>MAJOR</th><th>FAVRITE</th><th>SLARAY</th>
-                        <th>DELIVERY-TIME</th><th>INTENTION-JOB</th><th>REMARK</th></tr>
+                        <th>DELIVERY-TIME</th><th>INTENTION-JOB</th><th>REMARK</th><th style="min-width: 170px">OPTION</th></tr>
                     </thead>
                 </table>
             </div>
@@ -180,11 +221,14 @@
     $('#cancelU').on('click', function () {
         $("#updatePosition input").val("");
     });
+    // $('#updateComCancel').on('click', function () {
+    //     $("#companyInfo_modal input").val("");
+    // });
 
     //查询用户信息
     function query() {
         var id = "${sessionScope.ID}";
-        console.log("sessionStorage.id="+id);
+        //console.log("sessionStorage.id="+id);
         $.ajax({
             url:"${pageContext.request.contextPath}/demo/queryComInfoById",
             type:'POST',
@@ -199,7 +243,7 @@
                 alert("服务器休息呢！别吵吵！！！");
             }
         })
-    };
+    }
 
     //查询职位信息
     function qryJobInfo() {
@@ -257,16 +301,24 @@
                     location.reload();
                 }
                 $('#resumeInfo_table tr:gt(0)').remove();
-                console.log(dataList);
+                //console.log(dataList);
                 for (var i in dataList) {
                     //转换时间格式
-                    console.log(dataList[i]);
+                    // console.log(dataList[i]);
+                    var read = '<button type="button" class="btn btn-danger btn-search" id="read">' +'READ' +'</button>';
+                    var invite = '<button type="button" class="btn btn-danger btn-search" id="invite">' +'INVITE' +'</button>';
+
                     var time = timeTrans(dataList[i].postDate);
                     var favrite = dataList[i].favrite;
                     if (favrite == null || favrite === "") {
                         favrite = "--";
                     }
-                    obj = obj + '<tr class="table_info_tr" id='+dataList[i]+'>';
+                    var flag = dataList[i].flag;
+                    if (flag === "2") {
+                        obj = obj + '<tr class="table_info_tr" style="color: red" id='+dataList[i].relInfoId+'>';
+                    } else {
+                        obj = obj + '<tr class="table_info_tr" id=' + dataList[i].relInfoId + '>';
+                    }
                     obj += '<td>' + dataList[i].name + '</td>';
                     obj += '<td>' + dataList[i].age + '</td>';
                     obj += '<td>' + dataList[i].sex + '</td>';
@@ -279,6 +331,12 @@
                     obj += '<td>' + time + '</td>';
                     obj += '<td>' + dataList[i].intentionJob + '</td>';
                     obj += '<td>' + dataList[i].remark + '</td>';
+                    if (flag === "2") {
+                        obj += '<td>' + 'Invited' + '</td>';
+                    } else {
+                        obj += '<td>' + read + invite + '</td>';
+                    }
+
                 }
                 $('#resumeInfo_table').append(obj);
             },
@@ -295,10 +353,10 @@
         return dateString.replace(pattern, '$1年$2月$3日');
     }
 
+    //输出数据到表格
     function showData(resultData) {
         var obj = '';
-        var change = '<button type="button" class="btn btn-danger btn-search" id="updateComInfo">' +'CHANGE' +'</button>';
-        var remove = '<button type="button" class="btn btn-danger btn-search" id="delete">' +'DELETE' +'</button>';
+        var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#companyInfo_modal" id="updateComInfo">' +'CHANGE' +'</button>';
         var data = eval(resultData);
         if (data.respCode === "8888") {
             alert(data.respDesc);
@@ -312,11 +370,68 @@
         obj += '<td>' + time + '</td>';
         obj += '<td>' + data.nature + '</td>';
         obj += '<td>' + data.number + '</td>';
-        obj +='<td>' + change + remove + '</td>';
+        obj +='<td>' + change + '</td>';
         $('#companyInfo_table').append(obj);
     }
 
-    //更改职位信息(弹出模态框)
+    //更新公司信息(填充模态框)
+    $(document).on('click', '#updateComInfo', function () {
+       var id = "${sessionScope.ID}";
+       $.ajax({
+           url:"${pageContext.request.contextPath}/demo/queryComInfoById",
+           type:'POST',
+           dataType:'JSON',
+           data:{
+               id:id
+           },
+           success:function (resultData) {
+               if (resultData.respCode === "0000") {
+                   $('#name').val(resultData.name);
+                   $('#e_maile').val(resultData.e_maile);
+                   $('#city').val(resultData.city);
+                   $('#date').val(resultData.date);
+                   $('#nature').val(resultData.nature);
+                   $('#companyNumber').val(resultData.number);
+               } else {
+                   alert("查询信息失败")
+               }
+           },
+           error:function () {
+               alert("服务器休息呢！别吵吵！！！");
+           }
+       });
+    });
+    //更新公司信息提交
+    $('#updateCom').on('click', function () {
+        var id = "${sessionScope.ID}";
+        $.ajax({
+            url:'${pageContext.request.contextPath}/demo/updateComInfoById',
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id,
+                name:$('#name').val(),
+                e_maile:$('#e_maile').val(),
+                city:$('#city').val(),
+                date:$('#date').val(),
+                nature:$('#nature').val(),
+                number:$('#companyNumber').val()
+            },
+            success: function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("更新成功！！！");
+                    location.reload();
+                } else {
+                    alert("更新失败！！！");
+                }
+            },
+            error: function () {
+                alert("服务器没睡醒！！！");
+            }
+        });
+    });
+
+    //更改职位信息(填充模态框)
     $(document).on('click', '#change', function () {
         var id=$(this).parents("tr").attr("id");
         $.ajax({
@@ -376,6 +491,41 @@
         })
     });
 
+    //将简历状态标为已读
+    $(document).on('click', '#read', function () {
+        var id = $(this).parents("tr").attr("id");
+        editFlag("1", id);
+    });
+    //将简历状态标为要请面试
+    $(document).on('click', '#invite', function () {
+        var id = $(this).parents("tr").attr("id");
+        editFlag("2", id);
+    });
+    //修改状态
+    function editFlag(flag, id) {
+        //console.log("relInfoId:" + id);
+        $.ajax({
+            url:'${pageContext.request.contextPath}/demo/updateRelInfo',
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id,
+                flag:flag
+            },
+            success:function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("操作成功");
+                    qryReceiveResume();
+                } else {
+                    alert("操作失败")
+                }
+            },
+            error:function () {
+                alert("服务器未响应");
+            }
+        })
+    }
+
     //删除职位信息
     $(document).on('click', '#delete', function () {
         var id = $(this).parents("tr").attr("id");
@@ -390,7 +540,7 @@
             success: function (resultData) {
                 if (resultData.respCode === "0000") {
                     alert("删除成功");
-                    location.reload();
+                    qryJobInfo();
                 }
                 else {
                     alert(resultData.respDesc);
@@ -400,7 +550,7 @@
                 alert("服务器睡觉了吧 (>_<) ")
             }
         })
-    })
+    });
     
     //添加职位信息
     $('#release').on('click', function () {
@@ -419,7 +569,7 @@
             },
             success:function (resultData) {
                 if (resultData.respCode === "0000") {
-                    alert("添加成功！！！");
+                    alert("发布成功！！！");
                     location.reload();
                 } else {
                     alert(resultData.respDesc)
@@ -429,8 +579,8 @@
                 alert("服务器不在线 (-_-)");
             }
         })
-    })
-    
+    });
+
 </script>
 </body>
 </html>

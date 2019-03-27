@@ -85,6 +85,11 @@ public class QueryReceviedResumeRspBo extends BaseRspBo {
     private String intentionJob;
 
     /**
+     * 投递状态
+     */
+    private String flag;
+
+    /**
      * 关系表id(修改投递状态时使用)
      */
     private String relInfoId;
@@ -359,6 +364,24 @@ public class QueryReceviedResumeRspBo extends BaseRspBo {
         this.relInfoId = relInfoId;
     }
 
+    /**
+     * 获取:flag
+     *
+     * @return flag
+     **/
+    public String getFlag() {
+        return flag;
+    }
+
+    /**
+     * 设置:flag
+     *
+     * @param flag
+     **/
+    public void setFlag(String flag) {
+        this.flag = flag;
+    }
+
     @Override
     public String toString() {
         return "QueryReceviedResumeRspBo{" +
@@ -377,6 +400,7 @@ public class QueryReceviedResumeRspBo extends BaseRspBo {
                 ", postDate='" + postDate + '\'' +
                 ", intentionJob='" + intentionJob + '\'' +
                 ", relInfoId='" + relInfoId + '\'' +
+                ", flag='" + flag + '\'' +
                 super.toString() +
                 '}';
     }

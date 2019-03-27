@@ -38,17 +38,89 @@ public class ResumeServiceImpl implements ResumeService {
 
     @Override
     public ResumeRspBo createResumeInfo(ResumeReqBo reqBo) {
-        return null;
+        LOG.info("createResumeInfo:入参" + reqBo);
+        ResumeRspBo retBo = new ResumeRspBo();
+        ResumePo po = new ResumePo();
+        //入参校验
+        String validataStr = validataCreate(reqBo, po);
+        if (!StringUtils.isEmpty(validataStr)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("入参校验失败：" + validataStr);
+            return retBo;
+        }
+        int result;
+        try {
+            result = resumeMapper.createResumeInfo(po);
+        } catch (Exception e) {
+            LOG.info("调用mapper添加简历信息异常：" + e);
+            throw new BusiExcption(ExceptionConstract.RESUME_EXCEPTION, "调用mapper添加简历信息异常：" + e);
+        }
+        if (result > 0) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+            return retBo;
+        }
+        retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+        retBo.setRespDesc("添加简历信息失败");
+        return retBo;
     }
 
     @Override
     public ResumeRspBo deleteResumeInfo(ResumeReqBo reqBo) {
-        return null;
+        LOG.info("deleteResumeInfo入参：" + reqBo);
+        ResumeRspBo retBo = new ResumeRspBo();
+        if (StringUtils.isEmpty(reqBo.getId())) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("入参校验失败：id不能为空");
+            return retBo;
+        }
+        Long id = Long.valueOf(reqBo.getId());
+        int result;
+        try {
+            result = resumeMapper.deleteResumeInfo(id);
+        } catch (Exception e) {
+            LOG.error("调用mapper删除信息异常：" + e);
+            throw new BusiExcption(ExceptionConstract.RESUME_EXCEPTION, "调用mapper删除信息异常：" + e);
+        }
+        if (result > 0) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+            return retBo;
+        }
+        retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+        retBo.setRespDesc("删除简历信息失败");
+        return retBo;
     }
 
     @Override
     public ResumeRspBo updateResumeInfo(ResumeReqBo reqBo) {
-        return null;
+        LOG.info("updataresumeInfo入参：" + reqBo);
+        ResumeRspBo retBo = new ResumeRspBo();
+        if (StringUtils.isEmpty(reqBo.getId())) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("入参校验失败：id不能为空");
+            return retBo;
+        }
+        ResumePo po = new ResumePo();
+        BeanUtils.copyProperties(reqBo, po);
+        po.setId(Long.valueOf(reqBo.getId()));
+        po.setAge(Integer.valueOf(reqBo.getAge()));
+        po.setGeneralId(Long.valueOf(reqBo.getGeneralId()));
+        int result;
+        try {
+            result = resumeMapper.updateResumeInfo(po);
+        } catch (Exception e) {
+            LOG.error("调用mapper更新简历信息异常：" + e);
+            throw new BusiExcption(ExceptionConstract.RESUME_EXCEPTION, "调用mapper更新职位信息异常：" + e);
+        }
+        if (result > 0) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
+            retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
+            return  retBo;
+        }
+        retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+        retBo.setRespDesc("更新简历信息失败");
+        return retBo;
     }
 
     @Override
@@ -153,6 +225,62 @@ public class ResumeServiceImpl implements ResumeService {
             } catch (NumberFormatException e) {
                 return "id必须为纯数字";
             }
+        }
+        return null;
+    }
+
+    /**
+     * 描述: 新增  入参校验
+     * @param: [reqBo, po]
+     * @return: java.lang.String
+     * @throws
+     * @author: liuguisheng
+     * @date:   2019/3/27 17:05:09
+     */
+    private String validataCreate(ResumeReqBo reqBo, ResumePo po) {
+        if (reqBo == null) {
+            return "入参对象不能为空";
+        }
+        BeanUtils.copyProperties(reqBo, po);
+        if (StringUtils.isEmpty(reqBo.getGeneralId())) {
+            return "入参对象属性GeneralId不能为空";
+        }
+        try {
+            po.setGeneralId(Long.valueOf(reqBo.getGeneralId()));
+        } catch (NumberFormatException e) {
+            return "入参对象属性GeneralId只能为纯数字";
+        }
+        if (StringUtils.isEmpty(reqBo.getAge())) {
+            return "入参对象属性age不能为空";
+        }
+        try {
+            po.setAge(Integer.valueOf(reqBo.getAge()));
+        } catch (NumberFormatException e) {
+            return "入参对象属性age只能为纯数字";
+        }
+        if (StringUtils.isEmpty(reqBo.getName())) {
+            return "入参对象属性name不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getSex())) {
+            return "入参对象属性sex不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getPhone())) {
+            return "入参对象属性phone不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.geteMail())) {
+            return "入参对象属性eMail不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getLocal())) {
+            return "入参对象属性local不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getMajor())) {
+            return "入参对象属性major不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getSlaray())) {
+            return "入参对象属性slaray不能为空";
+        }
+        if (StringUtils.isEmpty(reqBo.getRemark())) {
+            return "入参对象属性remark不能为空";
         }
         return null;
     }

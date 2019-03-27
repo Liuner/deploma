@@ -23,9 +23,6 @@
     <insert id="createResumeInfo" parameterType="com.spring.ssm.dto.ResumePo" useGeneratedKeys="true" keyProperty="id">
         insert into p_info_resume
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                ID,
-            </if>
             <if test="generalId != null">
                 GENERAL_ID,
             </if>
@@ -61,9 +58,6 @@
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                #{id,jdbcType=BIGINT},
-            </if>
             <if test="generalId != null">
                 #{generalId,jdbcType=BIGINT},
             </if>
