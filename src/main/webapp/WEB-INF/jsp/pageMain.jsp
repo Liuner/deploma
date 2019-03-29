@@ -116,7 +116,7 @@
 
     function showData(data) {
         var obj = '';
-        var send = '<button type="button" class="btn btn-danger btn-search">' +'SEND' +'</button>';
+        var send = '<button type="button" class="btn btn-danger btn-search" id="send">' +'SEND' +'</button>';
         var dataList = eval(data);
         if (dataList[0].respCode === "8888") {
             alert(dataList[0].respDesc);
@@ -125,7 +125,7 @@
         $('#job-table tr:gt(0)').remove();
         for (var i in dataList) {
             var date = timeTrans(dataList[i].date);
-            obj = obj + '<tr class="table_info_tr">';
+            obj = obj + '<tr class="table_info_tr" id='+ dataList[i].id +'>';
             obj +='<td>' + dataList[i].position + '</td>';
             obj +='<td>' + dataList[i].company + '</td>';
             obj +='<td>' + dataList[i].local + '</td>';
@@ -145,6 +145,21 @@
         return formatedDate;
     }
 
+    $(document).on('click', '#send', function () {
+        var generalId = "${sessionScope.ID}";
+        if (generalId === "") {
+            alert("请登录");
+            return false;
+        }
+        //判断是否是general
+        if (!generalId.startsWith("1")) {
+            alert("此功能只针对求职者");
+            return false;
+        }
+        console.log(generalId);
+        var jobId = $(this).parents("tr").attr("id");
+        console.log("send:" + jobId);
+    })
 </script>
 </body>
 </html>

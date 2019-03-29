@@ -54,6 +54,14 @@ public class RelGeneralJobCompanyServiceImpl implements RelGeneralJobCompanyServ
         }
         RelGeneralJobCompanyPo po = new RelGeneralJobCompanyPo();
         this.valueTrans(reqBo, po);
+
+        //调用mapper查询此组信息是否已存在
+        List<RelGeneralJobCompanyPo> poList = relGeneralJobCompanyMapper.queryRelInfoBySelective(po);
+        if (!CollectionUtils.isEmpty(poList)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc("已投递过相同简历");
+            return  retBo;
+        }
         //flag 默认为0 ， 0 未读  1 已读 2 邀请面试
         po.setFlag("0");
 

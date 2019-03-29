@@ -79,6 +79,7 @@ public class AggregationServiceImpl implements AggregationService {
                  QurySendedRspBo sendedRspBo = new QurySendedRspBo();
                  BeanUtils.copyProperties(jobInfoRspBo, sendedRspBo);
                  sendedRspBo.setFlag(bo.getFlag());
+                 sendedRspBo.setDate(bo.getDate());
                  rutList.add(sendedRspBo);
              }
         }

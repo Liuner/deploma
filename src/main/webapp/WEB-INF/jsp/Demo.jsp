@@ -106,6 +106,7 @@
     var url = "${pageContext.request.contextPath}/page/queryJobInfo";
     var generalId = "${sessionScope.ID}";
     var jobId = null;
+    var position = null;
     <%-----------pageloding----------%>
     $(document).ready(function() {
         $.ajax({
@@ -200,6 +201,7 @@
         var jobInfo = qeuryJobInfo(jobId);
         $('#position').val(jobInfo.position);
         $('#company').val(jobInfo.company);
+        position = jobInfo.position;
     });
 
     //职位ID->职位信息
@@ -263,10 +265,36 @@
         console.log("jobId:" + jobId);
 
         var job = qeuryJobInfo(jobId);
+        var companyId = job.companyId;
         console.log("companyId:" + job.companyId);
 
         var resumeId = $('#resumeSelect').select().val();
         console.log("resumeId:" + resumeId);
+        console.log("position:" + position);
+        $.ajax({
+            url: '${pageContext.request.contextPath}/demo/createRelInfo',
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                generalId:generalId,
+                companyId:companyId,
+                jobId:jobId,
+                resumeId:resumeId,
+                position:position
+            },
+            success:function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("投递成功");
+                    location.reload();
+                } else {
+                    alert(resultData.respDesc);
+                    location.reload();
+                }
+            },
+            error: function () {
+                alert("服务器可能挂了")
+            }
+        });
     })
 </script>
 </body>
