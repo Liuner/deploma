@@ -1,302 +1,608 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: Tannin
-  Date: 2019/2/26
-  Time: 21:44:38
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>>
-<html>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <head>
     <title>Deploma</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/Demo.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/pretty-checkbox.min.css"/>
-    <script type="text/javascript" src="/static/js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="/static/js/bootstrap.js"></script>
+    <link href="/static/css/Demo.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet">
+    <link href="/static/css/dashboard.css" rel="stylesheet">
+
 </head>
+
 <body>
-<jsp:include page="/WEB-INF/jsp/lgs/pageHead.jsp"/>
-<%---------------------------------------Search-Area------------------------------------%>
-<div class="panel panel-default panel-self">
-    <div class="panel-heading panel-heading-selft">
-        <form class="navbar-form" style="text-align: center">
-            <div class="form-group">
-                <span style="font-weight:bold">职位:</span>
-                <input type="text" class="form-control input-search" id= "position_value" placeholder="POSITION">
-                <span style="font-weight:bold">公司:</span>
-                <input type="text" class="form-control input-search" id= "company_value" placeholder="COMPANY">
-                <span style="font-weight:bold">工作地点:</span>
-                <input type="text" class="form-control input-search" id= "local_value" placeholder="LOCAL">
-                <button type="button" class=" btn btn-danger btn-search" id="search">BEGIN</button>
+<jsp:include page="/WEB-INF/jsp/lgs/pageHead.jsp" />
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li class="active"><a href="#">TOOLBAR <span class="sr-only">(current)</span></a></li>
+                <li class="btn-li"><button class="btn-tool" id="adminInfo">Admin Information</button></li>
+                <li class="btn-li"><button class="btn-tool" id="generalInfo">General Manage</button></li>
+                <li class="btn-li"><button class="btn-tool" id="companyInfo">Company Manage</button></li>
+            </ul>
+        </div>
+        <%--------------------------------------------------------table-----------------------------------------------%>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <%------------------------------------------------Admin Information---------------------------------------%>
+            <div id="adminTable" class="table-responsive">
+                <h1 class="sub-header">Admin Information</h1>
+                <%-------------------------------------------------------Modal-----------------------------------------------------------%>
+                <div class="modal fade" id="adminInfo_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="companyInfoLabel">
+                                    管理员信息
+                                </h4>
+                            </div>
+                            <div class="modal-body" id="companyInfo_dev">
+                                <label for="adminId" class="sr-only">ID</label>
+                                <input type="text" id="adminId" class="form-control" placeholder="ID" disabled>
+
+                                <label for="adminName" class="sr-only">Name</label>
+                                <input type="text" id="adminName" class="form-control" placeholder="Name">
+
+                                <label for="adminPwd" class="sr-only">Password</label>
+                                <input type="text" id="adminPwd" class="form-control" placeholder="Password">
+
+                                <label for="adminPhone" class="sr-only">Phone</label>
+                                <input type="text" id="adminPhone" class="form-control" placeholder="Phone Number">
+
+                                <label for="adminSex" class="sr-only">Sex</label>
+                                <input type="text" id="adminSex" class="form-control" placeholder="Sex">
+
+                                <label for="adminAge" class="sr-only">Phone</label>
+                                <input type="text" id="adminAge" class="form-control" placeholder="Age">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="updateComCancel">取消</button>
+                                <button type="button" class="btn btn-primary" id="updateAdmin">更新</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <%---------------------------------------------------------Table Area--------------------------------------------%>
+                <table class="table table-striped" id="adminInfo_table">
+                    <thead>
+                    <tr class="info table_info_th"><th>NAME</th><th>PHONE</th><th>SEX</th><th>AGE</th><th>OPTION</th></tr>
+                    </thead>
+                </table>
             </div>
-        </form>
+
+            <%------------------------------------------------General Manage------------------------------------------%>
+            <div id="generalTable" class="table-responsive">
+                <h1 class="sub-header">General Manage</h1>
+                <form class="navbar-form" style="margin: 20px">
+                    <div class="form-group">
+                        <span style="font-weight:bold">用户名:</span>
+                        <input type="text" class="form-control input-search" id= "searchName" placeholder="General Name">
+                        <button type="button" class=" btn btn-danger btn-search" id="searchGeneral">BEGIN</button>
+                    </div>
+                </form>
+                <%---------------------------------------------- 修改信息模态框（Modal）--------------------------------------------------------------%>
+                <div class="modal fade" id="updateGeneralMadel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="ModalLabel">
+                                    修改普通用户信息
+                                </h4>
+                            </div>
+                            <div class="modal-body" id="general_dev">
+                                <label for="generalId" class="sr-only">ID</label>
+                                <input type="text" id="generalId" class="form-control" placeholder="ID" required disabled="disabled">
+
+                                <label for="generalName" class="sr-only">NAME</label>
+                                <input type="text" id="generalName" class="form-control" placeholder="Name" required>
+
+                                <label for="generalPwd" class="sr-only">Passwrod</label>
+                                <input type="text" id="generalPwd" class="form-control" placeholder="Password" required>
+
+                                <label for="generalAge" class="sr-only">Local</label>
+                                <input type="text" id="generalAge" class="form-control" placeholder="Age" required>
+
+                                <label for="generalSex" class="sr-only">Salary</label>
+                                <input type="text" id="generalSex" class="form-control" placeholder="Sex" required>
+
+                                <label for="generalPhone" class="sr-only">Phone Number</label>
+                                <input type="text" id="generalPhone" class="form-control" placeholder="Phone Number" required>
+
+                                <label for="generalEmail" class="sr-only">E-Mail</label>
+                                <input type="text" id="generalEmail" class="form-control" placeholder="E-Mail" required>
+
+                                <label for="generalIdNumber" class="sr-only">ID-Number</label>
+                                <input type="text" id="generalIdNumber" class="form-control" placeholder="ID-Number" required>
+
+                                <label for="generalPhone" class="sr-only">Local</label>
+                                <input type="text" id="generalLoal" class="form-control" placeholder="Local" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelGeneral">取消</button>
+                                <button type="button" class="btn btn-primary" id="releaseGeneral">更新</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <%------------------------------------------------------Table区--------------------------------------------------------------%>
+                <table class="table table-striped" id="general_table">
+                    <thead>
+                    <tr class="info table_info_th"><th>NAME</th><th>AGE</th><th>SEX</th><th>PHONE NUMBER</th>
+                        <th>E-MAIL</th><th>ID-NUMBER</th><th>LOCAL</th><th>OPERATION</th></tr>
+                    </thead>
+                </table>
+            </div>
+
+            <%------------------------------------------------Company Manage------------------------------------------%>
+            <div id="companyTable" class="table-responsive">
+                <h1 class="sub-header">Company Manage</h1>
+                <form class="navbar-form" style="margin: 20px">
+                    <div class="form-group">
+                        <span style="font-weight:bold">用户名:</span>
+                        <input type="text" class="form-control input-search" id= "companyName" placeholder="Company Name">
+                        <button type="button" class=" btn btn-danger btn-search" id="searchCompany">BEGIN</button>
+                    </div>
+                </form>
+                <%---------------------------------------------- 修改信息模态框（Modal）--------------------------------------------------------------%>
+                <div class="modal fade" id="updateCompanyMadel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                    &times;
+                                </button>
+                                <h4 class="modal-title" id="companyMadal">
+                                    修改公司用户信息
+                                </h4>
+                            </div>
+                            <div class="modal-body" id="company_dev">
+                                <label for="companyId" class="sr-only">ID</label>
+                                <input type="text" id="companyId" class="form-control" placeholder="ID" required disabled="disabled">
+
+                                <label for="companyName" class="sr-only">NAME</label>
+                                <input type="text" id="companyName" class="form-control" placeholder="Name" required>
+
+                                <label for="companyPasword" class="sr-only">Password</label>
+                                <input type="text" id="companyPasword" class="form-control" placeholder="Password" required>
+
+                                <label for="companyEmail" class="sr-only">E-Mail</label>
+                                <input type="text" id="companyEmail" class="form-control" placeholder="E-Mail" required>
+
+                                <label for="companyCity" class="sr-only">City</label>
+                                <input type="text" id="companyCity" class="form-control" placeholder="City" required>
+
+                                <label for="companyData" class="sr-only">Rigster Date</label>
+                                <input type="text" id="companyData" class="form-control" placeholder="Rigster Date" required>
+
+                                <label for="companyNature" class="sr-only">Nature</label>
+                                <input type="text" id="companyNature" class="form-control" placeholder="Nature" required>
+
+                                <label for="companyNumber" class="sr-only">Company-Number</label>
+                                <input type="text" id="companyNumber" class="form-control" placeholder="Company-Number" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="companyCancel">取消</button>
+                                <button type="button" class="btn btn-primary" id="releaseCompany">更新</button>
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </div><!-- /.modal -->
+                </div>
+                <%----------------------------------------------------Table Area---------------------------------------------------%>
+                <table class="table table-striped" id="companyInfo_table">
+                    <thead>
+                    <tr class="info table_info_th"><th>NAME</th><th>E-MAIL</th><th>CITY</th><th>Register-Date</th>
+                        <th>NATURE</th><th>NUMBER</th><th>OPTION</th></tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
     </div>
 </div>
 
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/js/bootstrap.js"></script>
+<script src="/static/js/jquery.min.js"></script>
 
-    <%--------------------------------------------------Table-Area----------------------------------------------------%>
-<div class="panel panel-default panel-self">
-    <%-----------------------------------------------------Modal------------------------------------------------------%>
-    <%---------------------------------------------- 添加信息模态框（Modal）---------------------------------------------%>
-    <div class="modal fade" id="post_dev" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-                        &times;
-                    </button>
-                    <h4 class="modal-title" id="myModalLabel">
-                        请确认相关信息
-                    </h4>
-                </div>
-                <div class="modal-body" id="positionInfo">
-                    <label for="position" class="sr-only">Position</label>
-                    <input type="text" id="position" class="form-control" placeholder="Position" disabled>
-
-                    <label for="company" class="sr-only">Company</label>
-                    <input type="text" id="company" class="form-control" placeholder="Company" disabled>
-
-                    <label for="resumeSelect" class="sr-only">Resume</label>
-                    <select class="form-control" id="resumeSelect">
-                        <option value="1">first</option>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">取消</button>
-                    <button type="button" class="btn btn-primary" id="release">提交</button>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal -->
-    </div>
-    <!-- ---------------------Title------------------- -->
-    <div class="panel-heading panel-heading-self">
-        <label>JOB INFORMATION</label>
-    </div>
-
-    <!---------------------- Table ---------------------->
-    <table class="table" id="job-table">
-        <thead>
-        <tr class="info table_info_th"><th>POSITION</th><th>COMPANY</th><th>LOCAL</th><th>SALARY</th><th>NUMBER</th><th>DATE</th><th>OPERATION</th></tr>
-        </thead>
-    </table>
-    <nav aria-label="Page navigation" style="text-align: center">
-        <ul class="pagination">
-            <li>
-                <a href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-            <li><a href="#">1</a></li>
-            <li><a href="#">2</a></li>
-            <li><a href="#">3</a></li>
-            <li><a href="#">4</a></li>
-            <li><a href="#">5</a></li>
-            <li>
-                <a href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</div>
-<%------------------------------------------------------------------------------------%>
-<script language="JavaScript">
-    var url = "${pageContext.request.contextPath}/page/queryJobInfo";
-    var generalId = "${sessionScope.ID}";
-    var jobId = null;
-    var position = null;
-    <%-----------pageloding----------%>
+<script type="text/javascript">
     $(document).ready(function() {
+        $('#generalTable').hide();
+        $('#companyTable').hide();
+        query();
+    });
+
+    $('#adminInfo').on('click', function () {
+        $('#adminTable').show();
+        $('#generalTable').hide();
+        $('#companyTable').hide();
+        query();
+    });
+
+    $('#generalInfo').on('click', function () {
+        $('#adminTable').hide();
+        $('#companyTable').hide();
+        $('#generalTable').show();
+        qryGeneralInfo();
+    });
+
+    $('#companyInfo').on('click', function () {
+        $('#adminTable').hide();
+        $('#generalTable').hide();
+        $('#companyTable').show();
+        qryCompanyInfo();
+    });
+
+    //清空输入框数据
+    $('#cancel').on('click', function () {
+        // console.log("clear");
+        $("#position_div input").val("");
+    });
+    $('#cancelU').on('click', function () {
+        $("#updatePosition input").val("");
+    });
+    // $('#updateComCancel').on('click', function () {
+    //     $("#companyInfo_modal input").val("");
+    // });
+
+    //查询用户信息
+    function query() {
+        var id = "${sessionScope.ID}";
+        console.log("sessionStorage.id="+id);
         $.ajax({
-            url: url,
-            type: 'POST',
-            dataType: 'JSON',
-            data: {},
-            success: function (data) {
-                showData(data);
-                queryResume(generalId);
+            url:"${pageContext.request.contextPath}/demo/queryAdminInfoById",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success:function (resultData) {
+                showData(resultData);
+            },
+            error:function () {
+                alert("服务器休息呢！别吵吵！！！");
+            }
+        })
+    };
+
+    //查询普通用户信息
+    function qryGeneralInfo() {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/queryUserInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+            },
+            success:function (resultData) {
+                var obj = '';
+                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updateGeneralMadel" id="changeGeneral">' +'CHANGE' +'</button>';
+                var remove = '<button type="button" class="btn btn-danger btn-search" id="deleteGeneralInfo">' +'DELETE' +'</button>';
+                var dataList = eval(resultData);
+                if (dataList[0].respCode === "8888") {
+                    alert(dataList[0].respDesc);
+                }
+                $('#general_table tr:gt(0)').remove();
+                for (var i in dataList) {
+                    obj = obj + '<tr class="table_info_tr" id='+ dataList[i].id +'>';
+                    obj += '<td>' + dataList[i].name + '</td>';
+                    obj += '<td>' + dataList[i].age + '</td>';
+                    obj += '<td>' + dataList[i].sex + '</td>';
+                    obj += '<td>' + dataList[i].phone + '</td>';
+                    obj += '<td>' + dataList[i].e_maile + '</td>';
+                    obj += '<td>' + dataList[i].idNumber + '</td>';
+                    obj += '<td>' + dataList[i].local + '</td>';
+                    obj +='<td>' + change + remove + '</td>';
+                }
+                $('#general_table').append(obj);
+            },
+            error:function () {
+                alert("服务器休息呢！别吵吵！！！")
+            }
+        })
+    }
+
+    //查询公司用户信息
+    function qryCompanyInfo() {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/queryAllComInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+            },
+            success:function (resultData) {
+                var obj = '';
+                var dataList = eval(resultData);
+                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updateCompanyMadel" id="changeCom">' +'CHANGE' +'</button>';
+                var remove = '<button type="button" class="btn btn-danger btn-search" id="deleteCom">' +'DELETE' +'</button>';
+                if (dataList[0].respCode === "8888") {
+                    alert(dataList[0].respDesc);
+                    location.reload();
+                }
+                $('#companyInfo_table tr:gt(0)').remove();
+                //console.log(dataList);
+                for (var i in dataList) {
+                    //转换时间格式
+                    console.log(dataList[i]);
+                    var time = timeTrans(dataList[i].date);
+                    obj = obj + '<tr class="table_info_tr" id='+ dataList[i].id +'>';
+                    obj += '<td>' + dataList[i].name + '</td>';
+                    obj += '<td>' + dataList[i].e_maile + '</td>';
+                    obj += '<td>' + dataList[i].city + '</td>';
+                    obj += '<td>' + time + '</td>';
+                    obj += '<td>' + dataList[i].nature + '</td>';
+                    obj += '<td>' + dataList[i].number + '</td>';
+                    obj += '<td>' + change + remove + '</td>';
+                }
+                $('#companyInfo_table').append(obj);
             },
             error: function () {
+                alert("服务器休息呢！别吵吵！！！")
+            }
+        })
+    }
+
+    //转换时间格式
+    function timeTrans(value) {
+        var dateString = value;
+        var pattern = /(\d{4})(\d{2})(\d{2})/;
+        return dateString.replace(pattern, '$1年$2月$3日');
+    }
+
+    //输出数据到表格
+    function showData(resultData) {
+        var obj = '';
+        var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#adminInfo_modal" id="updateAdminInfo">' +'CHANGE' +'</button>';
+        var data = eval(resultData);
+        if (data.respCode === "8888") {
+            alert(data.respDesc);
+        }
+        $('#adminInfo_table tr:gt(0)').remove();
+        obj = obj + '<tr class="table_info_tr" id='+ data.id +'>';
+        obj += '<td>' + data.name + '</td>';
+        obj += '<td>' + data.phone + '</td>';
+        obj += '<td>' + data.sex + '</td>';
+        obj += '<td>' + data.age + '</td>';
+        obj +='<td>' + change + '</td>';
+        $('#adminInfo_table').append(obj);
+        console.log(data);
+    }
+
+    //更新公司信息(填充模态框)------------------------------------------
+    $(document).on('click', '#updateAdminInfo', function () {
+        var id = "${sessionScope.ID}";
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/queryAdminInfoById",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success:function (resultData) {
+                if (resultData.respCode === "0000") {
+                    $('#adminId').val(resultData.id);
+                    $('#adminName').val(resultData.name);
+                    $('#adminPwd').val(resultData.password);
+                    $('#adminPhone').val(resultData.phone);
+                    $('#adminSex').val(resultData.sex);
+                    $('#adminAge').val(resultData.age);
+                } else {
+                    alert("查询信息失败")
+                }
+            },
+            error:function () {
                 alert("服务器休息呢！别吵吵！！！");
             }
         });
     });
-
-    <%--------search button---------%>
-    $('#search').on('click', function() {
-        var position_value = $('#position_value').val();
-        var company_value = $('#company_value').val();
-        var local_value = $('#local_value').val();
+    //更新公司信息提交
+    $('#updateAdmin').on('click', function () {
+        var id = "${sessionScope.ID}";
         $.ajax({
-            url:url,
+            url:'${pageContext.request.contextPath}/demo/updateAdminInfo',
             type:'POST',
             dataType:'JSON',
             data:{
-                position:position_value,
-                company:company_value,
-                local:local_value
+                id:id,
+                name:$('#adminName').val(),
+                password:$('#adminPwd').val(),
+                phone:$('#adminPhone').val(),
+                sex:$('#adminSex').val(),
+                age:$('#adminAge').val(),
             },
-            success: function (data) {
-                showData(data)
-            },
-            error: function () {
-                alert("服务器休息呢!别吵吵!!!");
-            }
-        });
-        $(position_value).val('');
-        $(company_value).val('');
-        $(local_value).val('');
-    });
-
-    //信息列表输出
-    function showData(data) {
-        var obj = '';
-        var send = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#post_dev" id="send">' +'SEND' +'</button>';
-        var dataList = eval(data);
-        if (dataList[0].respCode === "8888") {
-            alert(dataList[0].respDesc);
-            location.reload();
-        }
-        $('#job-table tr:gt(0)').remove();
-        for (var i in dataList) {
-            var date = timeTrans(dataList[i].date);
-            obj = obj + '<tr class="table_info_tr" id='+ dataList[i].id +'>';
-            obj +='<td>' + dataList[i].position + '</td>';
-            obj +='<td>' + dataList[i].company + '</td>';
-            obj +='<td>' + dataList[i].local + '</td>';
-            obj +='<td>' + dataList[i].salary +"K"+ '</td>';
-            obj +='<td>' + dataList[i].number + '人' + '</td>';
-            obj +='<td>' + date + '</td>';
-            obj +='<td>' + send + '</td>';
-            obj = obj + '</tr>';
-        }
-        $('#job-table').append(obj);
-    }
-
-    //时间格式转换
-    function timeTrans(value) {
-        var dateString = value;
-        var pattern = /(\d{4})(\d{2})(\d{2})/;
-        var formatedDate = dateString.replace(pattern, '$1年$2月$3日');
-        return formatedDate;
-    }
-
-    //send按钮事件，填充相关信息
-    $(document).on('click', '#send', function () {
-        if (generalId === "") {
-            location.reload();
-            alert("请登录");
-            return false;
-        }
-        //判断是否是general
-        if (!generalId.startsWith("1")) {
-            alert("此功能只针对求职者");
-            return false;
-        }
-        jobId = $(this).parents("tr").attr("id");
-        // console.log("jobId:" + jobId);
-        //获取companyId,并给input赋值
-        var jobInfo = qeuryJobInfo(jobId);
-        $('#position').val(jobInfo.position);
-        $('#company').val(jobInfo.company);
-        position = jobInfo.position;
-    });
-
-    //职位ID->职位信息
-    function qeuryJobInfo(jobId) {
-        var jobInfo = null;
-        $.ajax({
-            url:'${pageContext.request.contextPath}/demo/qryJobInfoById',
-            type:'POST',
-            dataType:'JSON',
-            async:false,
-            data: {
-                id:jobId
-            },
-            success:function (resultData) {
+            success: function (resultData) {
                 if (resultData.respCode === "0000") {
-                    jobInfo = resultData;
-                }
-            }
-        });
-        return jobInfo;
-    }
-
-    //查询简历信息，填充下拉框
-    function queryResume(generalId) {
-        var resumeList = null;
-        $.ajax({
-            url:'${pageContext.request.contextPath}/demo/qryResumeInfo',
-            type:'POST',
-            dataType:'JSON',
-            async:false,
-            data:{
-                generalId:generalId
-            },
-            success:function (resultData) {
-                if (resultData.respCode === "0000") {
-                    resumeList = resultData.rows;
-                    //下拉框添加option
-                    $('#resumeSelect option').remove();
-                    for (var i = 0; i < resumeList.length;) {
-                        //先创建好select里面的option元素
-                        var option = document.createElement("option");
-                        //转换DOM对象为JQ对象,好用JQ里面提供的方法 给option的value赋值
-                        $(option).val(resumeList[i].id);
-                        //给option的text赋值,这就是你点开下拉框能够看到的东西
-                        $(option).text("简历" + ++i);
-                        //获取select 下拉框对象,并将option添加进select
-                        $('#resumeSelect').append(option);
-                    }
-                }
-            },
-            error: function () {
-                alert("服务器无响应");
-            }
-        });
-        return resumeList;
-    }
-
-    $('#release').on('click', function () {
-        console.log("generalId:" + generalId);
-
-        console.log("jobId:" + jobId);
-
-        var job = qeuryJobInfo(jobId);
-        var companyId = job.companyId;
-        console.log("companyId:" + job.companyId);
-
-        var resumeId = $('#resumeSelect').select().val();
-        console.log("resumeId:" + resumeId);
-        console.log("position:" + position);
-        $.ajax({
-            url: '${pageContext.request.contextPath}/demo/createRelInfo',
-            type:'POST',
-            dataType:'JSON',
-            data:{
-                generalId:generalId,
-                companyId:companyId,
-                jobId:jobId,
-                resumeId:resumeId,
-                position:position
-            },
-            success:function (resultData) {
-                if (resultData.respCode === "0000") {
-                    alert("投递成功");
+                    alert("更新成功！！！");
                     location.reload();
                 } else {
-                    alert(resultData.respDesc);
-                    location.reload();
+                    alert("更新失败：" + resultData.respDesc );
                 }
             },
             error: function () {
-                alert("服务器可能挂了")
+                alert("服务器没睡醒！！！");
             }
         });
-    })
+    });
+
+    //更改普通用户信息(填充模态框)---------------------------------------
+    $(document).on('click', '#changeGeneral', function () {
+        var id=$(this).parents("tr").attr("id");
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/queryUserInfoById",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success:function (resultData) {
+                console.log(resultData);
+                if (resultData.respCode === "0000") {
+                    $('#generalId').val(resultData.id);
+                    $('#generalName').val(resultData.name);
+                    $('#generalPwd').val(resultData.password);
+                    $('#generalAge').val(resultData.age);
+                    $('#generalSex').val(resultData.sex);
+                    $('#generalPhone').val(resultData.phone);
+                    $('#generalEmail').val(resultData.e_maile);
+                    $('#generalIdNumber').val(resultData.idNumber);
+                    $('#generalLoal').val(resultData.local);
+                } else {
+                    alert("查询信息失败")
+                }
+            },
+            error:function () {
+                alert("服务器未响应！！！")
+            }
+        });
+        //console.log("点击事件："+id);
+    });
+    //更新提交
+    $('#releaseGeneral').on('click', function () {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/updataUserInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:$('#generalId').val(),
+                name:$('#generalName').val(),
+                password:$('#generalPwd').val(),
+                age:$('#generalAge').val(),
+                sex:$('#generalSex').val(),
+                phone:$('#generalPhone').val(),
+                e_maile:$('#generalEmail').val(),
+                idNumber:$('#generalIdNumber').val(),
+                local:$('#generalLoal').val()
+            },
+            success:function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("更新成功！！！");
+                    location.reload();
+                } else {
+                    alert("更新失败:" + resultData.respDesc);
+                }
+            },
+            error:function () {
+                alert("服务器不在线 (-_-)");
+            }
+        })
+    });
+    //删除普通用户信息
+    $(document).on('click', '#deleteGeneralInfo', function () {
+        var id = $(this).parents("tr").attr("id");
+        console.log(id);
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/deleteUserInfo",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success: function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("删除成功");
+                    qryGeneralInfo();
+                }
+                else {
+                    alert(resultData.respDesc);
+                }
+            },
+            error: function () {
+                alert("服务器睡觉了吧 (>_<) ")
+            }
+        })
+    });
+
+    //更改公司用户信息(填充模态框)----------------------------------------
+    $(document).on('click', '#changeCom', function () {
+        var id = $(this).parents("tr").attr("id");
+        $.ajax({
+            url:'${pageContext.request.contextPath}/demo/queryComInfoById',
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success:function (resultData) {
+                if (resultData.respCode === "0000") {
+                    $('#companyId').val(resultData.id);
+                    $('#companyName').val(resultData.name);
+                    $('#companyPasword').val(resultData.password);
+                    $('#companyEmail').val(resultData.e_maile);
+                    $('#companyCity').val(resultData.city);
+                    $('#companyData').val(resultData.date);
+                    $('#companyNature').val(resultData.nature);
+                    $('#companyNumber').val(resultData.number);
+                } else {
+                    alert("查询失败");
+                    location.reload();
+                }
+            },
+            error:function () {
+                alert("服务器不在线 (-_-)");
+            }
+        })
+    });
+    //提交更新
+    $('#releaseCompany').on('click', function () {
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/updateComInfoById",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:$('#companyId').val(),
+                name:$('#companyName').val(),
+                password:$('#companyPasword').val(),
+                e_maile:$('#companyEmail').val(),
+                city:$('#companyCity').val(),
+                date:$('#companyData').val(),
+                nature:$('#companyNature').val(),
+                number:$('#companyNumber').val()
+            },
+            success:function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("更新成功！！！");
+                    location.reload();
+                } else {
+                    alert("更新失败:" + resultData.respDesc);
+                }
+            },
+            error:function () {
+                alert("服务器不在线 (-_-)");
+            }
+        })
+    });
+    //删除公司用户信息
+    $(document).on('click', '#deleteCom', function () {
+        var id = $(this).parents("tr").attr("id");
+        console.log(id);
+        $.ajax({
+            url:"${pageContext.request.contextPath}/demo/deleteComInfoById",
+            type:'POST',
+            dataType:'JSON',
+            data:{
+                id:id
+            },
+            success: function (resultData) {
+                if (resultData.respCode === "0000") {
+                    alert("删除成功");
+                    qryGeneralInfo();
+                }
+                else {
+                    alert(resultData.respDesc);
+                }
+            },
+            error: function () {
+                alert("服务器睡觉了吧 (>_<) ")
+            }
+        })
+    });
+
 </script>
 </body>
 </html>
-

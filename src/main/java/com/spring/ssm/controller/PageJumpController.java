@@ -167,6 +167,7 @@ public class PageJumpController {
         LOG.info("管理员登录---controller");
         AdminInfoRspBo retBo = adminInfoService.queryAdminInfo(reqBo);
         if (retBo.getRespCode().equals(SUCCESS)) {
+            session.setAttribute("ID", retBo.getId());
             session.setAttribute("NAME", retBo.getName());
             session.setAttribute("TYPE", RspConstracts.ADMIN);
         }

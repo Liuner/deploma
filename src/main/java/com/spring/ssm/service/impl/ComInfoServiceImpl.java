@@ -104,7 +104,6 @@ public class ComInfoServiceImpl implements ComInfoService {
         }
         BeanUtils.copyProperties(companyInfoPo, retBo);
         retBo.setId(companyInfoPo.getId()+"");
-        retBo.setPassword("才不要给你看");
         retBo.setDate(new DateTime(companyInfoPo.getDate()).toString("yyyyMMdd"));
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
@@ -179,7 +178,12 @@ public class ComInfoServiceImpl implements ComInfoService {
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
             return retBo;
         }
-
+        String validataStr = validataArg(reqBo);
+        if (!StringUtils.isEmpty(validataStr)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc(validataStr);
+            return retBo;
+        }
         CompanyInfoPo companyInfoPo = new CompanyInfoPo();
         BeanUtils.copyProperties(reqBo ,companyInfoPo);
         companyInfoPo.setId(Long.valueOf(reqBo.getId()));
@@ -249,23 +253,23 @@ public class ComInfoServiceImpl implements ComInfoService {
             return "入参对象不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getName())) {
-            return "入参对象属性name不能为空";
+            return "name不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getCity()))
         {
-            return "入参对象属性city不能为空";
+            return "city不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getDate())) {
-            return "入参对象属性date不能为空";
+            return "date不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getE_maile())) {
-            return "入参对象属性e_maile不能为空";
+            return "e_maile不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getNumber())) {
-            return "入参对象属性number不能为空";
+            return "number不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getPassword())) {
-            return "入参对象属性password不能为空";
+            return "password不能为空";
         }
         return null;
     }

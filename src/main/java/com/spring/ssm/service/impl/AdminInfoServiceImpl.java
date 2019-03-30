@@ -93,7 +93,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
         }
         BeanUtils.copyProperties(adminInfoPo, retBo);
         retBo.setId(adminInfoPo.getId()+"");
-        retBo.setPassword("不想给你看");
+        retBo.setPassword(adminInfoPo.getPassword());
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
         return retBo;
@@ -119,7 +119,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
                 AdminInfoRspBo bo = new AdminInfoRspBo();
                 BeanUtils.copyProperties(adminInfoPo, bo);
                 bo.setId(adminInfoPo.getId()+"");
-                bo.setPassword("想看密码 不可能");
+                bo.setPassword(adminInfoPo.getPassword());
                 bo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
                 bo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
                 adminInfoRspBoList.add(bo);
@@ -144,6 +144,13 @@ public class AdminInfoServiceImpl implements AdminInfoService {
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
             retBo.setRespDesc(RspConstracts.RSP_DESC_FAIL);
             return  retBo;
+        }
+        String validataStr = validataArg(reqBo);
+        if (!StringUtils.isEmpty(validataStr)) {
+            LOG.error("入参校验失败");
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc(validataStr);
+            return retBo;
         }
         BeanUtils.copyProperties(reqBo, adminInfoPo);
         adminInfoPo.setId(Long.valueOf(reqBo.getId()));
@@ -215,6 +222,7 @@ public class AdminInfoServiceImpl implements AdminInfoService {
             retBo.setRespDesc("用户名或密码错误");
             return retBo;
         }
+        retBo.setId(adminInfoPo.getId()+"");
         retBo.setName(adminInfoPo.getName());
         retBo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
         retBo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
@@ -234,19 +242,19 @@ public class AdminInfoServiceImpl implements AdminInfoService {
             return "入参对象不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getName())) {
-            return "入参对象属性name不能为空";
+            return "name不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getAge())) {
-            return "入参对象属性age不能为空";
+            return "age不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getPassword())) {
-            return "入参对象属性password不能为空";
+            return "password不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getPhone())) {
-            return "入参对象属性phone不能为空";
+            return "phone number不能为空";
         }
         if (StringUtils.isEmpty(reqBo.getSex())) {
-            return "入参对象属性sex不能为空";
+            return "sex不能为空";
         }
         return null;
     }

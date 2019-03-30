@@ -146,6 +146,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
         UserInfoPo userInfoPo = new UserInfoPo();
         BeanUtils.copyProperties(reqBo, userInfoPo);
+        userInfoPo.setStatus(0);
         int result = 0;
         try {
             result = userInfoMapper.addUserInfo(userInfoPo);
@@ -172,6 +173,12 @@ public class UserInfoServiceImpl implements UserInfoService {
             LOG.error("入参对象属性id不能为空");
             retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
             retBo.setRespDesc("入参对象属性id不能为空");
+            return retBo;
+        }
+        String validataStr = validataArg(reqBo);
+        if (!StringUtils.isEmpty(validataStr)) {
+            retBo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            retBo.setRespDesc(validataStr);
             return retBo;
         }
 
@@ -256,9 +263,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         }
         if (StringUtils.isEmpty(reqBo.getSex())) {
             return "入参对象属性sex不能为空";
-        }
-        if (StringUtils.isEmpty(reqBo.getStatus())) {
-            return "入参对象属性status不能为空";
         }
         return null;
     }
