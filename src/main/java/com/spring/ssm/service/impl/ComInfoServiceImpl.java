@@ -115,23 +115,36 @@ public class ComInfoServiceImpl implements ComInfoService {
         LOG.info("进入selectComInfo服务");
         List<CompanyInfoRspBo> companyInfoRspBoList = new ArrayList<>();
         CompanyInfoPo companyInfoPo = new CompanyInfoPo();
-        BeanUtils.copyProperties(reqBo, companyInfoPo);
+//        BeanUtils.copyProperties(reqBo, companyInfoPo);
         if (!StringUtils.isEmpty(reqBo.getId())) {
             companyInfoPo.setId(Long.valueOf(reqBo.getId()));
         }
-        List<CompanyInfoPo> companyInfoPoList = companyInfoMapper.selectComInfoBySelective(companyInfoPo);
+        if (!StringUtils.isEmpty(reqBo.getName())) {
+            companyInfoPo.setName(reqBo.getName());
+        }
+        List<CompanyInfoPo> companyInfoPoList;
+        try {
+            companyInfoPoList = companyInfoMapper.selectComInfoBySelective(companyInfoPo);
+        } catch (Exception e) {
+            LOG.error("调用mapper异常"+ e);
+            throw new BusiExcption(ExceptionConstract.COMPANY_EXCEPTION, "调用mapper异常"+ e);
+        }
 
         if (!CollectionUtils.isEmpty(companyInfoPoList)) {
             for (CompanyInfoPo Po : companyInfoPoList) {
                 CompanyInfoRspBo bo = new CompanyInfoRspBo();
                 BeanUtils.copyProperties(Po, bo);
-                bo.setPassword("你居然想看我密码");
                 bo.setId(Po.getId()+"");
                 bo.setDate(new DateTime(Po.getDate()).toString("yyyyMMdd"));
                 bo.setRespCode(RspConstracts.RSP_CODE_SUCCESS);
                 bo.setRespDesc(RspConstracts.RSP_DESC_SUCCESS);
                 companyInfoRspBoList.add(bo);
             }
+        } else {
+            CompanyInfoRspBo bo = new CompanyInfoRspBo();
+            bo.setRespCode(RspConstracts.RSP_CODE_FAIL);
+            bo.setRespDesc("未查询到相关信息");
+            companyInfoRspBoList.add(bo);
         }
         return companyInfoRspBoList;
     }

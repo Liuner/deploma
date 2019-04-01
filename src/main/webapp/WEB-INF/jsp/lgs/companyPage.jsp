@@ -291,7 +291,7 @@
             type:'POST',
             dataType:'JSON',
             data:{
-                id:2000001
+                id:id
             },
             success:function (resultData) {
                 var obj = '';

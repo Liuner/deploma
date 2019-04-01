@@ -98,10 +98,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         LOG.info("进入queryInfo服务");
 
         UserInfoPo userInfoPo = new UserInfoPo();
-        BeanUtils.copyProperties(reqBo, userInfoPo);
         if (!StringUtils.isEmpty(reqBo.getId())) {
             userInfoPo.setId(Long.valueOf(reqBo.getId()));
         }
+        if (!StringUtils.isEmpty(reqBo.getName())) {
+            userInfoPo.setName(reqBo.getName());
+        }
+//        BeanUtils.copyProperties(reqBo, userInfoPo);
 
         List<UserInfoRspBo> userInfoRspBoList = new ArrayList<>();
         List<UserInfoPo> userInfoPoList = new ArrayList<>();
@@ -118,7 +121,6 @@ public class UserInfoServiceImpl implements UserInfoService {
                 UserInfoRspBo bo = new UserInfoRspBo();
                 BeanUtils.copyProperties(userInfo,  bo);
                 bo.setId(userInfo.getId()+"");
-                bo.setPassword("不会给你看的哈哈");
                 userInfoRspBoList.add(bo);
             }
             return userInfoRspBoList;
@@ -128,7 +130,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         bo.setRespDesc("未查询到数据");
         userInfoRspBoList.add(bo);
         return userInfoRspBoList;
-
     }
 
     @Override

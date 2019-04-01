@@ -218,7 +218,6 @@
         $('#companyTable').hide();
         query();
     });
-    var name = null;
 
     $('#adminInfo').on('click', function () {
         $('#adminTable').show();
@@ -241,7 +240,7 @@
         qryCompanyInfo();
     });
 
-    //查询用户信息
+    //查询管理员信息
     function query() {
         var id = "${sessionScope.ID}";
         console.log("sessionStorage.id="+id);
@@ -261,8 +260,12 @@
         })
     };
 
-    //查询普通用户信息
-    function qryGeneralInfo() {
+    //查询管理员信息
+    function qryGeneralInfo(generalName) {
+        var name = '';
+        if (generalName !== '' || generalName !== null) {
+            name = generalName;
+        }
         $.ajax({
             url:"${pageContext.request.contextPath}/demo/queryUserInfo",
             type:'POST',
@@ -277,6 +280,7 @@
                 var dataList = eval(resultData);
                 if (dataList[0].respCode === "8888") {
                     alert(dataList[0].respDesc);
+                    location.reload();
                 }
                 $('#general_table tr:gt(0)').remove();
                 for (var i in dataList) {
@@ -295,16 +299,22 @@
             error:function () {
                 alert("服务器休息呢！别吵吵！！！")
             }
-        })
+        });
     }
 
     //查询公司用户信息
-    function qryCompanyInfo() {
+    function qryCompanyInfo(companyName) {
+        var name = '';
+        if (companyName !== '' || companyName !== null) {
+            name = companyName;
+        }
+        console.log(name);
         $.ajax({
             url:"${pageContext.request.contextPath}/demo/queryAllComInfo",
             type:'POST',
             dataType:'JSON',
             data:{
+                name:name
             },
             success:function (resultData) {
                 var obj = '';
@@ -595,16 +605,17 @@
 
     // todo 普通用户搜索
     $('#searchGeneral').on('click', function () {
-        console.log()
-        name = $('#searchName').val();
-        console.log(name);
-        qryGeneralInfo();
+        var name = $('#searchName').val();
+        // console.log("generalName"+name);
+        qryGeneralInfo(name);
+        $('#searchName').val('');
     });
     //todo  公司用户收索
     $('#searchCompany').on('click', function () {
-        name = $('#companyName').val();
-        console.log(name);
-        qryCompanyInfo();
+        var name = $('#company').val();
+        // console.log(name);
+        qryCompanyInfo(name);
+        $('#company').val('');
     })
 
 </script>

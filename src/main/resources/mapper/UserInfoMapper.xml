@@ -40,7 +40,6 @@
             AND PASSWORD=#{password}
         </if>
     </select>
-
     <select id="selectUserInfoBySelective" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.UserInfoPo">
         select
         <include refid="Base_Column_List"/>
@@ -49,17 +48,20 @@
         <if test="id != null">
             AND ID=#{id}
         </if>
+        <if test="name != null">
+            AND NAME=#{name}
+        </if>
         <if test="password != null">
             AND PASSWORD=#{password}
         </if>
-        <if test="age != 0">
+        <if test="age != null">
             AND AGE=#{age}
         </if>
         <if test="sex != null">
             AND SEX=#{sex}
         </if>
         <if test="phone != null">
-            AND PHONE={phone}
+            AND PHONE=#{phone}
         </if>
         <if test="e_maile != null">
             AND E_MAIL=#{e_maile}
@@ -70,9 +72,10 @@
         <if test="local != null">
             AND LOCAL=#{local}
         </if>
-        <if test="status != 0">
-            AND LOCAL=#{status}
+        <if test="status != null">
+            AND STATUS=#{status}
         </if>
+
     </select>
 
     <insert id="addUserInfo" parameterType="com.spring.ssm.dto.UserInfoPo" useGeneratedKeys="true" keyProperty="id">

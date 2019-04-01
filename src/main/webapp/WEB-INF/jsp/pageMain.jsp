@@ -76,7 +76,7 @@
     </div>
 
     <!---------------------- Table ---------------------->
-    <table class="table" id="job-table">
+    <table class="table table-striped" id="job-table">
         <thead>
         <tr class="info table_info_th"><th>POSITION</th><th>COMPANY</th><th>LOCAL</th><th>SALARY</th><th>NUMBER</th><th>DATE</th><th>OPERATION</th></tr>
         </thead>

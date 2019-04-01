@@ -143,7 +143,7 @@
                 <form class="navbar-form" style="margin: 20px">
                     <div class="form-group">
                         <span style="font-weight:bold">用户名:</span>
-                        <input type="text" class="form-control input-search" id= "companyName" placeholder="Company Name">
+                        <input type="text" class="form-control input-search" id= "companyName1" placeholder="Company Name">
                         <button type="button" class=" btn btn-danger btn-search" id="searchCompany">BEGIN</button>
                     </div>
                 </form>
