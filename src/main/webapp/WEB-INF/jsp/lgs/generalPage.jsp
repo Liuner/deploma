@@ -33,7 +33,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="ModalLabel">
-                                    用户信息
+                                    User Information
                                 </h4>
                             </div>
                             <div class="modal-body" id="positionInfoU">
@@ -62,8 +62,8 @@
                                 <input type="text" id="local" class="form-control" placeholder="Local" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">取消</button>
-                                <button type="button" class="btn btn-primary" id="submit">更新</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Cancle</button>
+                                <button type="button" class="btn btn-primary" id="submit">Update</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -93,7 +93,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">
-                                    简历信息
+                                    Add Resume Information
                                 </h4>
                             </div>
                             <div class="modal-body" id="positionInfo">
@@ -128,8 +128,8 @@
                                 <input type="text" id="remarkResume" class="form-control" placeholder="Remark" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelResume">取消</button>
-                                <button type="button" class="btn btn-primary" id="release">提交</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelResume">Cancle</button>
+                                <button type="button" class="btn btn-primary" id="release">Update</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -143,7 +143,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="updateModalLabel">
-                                    简历信息
+                                    Edit Resume Information
                                 </h4>
                             </div>
                             <div class="modal-body" id="updateInfo_dev">
@@ -181,8 +181,8 @@
                                 <input type="text" id="remarkResumeU" class="form-control" placeholder="Remark" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelUpdate">取消</button>
-                                <button type="button" class="btn btn-primary" id="update">更新</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelUpdate">Cancle</button>
+                                <button type="button" class="btn btn-primary" id="update">Update</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -276,7 +276,7 @@
             },
             success:function (resultData) {
                 var obj = '';
-                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#update_dev" id="changeResume">' +'CHANGE' +'</button>';
+                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#update_dev" id="changeResume">' +'EDIT' +'</button>';
                 var remove = '<button type="button" class="btn btn-danger btn-search" id="delete">' +'DELETE' +'</button>';
                 var data = eval(resultData);
                 if (data.respCode === "8888") {
@@ -373,7 +373,7 @@
     //输出用户数据到表格
     function showData(resultData) {
         var obj = '';
-        var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updateInfo" id="change">' +'CHANGE' +'</button>';
+        var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updateInfo" id="change">' +'EDIT' +'</button>';
         var dataList = eval(resultData);
         if (dataList[0].respCode === "8888") {
             alert(dataList[0].respDesc);

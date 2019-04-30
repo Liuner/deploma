@@ -33,7 +33,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="companyInfoLabel">
-                                    公司信息
+                                    Company Information
                                 </h4>
                             </div>
                             <div class="modal-body" id="companyInfo_dev">
@@ -56,8 +56,8 @@
                                 <input type="text" id="companyNumber" class="form-control" placeholder="Serial number" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="updateComCancel">取消</button>
-                                <button type="button" class="btn btn-primary" id="updateCom">更新</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="updateComCancel">Cancle</button>
+                                <button type="button" class="btn btn-primary" id="updateCom">Update</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -87,7 +87,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="myModalLabel">
-                                    发布职位信息
+                                    Post Job Information
                                 </h4>
                             </div>
                             <div class="modal-body" id="positionInfo">
@@ -107,8 +107,8 @@
                                 <input type="text" id="number" class="form-control" placeholder="Number" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">取消</button>
-                                <button type="button" class="btn btn-primary" id="release">发布</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancel">Cancle</button>
+                                <button type="button" class="btn btn-primary" id="release">Release</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -122,7 +122,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="ModalLabel">
-                                    更新职位信息
+                                    Edit Job Information
                                 </h4>
                             </div>
                             <div class="modal-body" id="positionInfoU">
@@ -145,8 +145,8 @@
                                 <input type="text" id="numberU" class="form-control" placeholder="Number" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelU">取消</button>
-                                <button type="button" class="btn btn-primary" id="releaseU">更新</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelU">Cancle</button>
+                                <button type="button" class="btn btn-primary" id="releaseU">Update</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -257,7 +257,7 @@
             },
             success:function (resultData) {
                 var obj = '';
-                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updatePosition" id="change">' +'CHANGE' +'</button>';
+                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updatePosition" id="change">' +'EDIT' +'</button>';
                 var remove = '<button type="button" class="btn btn-danger btn-search" id="delete">' +'DELETE' +'</button>';
                 var dataList = eval(resultData);
                 if (dataList[0].respCode === "8888") {
@@ -356,7 +356,7 @@
     //输出数据到表格
     function showData(resultData) {
         var obj = '';
-        var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#companyInfo_modal" id="updateComInfo">' +'CHANGE' +'</button>';
+        var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#companyInfo_modal" id="updateComInfo">' +'EDIT' +'</button>';
         var data = eval(resultData);
         if (data.respCode === "8888") {
             alert(data.respDesc);

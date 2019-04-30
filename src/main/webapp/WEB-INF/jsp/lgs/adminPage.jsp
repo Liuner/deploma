@@ -34,7 +34,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="companyInfoLabel">
-                                    管理员信息
+                                    Administrator Information
                                 </h4>
                             </div>
                             <div class="modal-body" id="companyInfo_dev">
@@ -57,8 +57,8 @@
                                 <input type="text" id="adminAge" class="form-control" placeholder="Age">
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="updateComCancel">取消</button>
-                                <button type="button" class="btn btn-primary" id="updateAdmin">更新</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="updateComCancel">Cancle</button>
+                                <button type="button" class="btn btn-primary" id="updateAdmin">Update</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -76,7 +76,7 @@
                 <h1 class="sub-header">General Manage</h1>
                 <form class="navbar-form" style="margin: 20px">
                     <div class="form-group">
-                        <span style="font-weight:bold">用户名:</span>
+                        <span style="font-weight:bold">GeneralName:</span>
                         <input type="text" class="form-control input-search" id= "searchName" placeholder="General Name">
                         <button type="button" class=" btn btn-danger btn-search" id="searchGeneral">BEGIN</button>
                     </div>
@@ -90,7 +90,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="ModalLabel">
-                                    修改普通用户信息
+                                    Modify General User Information
                                 </h4>
                             </div>
                             <div class="modal-body" id="general_dev">
@@ -122,8 +122,8 @@
                                 <input type="text" id="generalLoal" class="form-control" placeholder="Local" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelGeneral">取消</button>
-                                <button type="button" class="btn btn-primary" id="releaseGeneral">更新</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="cancelGeneral">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="releaseGeneral">Update</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -139,10 +139,10 @@
 
             <%------------------------------------------------Company Manage------------------------------------------%>
             <div id="companyTable" class="table-responsive">
-                <h1 class="sub-header">Company Manage</h1>
+                <h1 class="sub-header">CompanyManage</h1>
                 <form class="navbar-form" style="margin: 20px">
                     <div class="form-group">
-                        <span style="font-weight:bold">用户名:</span>
+                        <span style="font-weight:bold">CompanyName:</span>
                         <input type="text" class="form-control input-search" id= "company" placeholder="Company Name">
                         <button type="button" class=" btn btn-danger btn-search" id="searchCompany">BEGIN</button>
                     </div>
@@ -156,7 +156,7 @@
                                     &times;
                                 </button>
                                 <h4 class="modal-title" id="companyMadal">
-                                    修改公司用户信息
+                                    Modify company user information
                                 </h4>
                             </div>
                             <div class="modal-body" id="company_dev">
@@ -185,8 +185,8 @@
                                 <input type="text" id="companyNumber" class="form-control" placeholder="Company-Number" required>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal" id="companyCancel">取消</button>
-                                <button type="button" class="btn btn-primary" id="releaseCompany">更新</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal" id="companyCancel">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="releaseCompany">Update</button>
                             </div>
                         </div><!-- /.modal-content -->
                     </div><!-- /.modal -->
@@ -275,7 +275,7 @@
             },
             success:function (resultData) {
                 var obj = '';
-                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updateGeneralMadel" id="changeGeneral">' +'CHANGE' +'</button>';
+                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updateGeneralMadel" id="changeGeneral">' +'EDIT' +'</button>';
                 var remove = '<button type="button" class="btn btn-danger btn-search" id="deleteGeneralInfo">' +'DELETE' +'</button>';
                 var dataList = eval(resultData);
                 if (dataList[0].respCode === "8888") {
@@ -319,7 +319,7 @@
             success:function (resultData) {
                 var obj = '';
                 var dataList = eval(resultData);
-                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updateCompanyMadel" id="changeCom">' +'CHANGE' +'</button>';
+                var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#updateCompanyMadel" id="changeCom">' +'EDIT' +'</button>';
                 var remove = '<button type="button" class="btn btn-danger btn-search" id="deleteCom">' +'DELETE' +'</button>';
                 if (dataList[0].respCode === "8888") {
                     alert(dataList[0].respDesc);
@@ -358,7 +358,7 @@
     //输出数据到表格
     function showData(resultData) {
         var obj = '';
-        var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#adminInfo_modal" id="updateAdminInfo">' +'CHANGE' +'</button>';
+        var change = '<button type="button" class="btn btn-danger btn-search" data-toggle="modal" data-target="#adminInfo_modal" id="updateAdminInfo">' +'EDIT' +'</button>';
         var data = eval(resultData);
         if (data.respCode === "8888") {
             alert(data.respDesc);
