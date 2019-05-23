@@ -1,5 +1,6 @@
 package com.spring.ssm.controller;
 
+import com.spring.ssm.Tool.RspPage;
 import com.spring.ssm.comb.AggregationService;
 import com.spring.ssm.comb.bo.QueryReceviedResumeRspBo;
 import com.spring.ssm.comb.bo.QurySendedRspBo;
@@ -44,6 +45,8 @@ public class DemoController {
     private AggregationService aggregationService;
     @Autowired
     private ResumeService resumeService;
+    @Autowired
+    private TestPage testPage;
 
     @RequestMapping(value = "/queryUserInfoById", method = RequestMethod.POST)
     @ResponseBody
@@ -263,5 +266,13 @@ public class DemoController {
     public List<QueryReceviedResumeRspBo> qryReceivedResumeInfo(Long id) {
         LOG.info("qryReceivedGeneralInfo - controller");
         return aggregationService.qryReceivedGeneralInfo(id);
+    }
+
+    //分页测试controller
+    @RequestMapping(value = "/qryJobInfoWithPage", method = RequestMethod.POST)
+    @ResponseBody
+    public RspPage<JobInfoRspPage> qryJobInfoWithPage(JobInfoReqPage reqBo) {
+        LOG.info("qryJobInfoWithPage - controller:" + reqBo);
+        return testPage.getJobInfoPage(reqBo);
     }
 }

@@ -22,11 +22,9 @@ import java.util.List;
 
 /**
  * @ClassName: ResumeServiceImpl
- * @Description：简历信息表服务 实现类(这里用一句话描述这个类的作用)
+ * @Description：简历信息表服务 实现类
  * @Author: liuguisheng
  * @Date: 2019/3/25 16:36:07
- * @Copyright:2019 www.tydic.com Inc. All rights reserved.
- * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
 @Service("resumeService")
 public class ResumeServiceImpl implements ResumeService {

@@ -140,4 +140,17 @@
         delete from p_info_job where ID=#{id,jdbcType=BIGINT}
     </delete>
 
+    <select id="selectWithPage" resultMap="baseResultMap" parameterType="com.spring.ssm.dto.JobInfoPo">
+        select
+        <include refid="Base_Column_List"/>
+        from P_INFO_JOB
+        where 1=1
+        <if test="id != null">
+            AND ID=#{id}
+        </if>
+        <if test="position != null">
+            AND POSITION = #{position}
+        </if>
+    </select>
+
 </mapper>

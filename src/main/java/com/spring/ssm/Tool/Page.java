@@ -1,7 +1,6 @@
 package com.spring.ssm.Tool;
 
 import org.apache.ibatis.session.RowBounds;
-
 import java.util.ArrayList;
 import java.util.List;
 /**
@@ -97,7 +96,6 @@ public class Page<T> extends RowBounds {
             } else {
                 var10000 = pages;
             }
-
             return var10000;
         }
     }

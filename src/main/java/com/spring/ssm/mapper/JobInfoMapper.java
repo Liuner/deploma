@@ -1,5 +1,6 @@
 package com.spring.ssm.mapper;
 
+import com.spring.ssm.Tool.Page;
 import com.spring.ssm.dto.JobInfoPo;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -32,4 +33,9 @@ public interface JobInfoMapper {
      * update jobInfoBySelective
      */
     int updateJobInfoBySelective(JobInfoPo record);
+
+    /**
+     * select with page
+     */
+    List<JobInfoPo> selectWithPage(JobInfoPo jobInfoPo, Page<JobInfoPo> jobInfoPoPage);
 }

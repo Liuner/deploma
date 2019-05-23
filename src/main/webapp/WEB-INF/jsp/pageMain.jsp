@@ -187,11 +187,12 @@
     $(document).on('click', '#send', function () {
         if (generalId === "") {
             location.reload();
-            alert("请登录");
+            alert("请登录！！！");
             return false;
         }
         //判断是否是general
         if (!generalId.startsWith("1")) {
+            location.reload();
             alert("此功能只针对求职者");
             return false;
         }
