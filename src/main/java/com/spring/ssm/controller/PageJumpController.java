@@ -23,9 +23,7 @@ import java.util.List;
  * @ClassName: PageJumpController
  * @Description：用于页面跳转的controller
  * @Author: liuguisheng
- * @Date: 2019/2/21 9:39:54
- * @Copyright:2019 www.tydic.com Inc. All rights reserved.
- * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
+ * @Date: 2019/2/21 9:39:50
  */
 @Controller
 @RequestMapping("/page")
