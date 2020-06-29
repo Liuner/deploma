@@ -7,8 +7,6 @@ import java.io.Serializable;
  * @Description：管理员信息表 Po
  * @Author: liuguisheng
  * @Date: 2019/2/11 18:06:13
- * @Copyright:2019 www.tydic.com Inc. All rights reserved.
- * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
 public class AdminInfoPo implements Serializable {
 
