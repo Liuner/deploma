@@ -5,8 +5,6 @@ package com.spring.ssm.Tool;
  * @Description：异常
  * @Author: liuguisheng
  * @Date: 2019/3/6 13:37:54
- * @Copyright:2019 www.tydic.com Inc. All rights reserved.
- * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
 public class  BusiExcption extends RuntimeException {
     public static final ThreadLocal<BusiExcption> MQ_THREAD_EXCEPTION = new ThreadLocal();
