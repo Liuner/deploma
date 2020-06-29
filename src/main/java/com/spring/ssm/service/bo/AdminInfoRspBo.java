@@ -5,8 +5,6 @@ package com.spring.ssm.service.bo;
  * @Description：管理员信息表 出参
  * @Author: liuguisheng
  * @Date: 2019/2/11 18:10:51
- * @Copyright:2019 www.tydic.com Inc. All rights reserved.
- * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
 public class AdminInfoRspBo extends BaseRspBo{
 
