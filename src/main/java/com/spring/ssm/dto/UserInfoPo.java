@@ -7,8 +7,6 @@ import java.io.Serializable;
  * @Description：普通用户信息Po
  * @Author: liuguisheng
  * @Date: 2019/2/2 11:22:07
- * @Copyright:2019 www.tydic.com Inc. All rights reserved.
- * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
 public class UserInfoPo implements Serializable {
 
