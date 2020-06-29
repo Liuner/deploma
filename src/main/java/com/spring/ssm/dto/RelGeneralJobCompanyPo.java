@@ -8,8 +8,6 @@ import java.util.Date;
  * @Description：普通用户 职位 公司 关系表
  * @Author: liuguisheng
  * @Date: 2019/3/23 9:05:10
- * @Copyright:2019 www.tydic.com Inc. All rights reserved.
- * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
 public class RelGeneralJobCompanyPo implements Serializable {
 
