@@ -7,8 +7,6 @@ import java.util.List;
  * 描述：page 工具类
  * @author: liuguisheng
  * @date:   2019/2/2 13:52:17
- * @Copyright:2019 www.tydic.com Inc. All rights reserved.
- * 注意：本内容仅限于北京天源迪科信息技术有限公司内部传阅，禁止外泄以及用于其他商业目的
  */
 public class Page<T> extends RowBounds {
     protected int pageNo = 1;
